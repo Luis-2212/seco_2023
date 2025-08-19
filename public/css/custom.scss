@@ -1,0 +1,33 @@
+$primary: #1f5cab;
+$secondary: #808080;
+$info: #00b2e3;
+$success: #31f6c5;
+$danger: #e31b23;
+$warning: #f7e300;
+$light: #edf9fb;
+$dark: #000000;
+
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "info": $info,
+  "success": $success,
+  "danger": $danger,
+  "warning": $warning,
+  "light": $light,
+  "dark": $dark,
+);
+
+@import "../plugins/bootstrap/scss/bootstrap.scss";
+@import "../plugins/bootstrap/scss/functions";
+@import "../plugins/bootstrap/scss/variables";
+@import "../plugins/bootstrap/scss/variables-dark";
+@import "../plugins/bootstrap/scss/maps";
+@import "../plugins/bootstrap/scss/mixins";
+@import "../plugins/bootstrap/scss/utilities";
+@import "../plugins/bootstrap/scss/reboot";
+@import "../plugins/bootstrap/scss/type";
+@import "../plugins/bootstrap/scss/images";
+@import "../plugins/bootstrap/scss/containers";
+@import "../plugins/bootstrap/scss/grid";
+@import "../plugins/bootstrap/scss/helpers";

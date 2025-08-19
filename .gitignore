@@ -1,0 +1,5 @@
+.env
+/db
+LEEME.txt
+/vendor
+node_modules

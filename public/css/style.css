@@ -1,0 +1,15 @@
+.contenedor-principal {
+  height: calc(100vh - 2.5em);
+  overflow-y: auto;
+}
+
+.iconos {
+  font-size: 5rem;
+  padding: 1rem 0;
+}
+
+/* MODULO GUIA TELEFONICA */
+.ancho {
+  width: 3rem;
+  text-align: center;
+}

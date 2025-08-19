@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.0.0",
+    "bootstrap": "^5.3.7",
+    "datatables.net-dt": "^2.3.2",
+    "datatables.net-jqui": "^2.3.2",
+    "sweetalert2": "^6.6.1"
+  }
+}
