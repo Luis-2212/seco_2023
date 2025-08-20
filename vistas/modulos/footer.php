@@ -2,7 +2,7 @@
 
 	<div class="d-flex justify-content-center py-2">
 
-		<strong class="text-secondary">El Chico de los Armables | Copyright &copy; 2025</strong>
+		<strong class="text-secondary">Luis Rojas Copyright &copy; 2025</strong>
 
 	</div>
 

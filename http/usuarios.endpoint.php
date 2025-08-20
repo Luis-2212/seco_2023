@@ -1,4 +1,5 @@
 <?php
+require_once "../controladores/usuarios.controlador.php";
 
 // Configurar cabeceras para respuestas JSON
 header('Content-Type: application/json; charset=utf-8');

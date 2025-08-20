@@ -1,7 +1,7 @@
 <?php
 
 
-if ($_SESSION["perfil"] == 1) {
+if ($_SESSION["id_rol"] == 1) {
 	$accesoAdmin = "";
 } else {
 	$accesoAdmin = "d-none";
@@ -65,6 +65,7 @@ if ($_SESSION["perfil"] == 1) {
 				</ul>
 
 				<ul class="navbar-nav ms-auto px-5">
+					<li><button class="btn btn-danger" id="btnCerrarSesion" type="button">Cerrar sesión <i class="fa-solid fa-right-from-bracket"></i></button></li>
 
 					<li class="nav-item active dropdown">
 
@@ -76,7 +77,6 @@ if ($_SESSION["perfil"] == 1) {
 
 						<ul class="dropdown-menu">
 
-							<li><a class="dropdown-item" href="salir">Cerrar sesión <i class="fa-solid fa-right-from-bracket"></i></a></li>
 
 						</ul>
 					</li>

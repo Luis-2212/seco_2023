@@ -39,7 +39,7 @@ CUERPO DOCUMENTO
 
   <?php
 
-  if (isset($_SESSION["logged"]) && $_SESSION["logged"] == true) {
+  if (isset($_SESSION["logged"]) && $_SESSION["logged"] === true) {
 
     echo '<div class="wrapper">';
 
@@ -59,8 +59,6 @@ CUERPO DOCUMENTO
 
         /* ADMINISTRACION */
         // USUARIOS               
-        $_GET["ruta"] == "login"                      ||
-        // $_GET["ruta"] == "salir"                      ||
         $_GET["ruta"] == "usuarios"                   ||                  
         /* GENERAL */                 
         $_GET["ruta"] == "inicio"
@@ -88,6 +86,7 @@ CUERPO DOCUMENTO
   } else {
 
     include "modulos/login.php";
+    exit;
 
   }
 
@@ -109,6 +108,7 @@ LLAMADA A LOS ARCHIVOS JS
 <script src="public/js/plantilla.js"></script>
 <!--   GESTIÓN DE USUARIOS   -->
 <script src="public/js/login.js"></script>
+<script src="public/js/logout.js"></script>
 <script src="public/js/usuarios.js"></script>
 <script src="public/js/roles.js"></script>
 

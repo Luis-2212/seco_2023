@@ -1,5 +1,7 @@
 <?php
 
+require_once "../controladores/usuarios.controlador.php";
+
 // Configurar cabeceras para respuestas JSON
 header('Content-Type: application/json; charset=utf-8');
 
@@ -11,15 +13,15 @@ $entrada = json_decode(file_get_contents('php://input'), true);
 
 if ($metodo === 'POST') {
 
-    if (!isset($_SESSION["logged"]) || $_SESSION["logged"] !== true) {
-        http_response_code(403);
-        echo json_encode([
-            "status" => 403,
-            "success" => false,
-            "message" => "Acceso denegado. Debes iniciar sesión primero."
-        ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-        exit;
-    }
+    // if (!isset($_SESSION["logged"]) || $_SESSION["logged"] !== true) {
+    //     http_response_code(403);
+    //     echo json_encode([
+    //         "status" => 403,
+    //         "success" => false,
+    //         "message" => "Acceso denegado. Debes iniciar sesión primero."
+    //     ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    //     exit;
+    // }
     
     $respuesta = ControladorUsuarios::ctrCerrarSesion();
     

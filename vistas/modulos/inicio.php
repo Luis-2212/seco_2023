@@ -1,8 +1,20 @@
+<?php
+// Sí se ha iniciado sesión y el usuario está logueado, redirigir a login.php
+if(!isset($_SESSION["loggen"]) && $_SESSION["loggen"] !== true) {
+
+    header("Location: login.php");
+    exit;
+} 
+?>
+
+
 <div class="content-wrapper px-5 py-3 pb-5 text-bg-light contenedor-principal">
 
   <section class="content-header">
 
     <h3><b class="text-primary">Panel</b> de inicio</h3>
+
+    <?php //echo $_SESSION['logged'] ?>
 
   </section>
 
@@ -25,7 +37,7 @@
         <div class="card-body fw-semibold text-center">Procesar Venta</div>
       </a>
 
-      <?php if ($_SESSION["perfil"] == 1): ?>
+      <?php if ($_SESSION["rol"] == 1): ?>
         
         <a href="panel-administrativo" class="card col-md-2 col-sm-8 mx-3 text-reset text-decoration-none text-bg-dark shadow">
           <div class="card-header text-center"><i class="fa-solid fa-user-tie iconos"></i></div>

@@ -1,12 +1,13 @@
 <?php
 
 class ControladorUsuarios {
-
+    
     /*=============================================
     INICIAR SESIÓN (POST)
     =============================================*/
     static public function ctrIniciarSesion($datos) {
         try {
+            include "../modelos/usuarios.modelo.php";
             $_SESSION['logged'] = false;
 			$username = isset($datos['username']) ? trim($datos['username']) : '';
 			$password = isset($datos['password']) ? trim($datos['password']) : '';
@@ -26,10 +27,10 @@ class ControladorUsuarios {
 				$usuario = ModeloUsuarios::mdlMostrarUsuarios("usuarios", "username", $username);
 
 				if ($usuario && password_verify($password, $usuario['password'])) {
-					
+					session_start();
 					$_SESSION['logged'] = true;
-					$_SESSION['id_usuario'] = $usuario['id'];
-					$_SESSION['id_rol'] = $usuario['id_rol'];
+					$_SESSION['id'] = $usuario['id'];
+					$_SESSION['rol'] = $usuario['id_rol'];
 					$_SESSION['username'] = $usuario['username'];
 					$_SESSION['nombres'] = $usuario['nombres'];
 					$_SESSION['apellidos'] = $usuario['apellidos'];
@@ -75,30 +76,25 @@ class ControladorUsuarios {
     =============================================*/
 
     static public function ctrCerrarSesion() {
-
-		// Verificar si el usuario está logueado
-		if (!isset($_SESSION['logged']) || !$_SESSION['logged']) {
-			$_SESSION['logged'] = false;
-			
-			return [
-				"status" => 400,
-				"success" => false,
-				"message" => "No hay una sesión activa para cerrar."
-			];
-		}
+        include "../modelos/usuarios.modelo.php";
 
 		// Destruir la sesión
-		session_unset();
+		// session_unset();
 		session_destroy();
 		
 		// Limpiar las variables de sesión
-		$_SESSION = [];
-        error_log("Se reporta una solicitud de cierre de sesión.");
+		$_SESSION['logged'] = false;
+		$_SESSION['id'] = '';
+		$_SESSION['id_rol'] = '';
+		$_SESSION['nombres'] = '';
+		$_SESSION['apellidos'] = '';
         
-        
-		// Redirigir al usuario a la página de inicio de sesión
-		header("Location: login.php");
-		exit;
+		// Enviar respuesta al cliente
+		return [
+            "status" => 200,
+            "success" => true,
+            "message" => "Sesion cerrada."
+        ];
     }
 
     /*=============================================
@@ -106,7 +102,7 @@ class ControladorUsuarios {
     =============================================*/
     static public function ctrMostrarUsuarios($item = null, $valor = null) {
         try {
-            $respuesta = ModeloUsuarios::MdlMostrarUsuarios("users", $item, $valor);
+            $respuesta = ModeloUsuarios::mdlMostrarUsuarios("usuarios", $item, $valor);
             
             if ($item !== null && $valor !== null && !$respuesta) {
                 return [
@@ -136,6 +132,7 @@ class ControladorUsuarios {
     CREAR USUARIO (POST)
     =============================================*/
     static public function ctrCrearUsuario($datos) {
+        include "../modelos/usuarios.modelo.php";
         try {
 			// Validar campos requeridos
             $camposRequeridos = ['id_rol', 'username', 'password', 'nombres', 'apellidos'];
@@ -150,7 +147,7 @@ class ControladorUsuarios {
             }
 
 			// Verificar si el nombre de usuario ya existe
-            $usuarioExistente = ModeloUsuarios::MdlMostrarUsuarios("usuarios", "username", $datos['username']);
+            $usuarioExistente = ModeloUsuarios::mdlMostrarUsuarios("usuarios", "username", $datos['username']);
             if ($usuarioExistente) {
                 return [
                     "status" => 409,
@@ -332,7 +329,7 @@ class ControladorUsuarios {
                 ];
             }
             
-            $usuarioExistente = ModeloUsuarios::MdlMostrarUsuarios("users", "user_id", $user_id);
+            $usuarioExistente = ModeloUsuarios::mdlMostrarUsuarios("users", "user_id", $user_id);
             if (!$usuarioExistente) {
                 return [
                     "status" => 404,

@@ -2,39 +2,24 @@
 INICIAR SESIÓN
 =============================================*/
 
-$("#formIniciarSesion").on("submit", function (e) {
+$("#btnCerrarSesion").on("click", function (e) {
   e.preventDefault();
 
-  const username = $("#ingUsuario").val().trim();
-  const password = $("#ingPassword").val().trim();
-
-  if (username == "" || password == "") {
-    $("#alerta").removeClass("d-none");
-    $("#alerta").html("Por favor, completa todos los campos.");
-    return;
-  }
-
-  const data = {
-    username: username,
-    password: password,
-  };
-
-  iniciarSesion(JSON.stringify(data));
+  cerrarSesion();
 });
 
-function iniciarSesion(datos) {
+function cerrarSesion(datos) {
   $.ajax({
-    url: "http/login.endpoint.php",
+    url: "http/logout.endpoint.php",
     method: "POST",
-    data: datos,
+    // data: datos,
     dataType: "json",
     cache: false,
     contentType: "Application/json",
     success: function (respuesta) {
       if (respuesta.success === true) {
         // Redirigir al usuario a la página principal o dashboard
-        window.location = "inicio";
-        console.log(respuesta.success);
+        window.location = "login";
       }
     },
     error: function (jqXHR, textStatus, errorThrown) {

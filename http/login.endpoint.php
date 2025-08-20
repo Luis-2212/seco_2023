@@ -1,5 +1,7 @@
 <?php
 
+require_once "../controladores/usuarios.controlador.php";
+
 // Configurar cabeceras para respuestas JSON
 header('Content-Type: application/json; charset=utf-8');
 
@@ -13,7 +15,12 @@ if ($metodo === 'POST') {
     $username = $entrada['username'] ?? null;
     $password = $entrada['password'] ?? null;
     
-    $respuesta = ControladorUsuarios::ctrIniciarSesion($username, $password);
+    $datos = [
+        "username" => $username,
+        "password" => $password
+    ];
+    
+    $respuesta = ControladorUsuarios::ctrIniciarSesion($datos);
     
     http_response_code($respuesta['status']);
     echo json_encode($respuesta, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
