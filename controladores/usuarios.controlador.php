@@ -75,27 +75,27 @@ class ControladorUsuarios {
     CERRAR SESIÓN (POST)
     =============================================*/
 
-    static public function ctrCerrarSesion() {
-        include "../modelos/usuarios.modelo.php";
+    // static public function ctrCerrarSesion() {
+    //     include "../modelos/usuarios.modelo.php";
 
-		// Destruir la sesión
-		// session_unset();
-		session_destroy();
+	// 	// Destruir la sesión
+	// 	// session_unset();
 		
-		// Limpiar las variables de sesión
-		$_SESSION['logged'] = false;
-		$_SESSION['id'] = '';
-		$_SESSION['id_rol'] = '';
-		$_SESSION['nombres'] = '';
-		$_SESSION['apellidos'] = '';
+	// 	// Limpiar las variables de sesión
+	// 	$_SESSION['logged'] = false;
+	// 	$_SESSION['id'] = '';
+	// 	$_SESSION['id_rol'] = '';
+	// 	$_SESSION['nombres'] = '';
+	// 	$_SESSION['apellidos'] = '';
         
-		// Enviar respuesta al cliente
-		return [
-            "status" => 200,
-            "success" => true,
-            "message" => "Sesion cerrada."
-        ];
-    }
+	// 	session_destroy();
+	// 	// Enviar respuesta al cliente
+	// 	return [
+    //         "status" => 200,
+    //         "success" => true,
+    //         "message" => "Sesion cerrada."
+    //     ];
+    // }
 
     /*=============================================
     MOSTRAR USUARIO(S) (GET)

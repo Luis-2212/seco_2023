@@ -1,13 +1,3 @@
-<?php
-// Sí se ha iniciado sesión y el usuario está logueado, redirigir a login.php
-if(!isset($_SESSION["loggen"]) && $_SESSION["loggen"] !== true) {
-
-    header("Location: login.php");
-    exit;
-} 
-?>
-
-
 <div class="content-wrapper px-5 py-3 pb-5 text-bg-light contenedor-principal">
 
   <section class="content-header">

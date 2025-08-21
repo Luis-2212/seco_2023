@@ -1,23 +1,23 @@
 <?php
 
-  if(isset($_SESSION["iniciarSesion"]) != "ok" || $_SESSION["perfil"] != 1) {
+  if(!isset($_SESSION["logged"]) || $_SESSION["rol"] != 1) {
 
     return header("Location: login");
   } 
 
 ?>
 
-<div class="content-wrapper px-5 py-3 pb-5 text-bg-light contenedor-principal" style="background: linear-gradient(to top, #FFFFFF,rgba(11, 87, 36, 0.19));">
+<div class="content-wrapper px-5 py-3 pb-5 text-bg-light contenedor-principal">
 
   <section class="content-header">
 
-    <h3><b class="text-success" style="text-shadow: 2px 2px 3px rgb(77, 77, 77);">Administrar</b> Usuarios</h3>
+    <h3>Administrar <b class="text-info" style="text-shadow: 1px 1px 1.5px rgb(77, 77, 77);">Usuarios</b></h3>
 
   </section>
 
   <section class="content py-3">
 
-    <form role="form" method="post">
+    <form role="form" method="post" id="formCrearUsuario">
 
       <div class="container-fluid">
 
@@ -27,7 +27,7 @@
 
           <div class="input-group mb-3">
 
-            <span class="input-group-text shadow-sm text-bg-success ancho d-flex justify-content-center"><i class="fa-solid fa-address-card"></i></span>
+            <span class="input-group-text shadow-sm text-bg-info ancho d-flex justify-content-center"><i class="fa-solid fa-address-card"></i></span>
             
             <input type="text" name="nuevoNombres" aria-label="Nombres" placeholder="Nombres" class="form-control shadow-sm" required>
 
@@ -39,7 +39,7 @@
 
           <div class="input-group mb-3">
 
-            <span class="input-group-text shadow-sm text-bg-success ancho d-flex justify-content-center border"><i class="fa-solid fa-envelope"></i></span>
+            <span class="input-group-text shadow-sm text-bg-info ancho d-flex justify-content-center border"><i class="fa-solid fa-envelope"></i></span>
             
             <input type="email" name="nuevoEmail" aria-label="Email" placeholder="Email" class="form-control shadow-sm" required>
 
@@ -51,7 +51,7 @@
 
           <div class="input-group mb-3">
 
-            <span class="input-group-text shadow-sm text-bg-success ancho d-flex justify-content-center"><i class="fa-solid fa-at"></i></span>
+            <span class="input-group-text shadow-sm text-bg-info ancho d-flex justify-content-center"><i class="fa-solid fa-at"></i></span>
             
             <input type="text" name="nuevoUsuario" id="nuevoUsuario" aria-label="Usuario" placeholder="Usuario" class="form-control shadow-sm" required>
 
@@ -59,25 +59,11 @@
 
           <div class="input-group mb-3">
             
-            <span class="input-group-text shadow-sm text-bg-success ancho d-flex justify-content-center"><i class="fa-solid fa-briefcase"></i></span>
+            <span class="input-group-text shadow-sm text-bg-info ancho d-flex justify-content-center"><i class="fa-solid fa-briefcase"></i></span>
 
-            <select class="form-select shadow-sm" id="nuevoRolUsuario" name="nuevoRolUsuario" required>
+            <select class="form-select shadow-sm" id="selectMostrarRoles" name="selectMostrarRoles" required>
 
               <option default value="">Seleccionar Rol de Usuario</option>
-
-              <?php
-
-              $itemRoles = null;
-              $valorRoles = null;
-
-              $respuestaRoles = ControladorRoles::ctrMostrarRoles($itemRoles, $valorRoles);
-
-              foreach ($respuestaRoles as $key => $valueRoles) {
-
-                echo '<option value="' . $valueRoles["id"] . '">' . $valueRoles["rol"] . '</option>';
-              }
-
-              ?>
 
             </select>
 
@@ -91,7 +77,7 @@
 
           <div class="input-group mb-3">
 
-            <span class="input-group-text shadow-sm text-bg-success ancho d-flex justify-content-center"><i class="fa-solid fa-lock"></i></span>
+            <span class="input-group-text shadow-sm text-bg-info ancho d-flex justify-content-center"><i class="fa-solid fa-lock"></i></span>
             
             <input type="password" name="nuevoPassword" aria-label="Contraseña" placeholder="Contraseña" class="form-control shadow-sm pass" minlength="5" required>
 
@@ -99,7 +85,7 @@
 
           <div class="input-group mb-3">
 
-            <span class="input-group-text shadow-sm text-bg-success ancho d-flex justify-content-center"><i class="fa-solid fa-lock"></i></span>
+            <span class="input-group-text shadow-sm text-bg-info ancho d-flex justify-content-center"><i class="fa-solid fa-lock"></i></span>
             
             <input type="password" aria-label="Confirmar Contraseña" placeholder="Confirmar Contraseña" class="form-control shadow-sm confirmarPass" minlength="5" required>
 
@@ -109,7 +95,7 @@
             
         <div>
 
-          <button type="submit" id="btnRegistrarUsuario" class="btn btn-success d-flex align-items-center ms-auto shadow-sm" disabled><i class="fa-solid fa-floppy-disk"></i>&nbsp;Registrar</button>
+          <button type="submit" id="btnRegistrarUsuario" class="btn btn-info d-flex align-items-center ms-auto shadow-sm" disabled><i class="fa-solid fa-floppy-disk"></i>&nbsp;Registrar</button>
           
         </div>
             
@@ -123,13 +109,6 @@
 
     </form>
 
-    <?php
-
-      $nuevoRegistro = new ControladorUsuarios();
-      $nuevoRegistro->ctrCrearUsuario();
-
-    ?> 
-
   </section>
 
   <section class="content py-3">
@@ -142,7 +121,7 @@
 
         <thead>         
 
-          <tr class="table-success">           
+          <tr class="table-info">           
 
             <th style="width:50px">#</th>
             <th>Nombre de usuario</th>
@@ -159,49 +138,6 @@
         <tbody>
 
         <?php
-
-          $item = null;
-          $valor = null;
-
-          $usuario = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
-
-          foreach ($usuario as $key => $value) { 
-            
-            $ultimoLogin = date('d/m/Y H:i:s', strtotime($value["ultimo_login"]));
-
-            echo '<tr>
-
-              <td class="text-end">'.($key+1).'</td>
-
-              <td>'.$value["usuario"].'</td>
-
-              <td>'.$value["nombres"].'</td>
-
-              <td>'.$value["email"].'</td>
-
-              <td>'.$value["rol"].'</td>
-
-              <td>'.$ultimoLogin.'</td>
-
-              <td class="text-center">';
-
-              if ($value['rol'] != "administrador") {
-
-                echo '<div class="btn-group">
-
-                  <button class="btn btn-warning" id="btnEditarUsuario" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario" idUsuario="'.$value["id"].'"><i class="fa fa-pencil"></i></button>
-
-                  <button class="btn btn-danger" id="btnEliminarUsuario" idEliminarUsuario="'.$value["id"].'"><i class="fa fa-trash-can"></i></button>
-
-                </div>';
-
-              }
-
-              echo '</td>
-
-            </tr>';          
-
-          }
 
         ?>   
 
@@ -267,19 +203,7 @@
 
             <select class="form-select shadow-sm" id="editarRoles" name="editarRoles" required>
 
-              <?php
-
-              $itemRoles = null;
-              $valorRoles = null;
-
-              $respuestaRoles = ControladorRoles::ctrMostrarRoles($itemRoles, $valorRoles);
-
-              foreach ($respuestaRoles as $key => $valueRoles) {
-
-                echo '<option value="' . $valueRoles["id"] . '">' . $valueRoles["rol"] . '</option>';
-              }
-
-              ?>
+              <option value="" default>Seleccione un Rol</option>
 
             </select>
 
@@ -308,9 +232,6 @@
       </form>
 
       <?php
-
-      $editarUsuario = new ControladorUsuarios();
-      $editarUsuario->ctrEditarUsuario();
 
       ?>
 
@@ -361,8 +282,8 @@
 
       <?php
 
-      $CrearRol = new ControladorRoles();
-      $CrearRol->ctrCrearRol();
+      // $CrearRol = new ControladorRoles();
+      // $CrearRol->ctrCrearRol();
 
       ?>
 

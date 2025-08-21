@@ -26,8 +26,11 @@ session_start();
   <!-- Font Awesome -->
   <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 
-  <!-- Google Font -->
-  <!-- <link rel="stylesheet" href="node_modules/google-fonts/css2?family=Roboto:wght@300;400;500;700&display=swap"> -->
+  <!-- SWEETALERT2 -->
+  <link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
+
+  <!-- DataTable -->
+  <link rel="stylesheet" href="node_modules/datatables.net-jqui/css/dataTables.jqueryui.min.css">
 
 </head>
 
@@ -59,7 +62,8 @@ CUERPO DOCUMENTO
 
         /* ADMINISTRACION */
         // USUARIOS               
-        $_GET["ruta"] == "usuarios"                   ||                  
+        $_GET["ruta"] == "logout"   ||                  
+        $_GET["ruta"] == "usuarios" ||                  
         /* GENERAL */                 
         $_GET["ruta"] == "inicio"
       ) {
@@ -86,31 +90,37 @@ CUERPO DOCUMENTO
   } else {
 
     include "modulos/login.php";
-    exit;
 
   }
 
   ?>
 
-<!--=====================================
-PLUGINS DE JAVASCRIPT
-======================================-->
-<!-- jQuery v3.7.1 -->
-<script src="public/js/jquery.js"></script>
+  <!--=====================================
+  PLUGINS DE JAVASCRIPT
+  ======================================-->
+  <!-- jQuery v3.7.1 -->
+  <script src="public/js/jquery.js"></script>
 
-<!-- DataTables -->
-<script src="node_modules/datatables.net/js/dataTables.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 
-<!--=============================================
-LLAMADA A LOS ARCHIVOS JS
-=============================================-->
+  <!-- DataTables -->
+  <script src="node_modules/datatables.net-jqui/js/dataTables.jqueryui.min.js"></script>
+  <script src="node_modules/datatables.net/js/dataTables.min.js"></script>
 
-<script src="public/js/plantilla.js"></script>
-<!--   GESTIÓN DE USUARIOS   -->
-<script src="public/js/login.js"></script>
-<script src="public/js/logout.js"></script>
-<script src="public/js/usuarios.js"></script>
-<script src="public/js/roles.js"></script>
+  <!-- SweetAlert2 -->
+  <script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+
+  <!--=============================================
+  LLAMADA A LOS ARCHIVOS JS
+  =============================================-->
+
+  <script src="public/js/plantilla.js"></script>
+  <!--   GESTIÓN DE USUARIOS   -->
+  <script src="public/js/login.js"></script>
+  <script src="public/js/logout.js"></script>
+  <script src="public/js/usuarios.js"></script>
+  <script src="public/js/roles.js"></script>
 
 </body>
 

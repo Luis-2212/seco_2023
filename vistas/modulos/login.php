@@ -1,12 +1,3 @@
-<?php
-
-// Sí se ha iniciado sesión y el usuario está logueado, redirigir a inicio.php
-if(isset($_SESSION["loggen"]) && $_SESSION["loggen"] === true ) {
-
-    return header("Location: inicio.php");
-} 
-?>
-
 <section class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
 
     <form method="post" role="form" id="formIniciarSesion" class="w-75 mx-auto d-flex flex-column justify-contente-center align-items-center rounded px-5 py-3 shadow text-bg-warning ">

@@ -1,3 +1,121 @@
+$(document).ready(function () {
+  obtenerRoles();
+});
+
+/*=============================================
+OBTENER ROLES
+=============================================*/
+
+function obtenerRoles() {
+  let mostrarRoles = "";
+
+  $.ajax({
+    url: "http/roles.endpoint.php",
+    method: "GET",
+    dataType: "json",
+    cache: false,
+    contentType: "Application/json",
+    success: function (respuesta) {
+      if (respuesta.success === true) {
+        $("#selectMostrarRoles").html(
+          "<option value='' default>Seleccionar Rol</option>"
+        );
+
+        $("#selectMostrarRoles").empty();
+
+        respuesta.data.forEach((rol) => {
+          console.log(rol);
+
+          mostrarRoles += `
+            <option value="${rol.id}">${rol.rol}</option>
+          `;
+        });
+
+        $("#selectMostrarRoles").append(mostrarRoles);
+        console.log(respuesta.success);
+      } else {
+        swal.fire({
+          title: "Error al registrar",
+          icon: "error",
+          draggable: true,
+        });
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.error("Error en la solicitud:", textStatus, errorThrown);
+      // Aquí puedes manejar el error, por ejemplo, mostrando una alerta al usuario.
+    },
+  });
+}
+
+/*=============================================
+CREAR USUARIO
+=============================================*/
+
+$("#formCrearUsuario").on("submit", function (e) {
+  e.preventDefault();
+
+  const rol = $("#nuevoRol").val().trim();
+  const nombres = $("#nuevoNombres").val().trim();
+  const apellidos = $("#nuevoApellidos").val().trim();
+  const username = $("#nuevoUsername").val().trim();
+  const password = $("#ingPassword").val().trim();
+
+  if (
+    rol == "" ||
+    nombres == "" ||
+    apellidos == "" ||
+    username == "" ||
+    password == ""
+  ) {
+    $("#alerta").removeClass("d-none");
+    $("#alerta").html("Por favor, completa todos los campos.");
+    alert("Por favor, completa todos los campos.");
+    return;
+  }
+
+  const data = {
+    rol: rol,
+    nombres: nombres,
+    apellidos: apellidos,
+    username: username,
+    password: password,
+  };
+
+  registrarUsuario(JSON.stringify(data));
+});
+
+function registrarUsuario(datos) {
+  $.ajax({
+    url: "http/usuarios.endpoint.php",
+    method: "POST",
+    data: datos,
+    dataType: "json",
+    cache: false,
+    contentType: "Application/json",
+    success: function (respuesta) {
+      if (respuesta.success === true) {
+        // Redirigir al usuario a la página principal o dashboard
+        swal.fire({
+          title: "Registrado con exito",
+          icon: "success",
+          draggable: true,
+        });
+        console.log(respuesta.success);
+      } else {
+        swal.fire({
+          title: "Error al registrar",
+          icon: "error",
+          draggable: true,
+        });
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.error("Error en la solicitud:", textStatus, errorThrown);
+      // Aquí puedes manejar el error, por ejemplo, mostrando una alerta al usuario.
+    },
+  });
+}
 /*=============================================
 EDITAR USUARIO
 =============================================*/

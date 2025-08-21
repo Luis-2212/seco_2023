@@ -1,7 +1,7 @@
 <?php
 
 
-if ($_SESSION["id_rol"] == 1) {
+if ($_SESSION["rol"] == 1) {
 	$accesoAdmin = "";
 } else {
 	$accesoAdmin = "d-none";
@@ -10,13 +10,13 @@ if ($_SESSION["id_rol"] == 1) {
 
 ?>
 
-<header class="container-fluid d-flex flex-column bg-light align-items-center p-0">
- 	
+<header class="container-fluid d-flex flex-column bg-warning align-items-center p-0">
+
 	<!--=====================================
 	NAV BAR
 	======================================-->
 
-	<nav class="navbar navbar-expand-lg text-bg-info w-100" data-bs-theme="info">
+	<nav class="navbar navbar-expand-lg text-bg-warning w-100" data-bs-theme="info">
     
 		<div class="container-fluid">
 			
@@ -40,47 +40,49 @@ if ($_SESSION["id_rol"] == 1) {
 
 					<li class="nav-item px-1 align-middle">
 
-						<a class="nav-link btn btn-success fw-semibold" href="productos">Productos</a>
+						<a class="nav-link btn btn-secondary fw-semibold" href="productos">Productos</a>
 
 					</li>
 
 					<li class="nav-item px-1 align-middle">
 
-						<a class="nav-link btn btn-success fw-semibold" href="clientes">Clientes</a>
+						<a class="nav-link btn btn-secondary fw-semibold" href="clientes">Clientes</a>
 
 					</li>
 
 					<li class="nav-item px-1 align-middle">
 
-						<a class="nav-link btn btn-success fw-semibold" href="crear-venta">Generar venta</a>
+						<a class="nav-link btn btn-secondary fw-semibold" href="crear-venta">Generar venta</a>
 
 					</li>
 
 					<li class="nav-item px-1 align-middle <?php echo $accesoAdmin ?>">
 
-						<a class="nav-link btn btn-warning fw-semibold" href="panel-administrativo">Administrativo</a>
+						<a class="nav-link btn btn-light fw-semibold" href="panel-administrativo">Administrativo</a>
 
 					</li>
 
 				</ul>
 
 				<ul class="navbar-nav ms-auto px-5">
-					<li><button class="btn btn-danger" id="btnCerrarSesion" type="button">Cerrar sesión <i class="fa-solid fa-right-from-bracket"></i></button></li>
-
+					
 					<li class="nav-item active dropdown">
-
-						<button class="nav-link btn btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-
+						
+						<button class="nav-link btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							
 							<i class="fa-solid fa-user-tie"></i> <?php echo $_SESSION["nombres"]; ?>
-
+							
 						</button>
-
-						<ul class="dropdown-menu">
-
-
+						
+						<ul class="dropdown-menu p-0">
+							
+							<li class="bg-danger">
+								<a href="logout" class="btn btn-danger"type="button">Cerrar sesión <i class="fa-solid fa-right-from-bracket"></i></a>
+							</li>
+							
 						</ul>
 					</li>
-
+						
 				</ul>
 
 			</div>
