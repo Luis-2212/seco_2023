@@ -33,7 +33,7 @@ if ($_SESSION["rol"] == 1) {
 					<li class="nav-item px-1 align-middle">
 
 						<a class="nav-link" href="inicio">
-							<img src="public/logo_bw.png" width="50" height="50" alt="logo">
+							<img src="public/img/seco.png" width="50" height="50" alt="logo">
 						</a>
 
 					</li>

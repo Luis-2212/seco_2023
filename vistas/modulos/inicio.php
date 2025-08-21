@@ -1,10 +1,12 @@
-<div class="content-wrapper px-5 py-3 pb-5 text-bg-light contenedor-principal">
+<div class="content-wrapper px-5 py-3 pb-5 text-bg-light contenedor-principal" style="background-image: url('public/img/backgroup.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center;">
 
-  <section class="content-header">
+  <section class="content-header bg-dark py-2 px-3 rounded mb-3 shadow-lg">
 
-    <h3><b class="text-primary">Panel</b> de inicio</h3>
+    <h3 class="text-warning">Bienvenido</h3>
 
-    <?php //echo $_SESSION['logged'] ?>
+    <hr class="border border-2 border-warning mt-0">
+
+    <h4 class="text-light"><?php echo $_SESSION["nombres"] ." ". $_SESSION["apellidos"] ?></h4>
 
   </section>
 
@@ -12,26 +14,11 @@
 
     <div class="row py-3 px-auto">
 
-      <a href="productos" class="card col-md-2 col-sm-8 mx-3 text-reset text-decoration-none text-bg-info shadow">
-        <div class="card-header text-center"><i class="fa-solid fa-shapes iconos"></i></div>
-        <div class="card-body fw-semibold text-center">Admin. Productos</div>
-      </a>
-
-      <a href="clientes" class="card col-md-2 col-sm-8 mx-3 text-reset text-decoration-none text-bg-danger shadow">
-        <div class="card-header text-center"><i class="fa-solid fa-people-group iconos"></i></div>
-        <div class="card-body fw-semibold text-center">Admin. Clientes</div>
-      </a>
-
-      <a href="crear-venta" class="card col-md-2 col-sm-8 mx-3 text-reset text-decoration-none text-bg-warning shadow">
-        <div class="card-header text-center"><i class="fa-solid fa-cash-register iconos"></i></div>
-        <div class="card-body fw-semibold text-center">Procesar Venta</div>
-      </a>
-
       <?php if ($_SESSION["rol"] == 1): ?>
         
-        <a href="panel-administrativo" class="card col-md-2 col-sm-8 mx-3 text-reset text-decoration-none text-bg-dark shadow">
+        <a href="usuarios" class="btn btn-dark col-md-2 col-sm-8 mx-3 text-light text-decoration-none shadow">
           <div class="card-header text-center"><i class="fa-solid fa-user-tie iconos"></i></div>
-          <div class="card-body fw-semibold text-center">Panel Administrativo</div>
+          <div class="card-body fw-semibold text-center">Usuarios</div>
         </a>
         
       <?php endif; ?>

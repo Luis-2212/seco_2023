@@ -7,11 +7,15 @@
 
 ?>
 
-<div class="content-wrapper px-5 py-3 pb-5 text-bg-light contenedor-principal">
+<div class="content-wrapper px-5 py-3 pb-5 text-bg-dark contenedor-principal">
 
-  <section class="content-header">
+  <section class="content-header bg-warning py-2 px-3 rounded mb-3 shadow-lg">
 
-    <h3>Administrar <b class="text-info" style="text-shadow: 1px 1px 1.5px rgb(77, 77, 77);">Usuarios</b></h3>
+    <h3 class="text-dark">Administración</h3>
+
+    <hr class="border border-2 border-dark mt-0">
+
+    <h4 class="text-dark fw-bold">USUARIOS</h4>
 
   </section>
 
@@ -27,7 +31,7 @@
 
           <div class="input-group mb-3">
 
-            <span class="input-group-text shadow-sm text-bg-info ancho d-flex justify-content-center"><i class="fa-solid fa-address-card"></i></span>
+            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-address-card"></i></span>
             
             <input type="text" name="nuevoNombres" aria-label="Nombres" placeholder="Nombres" class="form-control shadow-sm" required>
 
@@ -39,7 +43,7 @@
 
           <div class="input-group mb-3">
 
-            <span class="input-group-text shadow-sm text-bg-info ancho d-flex justify-content-center border"><i class="fa-solid fa-envelope"></i></span>
+            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center border"><i class="fa-solid fa-envelope"></i></span>
             
             <input type="email" name="nuevoEmail" aria-label="Email" placeholder="Email" class="form-control shadow-sm" required>
 
@@ -51,7 +55,7 @@
 
           <div class="input-group mb-3">
 
-            <span class="input-group-text shadow-sm text-bg-info ancho d-flex justify-content-center"><i class="fa-solid fa-at"></i></span>
+            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-at"></i></span>
             
             <input type="text" name="nuevoUsuario" id="nuevoUsuario" aria-label="Usuario" placeholder="Usuario" class="form-control shadow-sm" required>
 
@@ -59,7 +63,7 @@
 
           <div class="input-group mb-3">
             
-            <span class="input-group-text shadow-sm text-bg-info ancho d-flex justify-content-center"><i class="fa-solid fa-briefcase"></i></span>
+            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-briefcase"></i></span>
 
             <select class="form-select shadow-sm" id="selectMostrarRoles" name="selectMostrarRoles" required>
 
@@ -77,7 +81,7 @@
 
           <div class="input-group mb-3">
 
-            <span class="input-group-text shadow-sm text-bg-info ancho d-flex justify-content-center"><i class="fa-solid fa-lock"></i></span>
+            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-lock"></i></span>
             
             <input type="password" name="nuevoPassword" aria-label="Contraseña" placeholder="Contraseña" class="form-control shadow-sm pass" minlength="5" required>
 
@@ -85,7 +89,7 @@
 
           <div class="input-group mb-3">
 
-            <span class="input-group-text shadow-sm text-bg-info ancho d-flex justify-content-center"><i class="fa-solid fa-lock"></i></span>
+            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-lock"></i></span>
             
             <input type="password" aria-label="Confirmar Contraseña" placeholder="Confirmar Contraseña" class="form-control shadow-sm confirmarPass" minlength="5" required>
 
@@ -95,7 +99,7 @@
             
         <div>
 
-          <button type="submit" id="btnRegistrarUsuario" class="btn btn-info d-flex align-items-center ms-auto shadow-sm" disabled><i class="fa-solid fa-floppy-disk"></i>&nbsp;Registrar</button>
+          <button type="submit" id="btnRegistrarUsuario" class="btn btn-warning d-flex align-items-center ms-auto shadow-sm" disabled><i class="fa-solid fa-floppy-disk"></i>&nbsp;Registrar</button>
           
         </div>
             
@@ -121,7 +125,7 @@
 
         <thead>         
 
-          <tr class="table-info">           
+          <tr class="table-warning">           
 
             <th style="width:50px">#</th>
             <th>Nombre de usuario</th>
