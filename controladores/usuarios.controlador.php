@@ -72,36 +72,11 @@ class ControladorUsuarios {
     }
 
     /*=============================================
-    CERRAR SESIÓN (POST)
-    =============================================*/
-
-    // static public function ctrCerrarSesion() {
-    //     include "../modelos/usuarios.modelo.php";
-
-	// 	// Destruir la sesión
-	// 	// session_unset();
-		
-	// 	// Limpiar las variables de sesión
-	// 	$_SESSION['logged'] = false;
-	// 	$_SESSION['id'] = '';
-	// 	$_SESSION['id_rol'] = '';
-	// 	$_SESSION['nombres'] = '';
-	// 	$_SESSION['apellidos'] = '';
-        
-	// 	session_destroy();
-	// 	// Enviar respuesta al cliente
-	// 	return [
-    //         "status" => 200,
-    //         "success" => true,
-    //         "message" => "Sesion cerrada."
-    //     ];
-    // }
-
-    /*=============================================
     MOSTRAR USUARIO(S) (GET)
     =============================================*/
     static public function ctrMostrarUsuarios($item = null, $valor = null) {
         try {
+            include "../modelos/usuarios.modelo.php";
             $respuesta = ModeloUsuarios::mdlMostrarUsuarios("usuarios", $item, $valor);
             
             if ($item !== null && $valor !== null && !$respuesta) {
@@ -199,6 +174,8 @@ class ControladorUsuarios {
     =============================================*/
     static public function ctrEditarUsuario($datos) {
         try {
+            include "../modelos/usuarios.modelo.php";
+
             $userIdToUpdate = isset($datos['user_id']) ? $datos['user_id'] : (isset($datos['id']) ? $datos['id'] : null);
 
 			// Sí no se envió ningún ID a editar
@@ -267,6 +244,7 @@ class ControladorUsuarios {
     =============================================*/
     static public function ctrActualizarStatusUsuario($user_id, $status) {
         try {
+            include "../modelos/usuarios.modelo.php";
             if ($user_id == 1) {
                 return [
                     "status" => 403,
@@ -321,6 +299,7 @@ class ControladorUsuarios {
     =============================================*/
     static public function ctrEliminarUsuario($user_id) {
         try {
+            include "../modelos/usuarios.modelo.php";
             if ($user_id == 1) {
                 return [
                     "status" => 403,

@@ -7,7 +7,7 @@
 
 ?>
 
-<div class="content-wrapper px-5 py-3 pb-5 text-bg-dark contenedor-principal">
+<div class="content-wrapper px-5 py-3 pb-5 text-bg-light contenedor-principal">
 
   <section class="content-header bg-warning py-2 px-3 rounded mb-3 shadow-lg">
 
@@ -121,33 +121,36 @@
 
       <h5 class="h5">Consultar usuario</h5>
 
-      <table class="table table-bordered table-striped dt-responsive table-sm table-hover align-middle DataTable" width="100%">         
+      <div class="table-responsive">
 
-        <thead>         
+        <table class="table table-bordered table-striped table-warning table-sm table-hover align-middle DataTable" id="tablaUsuarios" width="100%">         
 
-          <tr class="table-warning">           
+          <thead>         
 
-            <th style="width:50px">#</th>
-            <th>Nombre de usuario</th>
-            <th>Nombres</th>
-            <th>Email</th>
-            <th>Rol</th>
-            <th>Último login</th>
-            <th>Acciones</th>
+            <tr class="table-dark">           
 
-          </tr> 
+              <!-- <th style="width:50px">#</th> -->
+              <th>Rol</th>
+              <th>Nombre de usuario</th>
+              <th>Nombres</th>
+              <th>Apellidos</th>
+              <th>Último login</th>
 
-        </thead>
+            </tr> 
 
-        <tbody>
+          </thead>
 
-        <?php
+          <tbody>
 
-        ?>   
+          <?php
 
-        </tbody>
+          ?>   
 
-      </table>
+          </tbody>
+
+        </table>
+
+      </div>
 
     </div>
 
@@ -269,6 +272,14 @@
             <span class="input-group-text shadow-sm text-bg-primary ancho d-flex justify-content-center"><i class="fa-solid fa-list-check"></i></span>
 
             <input type="text" name="nuevoRol" id="nuevoRol" class="form-control shadow-sm" placeholder="nuevo Rol de usuario" required>
+
+          </div>
+
+          <div class="input-group mb-3">
+
+            <span class="input-group-text shadow-sm text-bg-primary ancho d-flex justify-content-center"><i class="fa-solid fa-list-check"></i></span>
+
+            <textarea type="text" name="nuevaDescripcionRol" id="nuevaDescripcionRol" class="form-control shadow-sm" placeholder="Descripción del Rol" required></textarea>
 
           </div>
 

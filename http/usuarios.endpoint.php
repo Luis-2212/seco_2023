@@ -20,7 +20,7 @@ switch ($metodo) {
     ==========================================*/
     case 'GET':
         $id = isset($_GET['id']) ? $_GET['id'] : null;
-        $respuesta = ControladorUsuarios::ctrMostrarUsuarios($id ? "user_id" : null, $id);
+        $respuesta = ControladorUsuarios::ctrMostrarUsuarios($id ? "id" : null, $id);
         http_response_code($respuesta['status']);
         echo json_encode($respuesta, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         break;

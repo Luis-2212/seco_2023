@@ -10,6 +10,16 @@ $metodo = $_SERVER['REQUEST_METHOD'];
 // Procesar datos de entrada (JSON)
 $entrada = json_decode(file_get_contents('php://input'), true);
 
+// if (!isset($_SESSION["logged"])) {
+//     http_response_code(401);
+//     echo json_encode([
+//         "status" => 401,
+//         "success" => false,
+//         "message" => "No autenticado. Por favor, inicie sesión."
+//     ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+//     exit;
+// }
+
 /*=========================================
 MANEJO DE MÉTODOS HTTP PARA /roles
 ==========================================*/
@@ -26,16 +36,16 @@ switch ($metodo) {
         break;
 
     /*=========================================
-    REGISTRAR USUARIO
+    REGISTRAR ROL
     ==========================================*/
     case 'POST':
         try {
-            if (empty($entrada['id_rol']) || empty($entrada['nombres']) || empty($entrada['apellidos']) || empty($entrada['password']) || empty($entrada['username'])) {
+            if (empty($entrada['rol']) || empty($entrada['descripcion'])) {
                 echo json_encode(["mensaje" => "Todos los campos son obligatorios"], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
                 exit;
             }
 
-            $respuesta = ControladorUsuarios::ctrCrearUsuario($entrada);
+            $respuesta = ControladorRoles::ctrCrearRol($entrada);
             http_response_code($respuesta['status']);
             echo json_encode($respuesta, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         } catch (\Exception $e) {
@@ -46,16 +56,16 @@ switch ($metodo) {
         break;
 
     /*=========================================
-    EDITAR USUARIO
+    EDITAR ROL
     ==========================================*/
     case 'PUT':
-        $respuesta = ControladorUsuarios::ctrEditarUsuario($entrada);
+        $respuesta = ControladorRoles::ctrEditarRol($entrada);
         http_response_code($respuesta['status']);
         echo json_encode($respuesta, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         break;
 
     /*=========================================
-    ELIMINAR USUARIO
+    ELIMINAR ROL
     ==========================================*/
     case 'DELETE':
         $id = isset($_GET['id']) ? $_GET['id'] : null;
@@ -64,17 +74,17 @@ switch ($metodo) {
             echo json_encode([
                 "status" => 400,
                 "success" => false,
-                "message" => "Se requiere el ID para eliminar un usuario."
+                "message" => "Se requiere el ID para eliminar un rol."
             ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
             break;
         }
-        $respuesta = ControladorUsuarios::ctrEliminarUsuario($id);
+        $respuesta = ControladorRoles::ctrEliminarRol($id);
         http_response_code($respuesta['status']);
         echo json_encode($respuesta, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         break;
     
     /*=========================================
-    ACTUALIZAR USUARIO
+    ACTUALIZAR ROL
     ==========================================*/
     case 'PATCH':
         $id = $entrada['id'] ?? null;
@@ -85,12 +95,12 @@ switch ($metodo) {
             echo json_encode([
                 "status" => 400,
                 "success" => false,
-                "message" => "Se requiere 'id' y 'status' para actualizar el estado del usuario."
+                "message" => "Se requiere 'id' y 'status' para actualizar el estado del rol."
             ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
             break;
         }
 
-        $respuesta = ControladorUsuarios::ctrActualizarStatusUsuario($id, $status);
+        $respuesta = ControladorRoles::ctrActualizarStatusRol($id, $status);
         http_response_code($respuesta['status']);
         echo json_encode($respuesta, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         break;
@@ -103,7 +113,7 @@ switch ($metodo) {
         echo json_encode([
             "status" => 405,
             "success" => false,
-            "message" => "Método no permitido para la ruta de usuarios."
+            "message" => "Método no permitido para esta ruta."
         ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         break;
 }

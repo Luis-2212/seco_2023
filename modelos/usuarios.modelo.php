@@ -11,8 +11,9 @@ class ModeloUsuarios {
         try {
             if ($item != null) {
                 // Obtener un usuario específico
-                $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :valor");
-                $stmt->bindParam(":valor", $valor, PDO::PARAM_STR);
+                $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :item");
+                $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
+
             } else {
                 // Obtener todos los usuarios
                 $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY id DESC");

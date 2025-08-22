@@ -1,5 +1,53 @@
 $(document).ready(function () {
   obtenerRoles();
+  /*=============================================
+OBTENER USUARIOS
+=============================================*/
+
+  var tablaUsuarios = $("#tablaUsuarios").DataTable({
+    language: {
+      sProcessing: "Procesando...",
+      sLengthMenu: "Mostrar _MENU_ registros",
+      sZeroRecords: "No se encontraron resultados",
+      sEmptyTable: "Ningún dato disponible en esta tabla",
+      sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+      sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0",
+      sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+      sSearch: "Buscar:",
+      sLoadingRecords: "Cargando...",
+      oAria: {
+        sSortAscending:
+          ": Activar para ordenar la columna de manera ascendente",
+        sSortDescending:
+          ": Activar para ordenar la columna de manera descendente",
+      },
+    },
+    ajax: {
+      url: "http/usuarios.endpoint.php",
+      type: "GET",
+      dataType: "json",
+      dataSrc: "data",
+    },
+    columns: [
+      { data: "id_rol" },
+      { data: "username" },
+      { data: "nombres" },
+      { data: "apellidos" },
+      { data: "ultimo_login" },
+    ],
+    responsive: true, // ✅ Mejora visual en dispositivos móviles
+    deferRender: true, // ✅ Mejora el rendimiento si hay muchos registros
+  });
+
+  // $.ajax({
+  //   type: "GET",
+  //   url: "http/usuarios.endpoint.php",
+  //   // data: "data",
+  //   dataType: "Application/json",
+  //   success: function (response) {
+  //     console.log("respuesta", response);
+  //   },
+  // });
 });
 
 /*=============================================
@@ -24,15 +72,12 @@ function obtenerRoles() {
         $("#selectMostrarRoles").empty();
 
         respuesta.data.forEach((rol) => {
-          console.log(rol);
-
           mostrarRoles += `
             <option value="${rol.id}">${rol.rol}</option>
           `;
         });
 
         $("#selectMostrarRoles").append(mostrarRoles);
-        console.log(respuesta.success);
       } else {
         swal.fire({
           title: "Error al registrar",
