@@ -1,15 +1,3 @@
-<?php
-
-
-if ($_SESSION["rol"] == 1) {
-	$accesoAdmin = "";
-} else {
-	$accesoAdmin = "d-none";
-}
-        
-
-?>
-
 <header class="container-fluid d-flex flex-column bg-warning align-items-center p-0">
 
 	<!--=====================================

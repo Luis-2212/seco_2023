@@ -9,4 +9,5 @@ $_SESSION["perfil"] = null;
 
 session_destroy();
 
-return header("Location: login");
+header("Location: login");
+exit;

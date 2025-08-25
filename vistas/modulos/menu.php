@@ -17,11 +17,15 @@
 
             </li>
 
-            <li class="nav-item p-1 align-middle <?php echo $accesoAdmin ?>">
+            <?php if (isset($_SESSION["rol"]) && $_SESSION["rol"] === 1): ?>
 
-                <a class="nav-link btn btn-secondary fw-semibold" href="usuarios"><i class="fa-solid fa-user-tie"></i> Usuarios</a>
+                <li class="nav-item p-1 align-middle">
 
-            </li>
+                    <a class="nav-link btn btn-secondary fw-semibold" href="usuarios"><i class="fa-solid fa-user-tie"></i> Usuarios</a>
+
+                </li>
+
+            <?php endif; ?>
 
             <li class="nav-item p-1 align-middle">
 
