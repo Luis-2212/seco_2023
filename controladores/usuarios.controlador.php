@@ -209,6 +209,15 @@ class ControladorUsuarios {
                 ];
             }
 
+            // Clave del elemento que deseas eliminar
+            $valorARemover = 'password';
+
+            // Verificar si la clave existe en el JSON
+            if (array_key_exists($valorARemover, $datos) && ($datos[$valorARemover] === null || $datos[$valorARemover] === '')) {
+                unset($datos[$valorARemover]); // Eliminar el elemento
+            } 
+
+            // Encriptar nueva contraseña
             if (isset($datos['password']) && !empty($datos['password'])) {
                 $datos['password'] = password_hash($datos['password'], PASSWORD_BCRYPT);
             }

@@ -15,7 +15,7 @@ class ModeloRoles {
                 $stmt->bindParam(":valor", $valor, PDO::PARAM_STR);
             } else {
                 // Obtener todos los Roles
-                $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY id DESC");
+                $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY rol ASC");
             }
 
             $stmt->execute();

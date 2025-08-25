@@ -178,11 +178,12 @@ $("#formEditarUsuario").on("submit", function (e) {
   e.preventDefault();
 
   const idUsuario = $("#btnEditarUsuario").attr("data-id");
-  const rol = $("#editaRoles").val();
+  const rol = $("#editarRoles").val();
   const nombres = $("#editarNombres").val().trim();
   const apellidos = $("#editarApellidos").val().trim();
   const username = $("#editarUsername").val().trim();
-  const password = $("#editarPassword").val().trim() ?? "";
+  const password =
+    $("#editarPassword").val() != "" ? $("#editarPassword").val().trim() : null;
 
   if (username == "") {
     alert("El usuario no puede quedar vacio");
@@ -195,7 +196,7 @@ $("#formEditarUsuario").on("submit", function (e) {
     nombres: nombres,
     apellidos: apellidos,
     username: username,
-    password: password ?? "",
+    password: password != "" ? password : null,
   };
 
   editarUsuario(JSON.stringify(data));
@@ -224,6 +225,18 @@ function editarUsuario(datos) {
       } else {
         Swal.fire({
           title: "Error al actualizar",
+          icon: "error",
+        });
+        tablaUsuarios.ajax.reload(null, true);
+        $("#modalEditarUsuario").modal("hide");
+      }
+    },
+    error: function (jqXHR) {
+      if (jqXHR.status === 403) {
+        const errorResponse = jqXHR.responseJSON;
+        Swal.fire({
+          title: "Error al actualizar",
+          text: errorResponse.message,
           icon: "error",
         });
         tablaUsuarios.ajax.reload(null, true);

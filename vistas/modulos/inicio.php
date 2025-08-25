@@ -1,4 +1,4 @@
-<div class="content-wrapper px-5 py-3 pb-5 text-bg-light contenedor-principal" style="background-image: url('public/img/backgroup.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center;">
+<div class="content-wrapper px-5 py-3 pb-5 text-bg-light contenedor-principal" style="background-image: url('public/img/background.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center;">
 
   <section class="content-header bg-dark py-2 px-3 rounded mb-3 shadow-lg">
 
