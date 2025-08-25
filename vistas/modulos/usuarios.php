@@ -44,8 +44,8 @@
   SECCION PARA AGREGAR NUEVO USUARIO
   =============================================-->
 
-  <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#seccionRegistrarUsuario" aria-expanded="false" aria-controls="seccionRegistrarUsuario">
-    Nuevo Usuario <i class="fa-solid fa-caret-down"></i>
+  <button class="btn btn-warning shadow-md" type="button" data-bs-toggle="collapse" data-bs-target="#seccionRegistrarUsuario" aria-expanded="false" aria-controls="seccionRegistrarUsuario">
+    <i class="fa-solid fa-user-plus"></i> Nuevo Usuario <i class="fa-solid fa-caret-down"></i>
   </button>
 
   <section class="content rounded shadow-lg my-3 py-3 collapse" id="seccionRegistrarUsuario">

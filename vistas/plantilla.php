@@ -32,6 +32,9 @@ session_start();
   <!-- DataTable -->
   <link rel="stylesheet" href="node_modules/datatables.net-jqui/css/dataTables.jqueryui.min.css">
 
+  <!-- CSS -->
+  <link rel="stylesheet" href="public/css/intlTelInput.min.css"/>
+
 </head>
 
 <!--=====================================
@@ -64,6 +67,7 @@ CUERPO DOCUMENTO
         // USUARIOS               
         $_GET["ruta"] == "logout"   ||                  
         $_GET["ruta"] == "usuarios" ||                  
+        $_GET["ruta"] == "clientes" ||                  
         /* GENERAL */                 
         $_GET["ruta"] == "inicio"
       ) {
@@ -119,6 +123,8 @@ CUERPO DOCUMENTO
   <!-- SweetAlert2 -->
   <script src="public/js/sweetalert2.all.min.js"></script>
 
+  <!-- IntlTelInput -->
+  <script src="public/js/intlTelInput.min.js"></script>
 
   <!--=============================================
   LLAMADA A LOS ARCHIVOS JS
@@ -130,6 +136,7 @@ CUERPO DOCUMENTO
   <script src="public/js/logout.js"></script>
   <script src="public/js/usuarios.js"></script>
   <script src="public/js/roles.js"></script>
+  <script src="public/js/clientes.js"></script>
 
 </body>
 

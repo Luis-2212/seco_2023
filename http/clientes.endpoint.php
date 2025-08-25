@@ -1,5 +1,5 @@
 <?php
-require_once "../controladores/usuarios.controlador.php";
+require_once "../controladores/clientes.controlador.php";
 
 // Configurar cabeceras para respuestas JSON
 header('Content-Type: application/json; charset=utf-8');
@@ -11,12 +11,12 @@ $metodo = $_SERVER['REQUEST_METHOD'];
 $entrada = json_decode(file_get_contents('php://input'), true);
 
 /*=========================================
-MANEJO DE MÉTODOS HTTP PARA /usuarios
+MANEJO DE MÉTODOS HTTP PARA /clientes
 ==========================================*/
 switch ($metodo) {
 
     /*=========================================
-    OBTENER USUARIO(S)
+    OBTENER CLIENTE(S) (GET)
     ==========================================*/
     case 'GET':
         $item = null;
@@ -28,28 +28,35 @@ switch ($metodo) {
             $valor = $_GET["id"];
         }
         
-        if(isset($_GET["username"])) {
+        if(isset($_GET["identificacion"])) {
             
-            $item = "username";
-            $valor = $_GET["username"];
+            $item = "identificacion";
+            $valor = $_GET["identificacion"];
         }
 
-        $respuesta = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
+        $respuesta = ControladorClientes::ctrMostrarClientes($item, $valor);
         http_response_code($respuesta['status']);
         echo json_encode($respuesta, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         break;
 
     /*=========================================
-    REGISTRAR USUARIO
+    REGISTRAR CLIENTE (POST)
     ==========================================*/
     case 'POST':
         try {
-            if (empty($entrada['id_rol']) || empty($entrada['nombres']) || empty($entrada['apellidos']) || empty($entrada['password']) || empty($entrada['username'])) {
-                echo json_encode(["mensaje" => "Todos los campos son obligatorios"], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-                exit;
+            $camposRequeridos = ['nombres', 'tipo_identificacion', 'identificacion', 'codigo_pais', 'telefono', 'correo'];
+            foreach ($camposRequeridos as $campo) {
+                if (empty($entrada[$campo])) {
+                    echo json_encode([
+                        "status" => 400,
+                        "success" => false,
+                        "message" => "El campo '$campo' es requerido."
+                    ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+                    exit;
+                }
             }
 
-            $respuesta = ControladorUsuarios::ctrCrearUsuario($entrada);
+            $respuesta = ControladorClientes::ctrCrearCliente($entrada);
             http_response_code($respuesta['status']);
             echo json_encode($respuesta, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         } catch (\Exception $e) {
@@ -60,16 +67,16 @@ switch ($metodo) {
         break;
 
     /*=========================================
-    EDITAR USUARIO
+    EDITAR CLIENTE (PUT)
     ==========================================*/
     case 'PUT':
-        $respuesta = ControladorUsuarios::ctrEditarUsuario($entrada);
+        $respuesta = ControladorClientes::ctrEditarCliente($entrada);
         http_response_code($respuesta['status']);
         echo json_encode($respuesta, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         break;
 
     /*=========================================
-    ELIMINAR USUARIO
+    ELIMINAR CLIENTE (DELETE)
     ==========================================*/
     case 'DELETE':
         $id = isset($_GET['id']) ? $_GET['id'] : null;
@@ -78,11 +85,11 @@ switch ($metodo) {
             echo json_encode([
                 "status" => 400,
                 "success" => false,
-                "message" => "Se requiere el ID para eliminar un usuario."
+                "message" => "Se requiere el ID para eliminar un Cliente."
             ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
             break;
         }
-        $respuesta = ControladorUsuarios::ctrEliminarUsuario($id);
+        $respuesta = ControladorClientes::ctrEliminarCliente($id);
         http_response_code($respuesta['status']);
         echo json_encode($respuesta, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         break;
@@ -95,7 +102,7 @@ switch ($metodo) {
         echo json_encode([
             "status" => 405,
             "success" => false,
-            "message" => "Método no permitido para la ruta de usuarios."
+            "message" => "Método no permitido para la ruta de Clientes."
         ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         break;
 }

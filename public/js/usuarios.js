@@ -139,8 +139,16 @@ function registrarUsuario(datos) {
         tablaUsuarios.ajax.reload(null, true);
       }
     },
-    error: function (jqXHR, textStatus, errorThrown) {
-      console.error("Error en la solicitud:", textStatus, errorThrown);
+    error: function (jqXHR) {
+      if (jqXHR.status) {
+        const errorResponse = jqXHR.responseJSON;
+        Swal.fire({
+          title: "Error al registrar",
+          text: errorResponse.message,
+          icon: "error",
+        });
+        tablaClientes.ajax.reload(null, true);
+      }
     },
   });
 }
@@ -232,7 +240,7 @@ function editarUsuario(datos) {
       }
     },
     error: function (jqXHR) {
-      if (jqXHR.status === 403) {
+      if (jqXHR.status) {
         const errorResponse = jqXHR.responseJSON;
         Swal.fire({
           title: "Error al actualizar",

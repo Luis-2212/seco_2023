@@ -23,6 +23,11 @@
         
       <?php endif; ?>
 
+      <a href="clientes" class="btn btn-dark col-md-2 col-sm-8 mx-3 text-light text-decoration-none shadow">
+        <div class="card-header text-center"><i class="fa-solid fa-users iconos"></i></div>
+        <div class="card-body fw-semibold text-center">Clientes</div>
+      </a>
+      
     </div>
 
   </section>
