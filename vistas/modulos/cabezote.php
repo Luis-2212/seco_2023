@@ -18,75 +18,41 @@ if ($_SESSION["rol"] == 1) {
 
 	<nav class="navbar navbar-expand-lg text-bg-warning w-100" data-bs-theme="info">
     
-		<div class="container-fluid">
+		<div class="container-fluid gap-3">
 			
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavLinks" aria-controls="navbarNavLinks" aria-label="Toggle navigation">
-				
-				<span class="navbar-toggler-icon"></span>
-			
-			</button>
-			
-			<div class="collapse navbar-collapse" id="navbarNavLinks">
-				
-				<ul class="navbar-nav d-flex align-items-center">
+			<button class="btn btn-outline-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuNavegacion" aria-controls="menuNavegacion"><i class="fa-solid fa-bars"></i></button>
 
-					<li class="nav-item px-1 align-middle">
+			<div class="d-flex align-items-center gap-3">
 
-						<a class="nav-link" href="inicio">
-							<img src="public/img/seco.png" width="40" height="40" alt="logo">
-						</a>
+				<a class="nav-link" href="inicio">
+					<img src="public/img/seco.png" width="40" height="40" alt="logo">
+				</a>
 
-					</li>
-
-					<li class="nav-item px-1 align-middle">
-
-						<a class="nav-link btn btn-secondary fw-semibold" href="productos">Productos</a>
-
-					</li>
-
-					<li class="nav-item px-1 align-middle">
-
-						<a class="nav-link btn btn-secondary fw-semibold" href="clientes">Clientes</a>
-
-					</li>
-
-					<li class="nav-item px-1 align-middle">
-
-						<a class="nav-link btn btn-secondary fw-semibold" href="crear-venta">Generar venta</a>
-
-					</li>
-
-					<li class="nav-item px-1 align-middle <?php echo $accesoAdmin ?>">
-
-						<a class="nav-link btn btn-light fw-semibold" href="panel-administrativo">Administrativo</a>
-
-					</li>
-
-				</ul>
-
-				<ul class="navbar-nav ms-auto px-5">
-					
-					<li class="nav-item active dropdown">
-						
-						<button class="nav-link btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-							
-							<i class="fa-solid fa-user-tie"></i> <?php echo $_SESSION["nombres"]; ?>
-							
-						</button>
-						
-						<ul class="dropdown-menu p-0">
-							
-							<li class="bg-danger">
-								<a href="logout" class="btn btn-danger"type="button">Cerrar sesión <i class="fa-solid fa-right-from-bracket"></i></a>
-							</li>
-							
-						</ul>
-					</li>
-						
-				</ul>
+				<h2 class="fw-bold">Sistema de Gestión de Ventas de SECO 2023</h2>
 
 			</div>
-			
+
+			<ul class="navbar-nav ms-auto px-5">
+				
+				<li class="nav-item active dropdown">
+					
+					<button class="nav-link btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+						
+						<i class="fa-solid fa-user-tie"></i> <?php echo $_SESSION["nombres"] .' '. $_SESSION["apellidos"]; ?>
+						
+					</button>
+					
+					<ul class="dropdown-menu p-0">
+						
+						<li class="bg-danger px-0 text-center">
+							<a href="logout" class="btn btn-danger"type="button">Cerrar sesión <i class="fa-solid fa-right-from-bracket"></i></a>
+						</li>
+						
+					</ul>
+				</li>
+					
+			</ul>
+
 		</div>
 
 	</nav>

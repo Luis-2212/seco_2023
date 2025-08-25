@@ -1,0 +1,54 @@
+
+<div class="offcanvas offcanvas-start text-bg-dark" data-bs-scroll="true" tabindex="-1" id="menuNavegacion" aria-labelledby="menuNavegacionLabel">
+
+    <div class="offcanvas-header">
+        
+        <h4 class="offcanvas-title" id="menuNavegacionLabel"><i class="fa-solid fa-bars"></i> Menú de navegación</h4>
+        
+    </div>
+
+    <div class="offcanvas-body">
+
+        <ul class="navbar-nav">
+
+            <li class="nav-item p-1 align-middle">
+
+                <a class="nav-link btn btn-secondary fw-semibold" href="inicio"><i class="fa-solid fa-house"></i> Inicio</a>
+
+            </li>
+
+            <li class="nav-item p-1 align-middle <?php echo $accesoAdmin ?>">
+
+                <a class="nav-link btn btn-secondary fw-semibold" href="usuarios"><i class="fa-solid fa-user-tie"></i> Usuarios</a>
+
+            </li>
+
+            <li class="nav-item p-1 align-middle">
+
+                <a class="nav-link btn btn-secondary fw-semibold" href="clientes"><i class="fa-solid fa-users"></i> Clientes</a>
+
+            </li>
+
+            <li class="nav-item p-1 align-middle">
+
+                <a class="nav-link btn btn-secondary fw-semibold" href="proveedores"><i class="fa-solid fa-truck"></i> Proveedores</a>
+
+            </li>
+
+            <li class="nav-item p-1 align-middle">
+
+                <a class="nav-link btn btn-secondary fw-semibold" href="productos"><i class="fa-solid fa-boxes-stacked"></i> Productos</a>
+
+            </li>
+
+            <li class="nav-item p-1 align-middle">
+
+                <a class="nav-link btn btn-secondary fw-semibold" href="crear-venta"><i class="fa-solid fa-cash-register"></i> Generar venta</a>
+
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
