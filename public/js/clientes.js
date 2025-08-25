@@ -176,27 +176,30 @@ function registrarCliente(datos) {
 /*=============================================
 OBTENER DATO DEL CLIENTE A EDITAR
 =============================================*/
-// tablaClientes.on("click", "#btnModalEditarCliente", function () {
-//   let idCliente = $(this).attr("data-id");
+tablaClientes.on("click", "#btnModalEditarCliente", function () {
+  let idCliente = $(this).attr("data-id");
 
-//   $.ajax({
-//     url: `http/clientes.endpoint.php?id=${idCliente}`,
-//     method: "GET",
-//     cache: false,
-//     processData: false,
-//     dataType: "json",
-//     success: function (respuesta) {
-//       $("#editarCliente").html(
-//         `${respuesta.data["nombres"]} ${respuesta.data["apellidos"]}`
-//       );
-//       $("#btnEditarCliente").attr("data-id", `${respuesta.data["id"]}`);
-//       $("#editarRoles").val(respuesta.data["id_rol"]);
-//       $("#editarNombres").val(respuesta.data["nombres"]);
-//       $("#editarApellidos").val(respuesta.data["apellidos"]);
-//       $("#editarUsername").val(respuesta.data["username"]);
-//     },
-//   });
-// });
+  $.ajax({
+    url: `http/clientes.endpoint.php?id=${idCliente}`,
+    method: "GET",
+    cache: false,
+    processData: false,
+    dataType: "json",
+    success: function (respuesta) {
+      $("#editarCliente").html(
+        `${respuesta.data["razon_social"] || respuesta.data["nombres"]}`
+      );
+      $("#btnEditarCliente").attr("data-id", `${respuesta.data["id"]}`);
+      $("#editarNombresCliente").val(respuesta.data["nombres"]);
+      $("#editarRazonSocial").val(respuesta.data["razon_social"]);
+      $("#editarTipoIdentificacion").val(respuesta.data["tipo_identificacion"]);
+      $("#editarIdentificacion").val(respuesta.data["identificacion"]);
+      $("#editarCodigoPais").val(respuesta.data["codigo_pais"]);
+      $("#editarTelefono").val(respuesta.data["telefono"]);
+      $("#editarDireccion").val(respuesta.data["direccion"]);
+    },
+  });
+});
 
 /*=============================================
 EDITAR CLIENTE

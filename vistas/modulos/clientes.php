@@ -277,10 +277,16 @@
           <!-- NOMBRES -->
 
           <div class="input-group mb-3">
-
+            
             <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-address-card"></i></span>
 
-            <input type="text" name="editarNombres" id="editarNombres" class="form-control shadow-sm" required>
+            <div class="form-floating">
+
+              <input type="text" class="form-control shadow-sm" id="editarNombresCliente" placeholder="Nombre del cliente" required>
+              
+              <label for="editarNombresCliente">Nombre del cliente</label>
+
+            </div>
 
           </div>
 
