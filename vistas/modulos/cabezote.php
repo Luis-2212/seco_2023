@@ -16,7 +16,7 @@
 					<img src="public/img/seco.png" width="40" height="40" alt="logo">
 				</a>
 
-				<h2 class="fw-bold">Sistema de Gestión de Ventas de SECO 2023</h2>
+				<h2 class="d-none d-lg-block fw-bold">Sistema de Gestión de Ventas de SECO 2023</h2>
 
 			</div>
 

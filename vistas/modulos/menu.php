@@ -1,9 +1,11 @@
 
 <div class="offcanvas offcanvas-start text-bg-dark" data-bs-scroll="true" tabindex="-1" id="menuNavegacion" aria-labelledby="menuNavegacionLabel">
 
-    <div class="offcanvas-header">
+    <div class="offcanvas-header justify-content-between">
         
         <h4 class="offcanvas-title" id="menuNavegacionLabel"><i class="fa-solid fa-bars"></i> Menú de navegación</h4>
+
+        <button type="button" class="btn btn-outline-light" data-bs-dismiss="offcanvas" aria-label="Close">X</button>
         
     </div>
 

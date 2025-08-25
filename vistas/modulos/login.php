@@ -1,8 +1,14 @@
 <section class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
 
-    <form method="post" role="form" id="formIniciarSesion" class="w-75 mx-auto d-flex flex-column justify-contente-center align-items-center rounded px-5 py-3 shadow text-bg-warning ">
+    <form method="post" role="form" id="formIniciarSesion" class="w-100 mx-auto d-flex flex-column justify-contente-center align-items-center rounded px-5 py-3 shadow text-bg-warning ">
+        
+        <div class="mb-4">
 
-        <h3 class="text-center text-wrap mb-4">Bienvenido/a</h3>
+            <img src="public/img/seco.png" alt="SECO" width="150">
+
+        </div>
+
+        <h3 class="text-center text-wrap mb-2">Bienvenido/a</h3>
 
         <div class="input-group my-2">
 
