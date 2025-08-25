@@ -38,8 +38,10 @@ function iniciarSesion(datos) {
       }
     },
     error: function (jqXHR, textStatus, errorThrown) {
-      console.error("Error en la solicitud:", textStatus, errorThrown);
-      // Aquí puedes manejar el error, por ejemplo, mostrando una alerta al usuario.
+      if (jqXHR.responseJSON.status === 401) {
+        $(".alertaLogin").removeClass("d-none");
+        $(".alertaLogin").html("Usuario o contraseña incorrecta");
+      }
     },
   });
 }

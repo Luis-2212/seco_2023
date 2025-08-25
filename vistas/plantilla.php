@@ -27,7 +27,7 @@ session_start();
   <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 
   <!-- SWEETALERT2 -->
-  <link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="public/css/sweetalert2.min.css">
 
   <!-- DataTable -->
   <link rel="stylesheet" href="node_modules/datatables.net-jqui/css/dataTables.jqueryui.min.css">
@@ -100,16 +100,19 @@ CUERPO DOCUMENTO
   ======================================-->
   <!-- jQuery v3.7.1 -->
   <script src="public/js/jquery.js"></script>
+  
+  <!-- Moment.JS -->
+  <script src="public/js/moment.js"></script>
 
   <!-- Bootstrap -->
   <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 
   <!-- DataTables -->
-  <script src="node_modules/datatables.net-jqui/js/dataTables.jqueryui.min.js"></script>
   <script src="node_modules/datatables.net/js/dataTables.min.js"></script>
 
   <!-- SweetAlert2 -->
-  <script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+  <script src="public/js/sweetalert2.all.min.js"></script>
+
 
   <!--=============================================
   LLAMADA A LOS ARCHIVOS JS

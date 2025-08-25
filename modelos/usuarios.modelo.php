@@ -11,12 +11,40 @@ class ModeloUsuarios {
         try {
             if ($item != null) {
                 // Obtener un usuario específico
-                $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :item");
-                $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
+                $stmt = Conexion::conectar()->prepare("SELECT
+                                                        u.id,
+                                                        u.id_rol,
+                                                        r.rol,
+                                                        u.nombres,
+                                                        u.apellidos,
+                                                        u.username,
+                                                        u.password,
+                                                        u.ultimo_login,
+                                                        u.fecha_creacion,
+                                                        u.fecha_actualizacion
+                                                    FROM $tabla as u 
+                                                    LEFT JOIN roles as r
+                                                    ON r.id = u.id_rol
+                                                    WHERE u.$item = :valor");
+                $stmt->bindParam(":valor", $valor, PDO::PARAM_STR);
 
             } else {
                 // Obtener todos los usuarios
-                $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY id DESC");
+                $stmt = Conexion::conectar()->prepare("SELECT
+                                                        u.id,
+                                                        u.id_rol,
+                                                        r.rol,
+                                                        u.nombres,
+                                                        u.apellidos,
+                                                        u.username,
+                                                        u.password,
+                                                        u.ultimo_login,
+                                                        u.fecha_creacion,
+                                                        u.fecha_actualizacion
+                                                    FROM $tabla as u 
+                                                    LEFT JOIN roles as r
+                                                    ON r.id = u.id_rol
+                                                    ORDER BY u.nombres ASC");
             }
 
             $stmt->execute();
@@ -29,7 +57,7 @@ class ModeloUsuarios {
 
         } catch (PDOException $e) {
             error_log("Error en mdlMostrarUsuarios: " . $e->getMessage());
-            return false; // Retorna false en caso de error
+            return $e->getMessage(); // Retorna false en caso de error
         } finally {
             if ($stmt) {
                 $stmt = null; // Asegura que el statement se cierre
@@ -67,7 +95,6 @@ class ModeloUsuarios {
         } catch (PDOException $e) {
             error_log("Error en mdlCrearUsuario: " . $e->getMessage());
             return "error"; // Retornar 'error' en caso de excepción
-            // return "error"; // Retornar 'error' en caso de excepción
         } finally {
             if ($stmt) {
                 $stmt = null; // Cerrar la conexión y liberar recursos
@@ -81,31 +108,31 @@ class ModeloUsuarios {
     static public function mdlEditarUsuario($tabla, $datos) {
         try {
 
-            // Agregar "user_id" si no está presente
-            if (!isset($datos['user_id'])) {
-                error_log("Error en mdlEditarUsuario: 'user_id' no está presente en los datos.");
-                return "error_no_user_id";
+            // Agregar "id" si no está presente
+            if (!isset($datos['id'])) {
+                error_log("Error en mdlEditarUsuario: 'id' no está presente en los datos.");
+                return "error_no_id";
             }
 
             // Iniciar la construcción de la cláusula SET
             $setClauses = [];
             $bindParams = [];
             
-            // Añadir los campos que vienen en $datos (excluyendo user_id)
+            // Añadir los campos que vienen en $datos (excluyendo id)
             foreach ($datos as $key => $value) {
-                if ($key !== 'user_id') {
+                if ($key !== 'id') {
                     $setClauses[] = "$key = :$key";
                     $bindParams[":$key"] = $value;
                 }
             }
 
-            // Si no hay campos para actualizar además del ID y updated_at, salir.
-            if (empty($setClauses) && !isset($datos['updated_at'])) {
+            // Si no hay campos para actualizar además del ID y fecha_actualizar, salir.
+            if (empty($setClauses) && !isset($datos['fecha_actualizar'])) {
                 return "no_data";
             }
 
            // Construir la consulta SQL
-            $sql = "UPDATE $tabla SET " . implode(", ", $setClauses) . " WHERE user_id = :user_id";
+            $sql = "UPDATE $tabla SET " . implode(", ", $setClauses) . " WHERE id = :id";
             $stmt = Conexion::conectar()->prepare($sql);
 
             // Vincular los parámetros dinámicamente
@@ -128,12 +155,12 @@ class ModeloUsuarios {
                 return "ok";
             } else {
                 error_log("Error al actualizar usuario: " . implode(" ", $stmt->errorInfo()));
-                return "error";
+                return $stmt->errorInfo();
             }
 
         } catch (PDOException $e) {
             error_log("Error en mdlEditarUsuario: " . $e->getMessage());
-            return "error";
+            return $e->getMessage();
         } finally {
             if ($stmt) {
                 $stmt = null;

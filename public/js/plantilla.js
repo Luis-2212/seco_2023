@@ -1,7 +1,6 @@
 /*=============================================
   DATATABLES
 =============================================*/
-
 // $(".DataTable").DataTable({
 //   language: {
 //     sProcessing: "Procesando...",

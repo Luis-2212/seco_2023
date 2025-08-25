@@ -1,10 +1,10 @@
 $primary: #1f5cab;
 $secondary: #808080;
 $info: #00b2e3;
-$success: #31f6c5;
+$success: #058536;
 $danger: #e31b23;
 $warning: #f7e300;
-$light: #edf9fb;
+$light: #ececec;
 $dark: #000000;
 
 $theme-colors: (
@@ -18,16 +18,16 @@ $theme-colors: (
   "dark": $dark,
 );
 
-@import "../plugins/bootstrap/scss/bootstrap.scss";
-@import "../plugins/bootstrap/scss/functions";
-@import "../plugins/bootstrap/scss/variables";
-@import "../plugins/bootstrap/scss/variables-dark";
-@import "../plugins/bootstrap/scss/maps";
-@import "../plugins/bootstrap/scss/mixins";
-@import "../plugins/bootstrap/scss/utilities";
-@import "../plugins/bootstrap/scss/reboot";
-@import "../plugins/bootstrap/scss/type";
-@import "../plugins/bootstrap/scss/images";
-@import "../plugins/bootstrap/scss/containers";
-@import "../plugins/bootstrap/scss/grid";
-@import "../plugins/bootstrap/scss/helpers";
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/variables-dark";
+@import "../../node_modules/bootstrap/scss/maps";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/utilities";
+@import "../../node_modules/bootstrap/scss/reboot";
+@import "../../node_modules/bootstrap/scss/type";
+@import "../../node_modules/bootstrap/scss/images";
+@import "../../node_modules/bootstrap/scss/containers";
+@import "../../node_modules/bootstrap/scss/grid";
+@import "../../node_modules/bootstrap/scss/helpers";

@@ -6,7 +6,7 @@
 
       <i class="fa-solid fa-file-circle-xmark text-danger" style="font-size: 14rem"></i>
 
-      <h1 class="fw-bold">404</h1>
+      <h1 class="fw-bold  text-light">404</h1>
 
       <h2 class="text-secondary fw-semibold">Página no encontrada</h2>
 

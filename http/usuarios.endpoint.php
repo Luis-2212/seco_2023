@@ -19,8 +19,22 @@ switch ($metodo) {
     OBTENER USUARIO(S)
     ==========================================*/
     case 'GET':
-        $id = isset($_GET['id']) ? $_GET['id'] : null;
-        $respuesta = ControladorUsuarios::ctrMostrarUsuarios($id ? "id" : null, $id);
+        $item = null;
+        $valor = null;
+        
+        if(isset($_GET["id"])) {
+            
+            $item = "id";
+            $valor = $_GET["id"];
+        }
+        
+        if(isset($_GET["username"])) {
+            
+            $item = "username";
+            $valor = $_GET["username"];
+        }
+
+        $respuesta = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
         http_response_code($respuesta['status']);
         echo json_encode($respuesta, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         break;

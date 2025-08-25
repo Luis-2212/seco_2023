@@ -8,6 +8,7 @@ class ControladorUsuarios {
     static public function ctrIniciarSesion($datos) {
         try {
             include "../modelos/usuarios.modelo.php";
+            // require_once "../modelos/usuarios.modelo.php";
             $_SESSION['logged'] = false;
 			$username = isset($datos['username']) ? trim($datos['username']) : '';
 			$password = isset($datos['password']) ? trim($datos['password']) : '';
@@ -25,8 +26,20 @@ class ControladorUsuarios {
 				}
 				
 				$usuario = ModeloUsuarios::mdlMostrarUsuarios("usuarios", "username", $username);
-
+                
 				if ($usuario && password_verify($password, $usuario['password'])) {
+
+                    date_default_timezone_set('America/Caracas');
+
+                    $fechaLogin = date("Y-m-d H:i:s");
+
+                    $datosActualizar = [
+                        "id" => $usuario["id"],
+                        "ultimo_login" => $fechaLogin
+                    ];
+
+                    $ultimoLogin = ModeloUsuarios::mdlEditarUsuario("usuarios", $datosActualizar);
+
 					session_start();
 					$_SESSION['logged'] = true;
 					$_SESSION['id'] = $usuario['id'];
@@ -38,8 +51,7 @@ class ControladorUsuarios {
 					return [
 						"status" => 200,
 						"success" => true,
-						"message" => "Autenticación exitosa. Se ha generado un nuevo token.",
-						"id" => $usuario['id'],
+						"message" => "Autenticación exitosa. Se ha iniciado sesión exitosamente.",
 						"data" => [
 							"username" => $usuario['username'],
 							"nombres" => $usuario['nombres'],
@@ -51,7 +63,8 @@ class ControladorUsuarios {
 					return [
 						"status" => 401,
 						"success" => false,
-						"message" => "Credenciales incorrectas. Por favor, verifica tu usuario y contraseña."
+						"message" => "Credenciales incorrectas. Por favor, verifica tu usuario y contraseña.",
+                        "data" => $usuario
 					];
 				}
             } else {
@@ -110,7 +123,7 @@ class ControladorUsuarios {
         include "../modelos/usuarios.modelo.php";
         try {
 			// Validar campos requeridos
-            $camposRequeridos = ['id_rol', 'username', 'password', 'nombres', 'apellidos'];
+            $camposRequeridos = ['id_rol', 'nombres', 'apellidos', 'username', 'password'];
             foreach ($camposRequeridos as $campo) {
                 if (empty($datos[$campo])) {
                     return [
@@ -176,7 +189,7 @@ class ControladorUsuarios {
         try {
             include "../modelos/usuarios.modelo.php";
 
-            $userIdToUpdate = isset($datos['user_id']) ? $datos['user_id'] : (isset($datos['id']) ? $datos['id'] : null);
+            $userIdToUpdate = isset($datos['id']) ? $datos['id'] : null;
 
 			// Sí no se envió ningún ID a editar
             if ($userIdToUpdate === null) {
@@ -196,24 +209,14 @@ class ControladorUsuarios {
                 ];
             }
 
-            // Sólo el Administrador (master) puede editar usuarios
-            if ($GLOBALS['user_id'] != 1) {
-				return [ "status" => 403, "success" => false, "message" => "No tienes permiso para editar este usuario."];
-            }
-
             if (isset($datos['password']) && !empty($datos['password'])) {
                 $datos['password'] = password_hash($datos['password'], PASSWORD_BCRYPT);
             }
 
-            if (isset($datos['id'])) {
-                $datos['user_id'] = $datos['id'];
-                unset($datos['id']);
-            }
-            
             date_default_timezone_set('America/Caracas');
-            $datos['updated_at'] = date('Y-m-d H:i:s');
+            $datos['fecha_actualizacion'] = date('Y-m-d H:i:s');
 
-            $respuesta = ModeloUsuarios::mdlEditarUsuario("users", $datos);
+            $respuesta = ModeloUsuarios::mdlEditarUsuario("usuarios", $datos);
 
             if ($respuesta === "ok") {
                 return [
@@ -226,7 +229,8 @@ class ControladorUsuarios {
                 return [
                     "status" => 500,
                     "success" => false,
-                    "message" => "No se pudo actualizar el usuario. Inténtalo de nuevo. $respuesta"
+                    "message" => "No se pudo actualizar el usuario. Inténtalo de nuevo.",
+                    "error" => $respuesta
                 ];
             }
         } catch (Exception $e) {
@@ -240,67 +244,12 @@ class ControladorUsuarios {
     }
 
     /*=============================================
-    ACTUALIZAR STATUS (PATCH)
-    =============================================*/
-    static public function ctrActualizarStatusUsuario($user_id, $status) {
-        try {
-            include "../modelos/usuarios.modelo.php";
-            if ($user_id == 1) {
-                return [
-                    "status" => 403,
-                    "success" => false,
-                    "message" => "No se permite modificar este usuario."
-                ];
-            }
-
-            if (!in_array($status, ["0", "1"])) {
-                return [
-                    "status" => 400,
-                    "success" => false,
-                    "message" => "El valor para el status no es válido."
-                ];
-            }
-
-            date_default_timezone_set('America/Caracas');
-            $datosActualizar = [
-                'user_id' => $user_id,
-                'status' => $status,
-                'updated_at' => date('Y-m-d H:i:s')
-            ];
-
-            $respuesta = ModeloUsuarios::mdlEditarUsuario("users", $datosActualizar);
-
-            if ($respuesta === "ok") {
-                return [
-                    "status" => 200,
-                    "success" => true,
-                    "message" => "Estado del usuario actualizado correctamente."
-                ];
-            } else {
-                error_log("Error en ModeloUsuarios::mdlEditarUsuario (status): " . $respuesta);
-                return [
-                    "status" => 500,
-                    "success" => false,
-                    "message" => "No se pudo actualizar el estado del usuario. Inténtalo de nuevo."
-                ];
-            }
-        } catch (Exception $e) {
-            error_log("Error en ctrActualizarStatusUsuario: " . $e->getMessage());
-            return [
-                "status" => 500,
-                "success" => false,
-                "message" => "Ocurrió un error inesperado al procesar la solicitud."
-            ];
-        }
-    }
-
-    /*=============================================
     ELIMINAR USUARIO (DELETE)
     =============================================*/
-    static public function ctrEliminarUsuario($user_id) {
+    static public function ctrEliminarUsuario($id) {
         try {
             include "../modelos/usuarios.modelo.php";
-            if ($user_id == 1) {
+            if ($id == 1) {
                 return [
                     "status" => 403,
                     "success" => false,
@@ -308,7 +257,7 @@ class ControladorUsuarios {
                 ];
             }
             
-            $usuarioExistente = ModeloUsuarios::mdlMostrarUsuarios("users", "user_id", $user_id);
+            $usuarioExistente = ModeloUsuarios::mdlMostrarUsuarios("usuarios", "id", $id);
             if (!$usuarioExistente) {
                 return [
                     "status" => 404,
@@ -317,7 +266,7 @@ class ControladorUsuarios {
                 ];
             }
 
-            $respuesta = ModeloUsuarios::mdlEliminarUsuario("users", $user_id);
+            $respuesta = ModeloUsuarios::mdlEliminarUsuario("usuarios", $id);
 
             if ($respuesta === "ok") {
                 return [
