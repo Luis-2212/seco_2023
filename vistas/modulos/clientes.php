@@ -130,15 +130,15 @@
             
             <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-mobile-screen"></i></span>
 
-            <div class="input-group-text" style="max-width: 8rem;">
+            <div class="input-group-text">
             
-              <input type="tel" class="form-control shadow-sm codigo-pais h-100" id="nuevoCodigoPais" value="+58" required>
+              <input type="tel" class="form-control shadow-sm codigo-pais h-100" id="nuevoCodigoPais" value="+58" style="max-width: 12rem;" required>
 
             </div>
 
             <div class="form-floating">
 
-              <input type="text" class="form-control shadow-sm" id="nuevoTelefono" placeholder="Teléfono e.g: 4241234567" inputmode="numeric" required>
+              <input type="text" class="form-control shadow-sm" id="nuevoTelefono" placeholder="Teléfono e.g: 4241234567" inputmode="numeric" maxLength="15" required>
               
               <label for="nuevoTelefono">Teléfono e.g: 4241234567</label>
 
@@ -168,7 +168,8 @@
 
         </div>
 
-        <!-- CONTRASEÑA -->
+        <!-- DIRECCIÓN -->
+
         <div class="d-flex gap-3">
 
           <div class="input-group mb-3">
@@ -177,9 +178,9 @@
 
             <div class="form-floating">
 
-              <textarea type="text" class="form-control shadow-sm" id="nuevoDireccion" placeholder="Dirección"></textarea>
+              <textarea type="text" class="form-control shadow-sm" id="nuevoDireccion" maxLength="256" placeholder="Dirección"></textarea>
               
-              <label for="nuevoCorreo">Dirección</label>
+              <label for="nuevoDireccion">Dirección</label>
 
             </div>
 
@@ -290,45 +291,106 @@
 
           </div>
 
-          <!-- APELLIDOS -->
+          <!-- RAZON SOCIAL -->
 
           <div class="input-group mb-3">
-
+            
             <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-address-card"></i></span>
 
-            <input type="text" name="editarApellidos" id="editarApellidos" class="form-control shadow-sm" required>
+            <div class="form-floating">
+
+              <input type="text" class="form-control shadow-sm" id="editarRazonSocial" placeholder="Razón social" required>
+              
+              <label for="editarRazonSocial">Razón social</label>
+
+            </div>
 
           </div>
 
-          <!-- CARGO -->
+          <!-- IDENTIFICACION -->
 
           <div class="input-group mb-3">
+            
+            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-id-card"></i></span>
 
-            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-briefcase"></i></span>
+            <div class="form-floating" style="max-width: 4rem;">
 
-            <select class="form-select shadow-sm selectMostrarRoles" id="editarRoles" name="editarRoles" required></select>
+              <select class="form-select shadow-sm selectMostrarTipoIdentificacion" id="editarTipoIdentificacion" name="editarTipoIdentificacion" required>
+
+                <option default value="V">V</option>
+                <option  value="P">P</option>
+                <option  value="E">E</option>
+                <option  value="J">J</option>
+                <option  value="G">G</option>
+                <option  value="C">C</option>
+
+              </select>
+
+              <label for="editarTipoIdentificacion">Tipo</label>
+
+            </div>
+
+            <div class="form-floating">
+
+              <input type="text" class="form-control shadow-sm validarCliente" id="editarIdentificacion" placeholder="Cédula o RIF" inputmode="numeric" required>
+              
+              <label for="editarIdentificacion">Cédula o RIF</label>
+
+            </div>
 
           </div>
 
-          <!-- NOMBRE DE USUARIO -->
+          <!-- TELEFONO -->
 
           <div class="input-group mb-3">
+            
+            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-mobile-screen"></i></span>
 
+            <div class="input-group-text">
+            
+              <input type="tel" class="form-control shadow-sm codigo-pais h-100" id="editarCodigoPais" value="+58" style="max-width: 12rem;" required>
+
+            </div>
+
+            <div class="form-floating">
+
+              <input type="text" class="form-control shadow-sm" id="editarTelefono" placeholder="Teléfono e.g: 4241234567" inputmode="numeric" required>
+              
+              <label for="editarTelefono">Teléfono e.g: 4241234567</label>
+
+            </div>
+
+          </div>
+
+          <!-- CORREO -->
+
+          <div class="input-group mb-3">
+            
             <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-at"></i></span>
 
-            <input type="text" name="editarUsername" id="editarUsername" class="form-control shadow-sm validarUsuario" required>
+            <div class="form-floating">
+
+              <input type="email" class="form-control shadow-sm" id="editarCorreo" placeholder="Correo electrónico" required>
+              
+              <label for="editarCorreo">Correo electrónico</label>
+
+            </div>
 
           </div>
 
-          <!-- PASSWORD -->
+          <!-- DIRECCION -->
 
           <div class="input-group mb-3">
+            
+            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-map-location"></i></span>
 
-            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-lock"></i></span>
+            <div class="form-floating">
 
-            <input type="text" name="editarPassword" id="editarPassword" placeholder="Nueva Contraseña" class="form-control shadow-sm">
+              <textarea type="text" class="form-control shadow-sm" id="editarDireccion" placeholder="Dirección"></textarea>
+              
+              <label for="editarDireccion">Dirección</label>
 
-            <input type="hidden" name="passwordActual" id="passwordActual">
+            </div>
 
           </div>
 

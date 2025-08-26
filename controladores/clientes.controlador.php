@@ -107,15 +107,6 @@ class ControladorClientes {
                 ];
             }
             
-			// No se puede modificar el Cliente master
-            if ($userIdToUpdate == 1) {
-                return [
-                    "status" => 403,
-                    "success" => false,
-                    "message" => "No se permite modificar este Cliente."
-                ];
-            }
-
             // Clave del elemento que deseas eliminar
             $valorARemover = 'password';
 
@@ -165,13 +156,6 @@ class ControladorClientes {
     static public function ctrEliminarCliente($id) {
         try {
             include "../modelos/clientes.modelo.php";
-            if ($id == 1) {
-                return [
-                    "status" => 403,
-                    "success" => false,
-                    "message" => "No se permite eliminar este Cliente."
-                ];
-            }
             
             $clienteExistente = ModeloClientes::mdlMostrarClientes("clientes", "id", $id);
             if (!$clienteExistente) {
