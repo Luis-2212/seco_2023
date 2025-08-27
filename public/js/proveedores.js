@@ -1,4 +1,18 @@
 /*=============================================
+  INICIALIZAR EL PLUGIN DE TELÉFONO
+=============================================*/
+const currentPath = window.location.pathname;
+
+if (currentPath.endsWith("/proveedores ")) {
+  $("input[type=tel]").each(function () {
+    window.intlTelInput(this, {
+      initialCountry: "ve",
+      showSelectDialCode: true,
+    });
+  });
+}
+
+/*=============================================
 OBTENER PROVEEDORES
 =============================================*/
 
@@ -132,7 +146,7 @@ $("#formCrearProveedor").on("submit", function (e) {
 
 function registrarProveedor(datos) {
   $.ajax({
-    url: "http/proveedores.endpoint.php",
+    url: "http/proveedor.endpoint.php",
     method: "POST",
     data: datos,
     dataType: "json",
@@ -196,86 +210,92 @@ tablaProveedores.on("click", "#btnModalEditarProveedor", function () {
       $("#editarIdentificacion").val(respuesta.data["identificacion"]);
       $("#editarCodigoPais").val(respuesta.data["codigo_pais"]);
       $("#editarTelefono").val(respuesta.data["telefono"]);
+      $("#editarCorreo").val(respuesta.data["correo"]);
       $("#editarDireccion").val(respuesta.data["direccion"]);
     },
   });
 });
 
 /*=============================================
-EDITAR CLIENTE
+EDITAR PROVEEDOR
 =============================================*/
 
-// $("#formEditarCliente").on("submit", function (e) {
-//   e.preventDefault();
+$("#formEditarProveedor").on("submit", function (e) {
+  e.preventDefault();
 
-//   const idCliente = $("#btnEditarCliente").attr("data-id");
-//   const rol = $("#editarRoles").val();
-//   const nombres = $("#editarNombres").val().trim();
-//   const apellidos = $("#editarApellidos").val().trim();
-//   const username = $("#editarUsername").val().trim();
-//   const password =
-//     $("#editarPassword").val() != "" ? $("#editarPassword").val().trim() : null;
+  const idProveedor = $("#btnEditarProveedor").attr("data-id");
+  const nombres = $("#editarNombresProveedor").val().trim();
+  const razon_social = $("#editarRazonSocial").val().trim();
+  const tipo_identificacion = $("#editarTipoIdentificacion").val().trim();
+  const identificacion = $("#editarIdentificacion").val();
+  const direccion = $("#editarDireccion").val().trim();
+  const codigo_pais = $("#editarCodigoPais").val().trim();
+  const telefono = $("#editarTelefono").val().trim();
+  const correo = $("#editarCorreo").val().trim();
 
-//   if (username == "") {
-//     alert("El usuario no puede quedar vacio");
-//     return;
-//   }
+  if (identificacion == "" || nombres == "") {
+    alert("El usuario no puede quedar vacio");
+    return;
+  }
 
-//   const data = {
-//     id: idCliente,
-//     id_rol: rol,
-//     nombres: nombres,
-//     apellidos: apellidos,
-//     username: username,
-//     password: password != "" ? password : null,
-//   };
+  const data = {
+    id: idProveedor,
+    nombres: nombres,
+    razon_social: razon_social,
+    tipo_identificacion: tipo_identificacion,
+    identificacion: identificacion,
+    direccion: direccion,
+    codigo_pais: codigo_pais,
+    telefono: telefono,
+    correo: correo,
+  };
 
-//   editarCliente(JSON.stringify(data));
-// });
+  editarProveedor(JSON.stringify(data));
+});
 
-// function editarCliente(datos) {
-//   $.ajax({
-//     url: `http/clientes.endpoint.php`,
-//     method: "PUT",
-//     data: datos,
-//     cache: false,
-//     contentType: "Application/json",
-//     processData: false,
-//     dataType: "json",
-//     success: function (respuesta) {
-//       if (respuesta.success === true) {
-//         Swal.fire({
-//           position: "center",
-//           icon: "success",
-//           title: "Actualizado con exito",
-//           showConfirmButton: false,
-//           timer: 1500,
-//         });
-//         tablaClientes.ajax.reload(null, true);
-//         $("#modalEditarCliente").modal("hide");
-//       } else {
-//         Swal.fire({
-//           title: "Error al actualizar",
-//           icon: "error",
-//         });
-//         tablaClientes.ajax.reload(null, true);
-//         $("#modalEditarCliente").modal("hide");
-//       }
-//     },
-//     error: function (jqXHR) {
-//       if (jqXHR.status) {
-//         const errorResponse = jqXHR.responseJSON;
-//         Swal.fire({
-//           title: "Error al actualizar",
-//           text: errorResponse.message,
-//           icon: "error",
-//         });
-//         tablaClientes.ajax.reload(null, true);
-//         $("#modalEditarCliente").modal("hide");
-//       }
-//     },
-//   });
-// }
+function editarProveedor(datos) {
+  $.ajax({
+    url: `http/proveedores.endpoint.php`,
+    method: "PUT",
+    data: datos,
+    cache: false,
+    contentType: "Application/json",
+    processData: false,
+    dataType: "json",
+    success: function (respuesta) {
+      if (respuesta.success === true) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Actualizado con exito",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        tablaProveedores.ajax.reload(null, true);
+        $("#modalEditarProveedor").modal("hide");
+      } else {
+        Swal.fire({
+          title: "Error al actualizar",
+          icon: "error",
+        });
+        tablaProveedores.ajax.reload(null, true);
+        $("#modalEditarProveedores").modal("hide");
+      }
+    },
+    error: function (jqXHR) {
+      if (jqXHR.status) {
+        const errorResponse = jqXHR.responseJSON;
+        Swal.fire({
+          title: "Error al actualizar",
+          text: errorResponse.message,
+          icon: "error",
+        });
+        tablaProveedores.ajax.reload(null, true);
+        $("#modalEditarProveedor").modal("hide");
+      }
+    },
+  });
+}
 
 /*=============================================
 REVISAR SI EL PROVEEDOR YA ESTÁ REGISTRADO
@@ -306,52 +326,52 @@ $(".validarProveedor").on("input", function () {
 });
 
 /*=============================================
-ELIMINAR CLIENTE
+ELIMINAR PROVEEDOR
 =============================================*/
-// tablaClientes.on("click", "#btnEliminarCliente", function () {
-//   let idCliente = $(this).attr("data-id");
+tablaProveedores.on("click", "#btnEliminarProveedor", function () {
+  let idProveedor = $(this).attr("data-id");
 
-//   Swal.fire({
-//     icon: "warning",
-//     title: "Advertencia",
-//     text: "¿Seguro que desea eliminar este Usuario?. No podrá deshacer esta acción",
-//     showCancelButton: true,
-//     confirmButtonText: "Si, borrar",
-//     confirmButtonColor: "#D13415",
-//   }).then((result) => {
-//     if (result.isConfirmed) {
-//       eliminarUsuario(idCliente);
-//     }
-//   });
-// });
+  Swal.fire({
+    icon: "warning",
+    title: "Advertencia",
+    text: "¿Seguro que desea eliminar este Proveedor?. No podrá deshacer esta acción",
+    showCancelButton: true,
+    confirmButtonText: "Si, borrar",
+    confirmButtonColor: "#D13415",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      eliminarProveedor(idProveedor);
+    }
+  });
+});
 
-// function eliminarUsuario(id) {
-//   $.ajax({
-//     url: `http/clientes.endpoint.php?id=${id}`,
-//     method: "DELETE",
-//     cache: false,
-//     processData: false,
-//     dataType: "json",
-//     success: function (respuesta) {
-//       if (respuesta.success === true) {
-//         // Mensaje de registro exitoso
-//         Swal.fire({
-//           position: "center",
-//           icon: "success",
-//           title: "Eliminado con exito",
-//           showConfirmButton: false,
-//           timer: 1500,
-//         });
-//         tablaClientes.ajax.reload(null, true);
-//       }
-//     },
-//     error: function (respuesta) {
-//       Swal.fire({
-//         title: "Error al eliminar",
-//         icon: "error",
-//       });
-//       tablaClientes.ajax.reload(null, true);
-//       $("#modalEditarCliente").modal("hide");
-//     },
-//   });
-// }
+function eliminarProveedor(id) {
+  $.ajax({
+    url: `http/proveedores.endpoint.php?id=${id}`,
+    method: "DELETE",
+    cache: false,
+    processData: false,
+    dataType: "json",
+    success: function (respuesta) {
+      if (respuesta.success === true) {
+        // Mensaje de registro exitoso
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Eliminado con exito",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        tablaProveedores.ajax.reload(null, true);
+      }
+    },
+    error: function (respuesta) {
+      Swal.fire({
+        title: "Error al eliminar",
+        icon: "error",
+      });
+      tablaProveedores.ajax.reload(null, true);
+      $("#modalEditarProveedores").modal("hide");
+    },
+  });
+}
