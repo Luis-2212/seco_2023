@@ -16,7 +16,7 @@ class ModeloProveedores {
 
             } else {
                 // Obtener todos los Proveedores
-                $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY nombres ASC");
+                $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY razon_social ASC");
             }
 
             $stmt->execute();
@@ -45,18 +45,17 @@ class ModeloProveedores {
             // Consulta SQL para insertar un nuevo Proveedor
             $stmt = Conexion::conectar()->prepare(
                 "INSERT INTO 
-                $tabla (nombres, razon_social, tipo_identificacion, identificacion, direccion, codigo_pais, telefono, correo) 
-                VALUES (:nombres, :razon_social, :tipo_identificacion, :identificacion, :direccion, :codigo_pais, :telefono, :correo)"
+                $tabla (razon_social, tipo_rif, rif, direccion, codigo_pais, telefono, correo) 
+                VALUES (:razon_social, :tipo_rif, :rif, :direccion, :codigo_pais, :telefono, :correo)"
             );
 
             // Vincular los parámetros
-            $stmt->bindParam(":nombres", $datos["nombres"], PDO::PARAM_STR);
             $stmt->bindParam(":razon_social", $datos["razon_social"], PDO::PARAM_STR);
-            $stmt->bindParam(":tipo_identificacion", $datos["tipo_identificacion"], PDO::PARAM_STR);
-            $stmt->bindParam(":identificacion", $datos["identificacion"], PDO::PARAM_INT);
+            $stmt->bindParam(":tipo_rif", $datos["tipo_rif"], PDO::PARAM_STR);
+            $stmt->bindParam(":rif", $datos["rif"], PDO::PARAM_STR);
             $stmt->bindParam(":direccion", $datos["direccion"], PDO::PARAM_STR);
             $stmt->bindParam(":codigo_pais", $datos["codigo_pais"], PDO::PARAM_STR);
-            $stmt->bindParam(":telefono", $datos["telefono"], PDO::PARAM_INT);
+            $stmt->bindParam(":telefono", $datos["telefono"], PDO::PARAM_STR);
             $stmt->bindParam(":correo", $datos["correo"], PDO::PARAM_STR);
 
             // Ejecutar la consulta SQL

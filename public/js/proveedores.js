@@ -3,7 +3,7 @@
 =============================================*/
 const currentPath = window.location.pathname;
 
-if (currentPath.endsWith("/proveedores ")) {
+if (currentPath.endsWith("/proveedores")) {
   $("input[type=tel]").each(function () {
     window.intlTelInput(this, {
       initialCountry: "ve",
@@ -40,10 +40,9 @@ var tablaProveedores = $("#tablaProveedores").DataTable({
     dataSrc: "data",
   },
   columns: [
-    { data: "nombres" },
     { data: "razon_social" },
-    { data: "tipo_identificacion" },
-    { data: "identificacion" },
+    { data: "tipo_rif" },
+    { data: "rif" },
     { data: "direccion" },
     { data: "codigo_pais" },
     { data: "telefono" },
@@ -107,20 +106,18 @@ $("#formCrearProveedor input[required]").on("input", function () {
 $("#formCrearProveedor").on("submit", function (e) {
   e.preventDefault();
 
-  const nombres = $("#nuevoNombresProveedor").val().trim();
-  const razon_social = $("#nuevoRazonSocial").val().trim();
-  const tipo_identificacion = $("#nuevoTipoIdentificacion").val().trim();
-  const identificacion = $("#nuevoIdentificacion").val();
-  const direccion = $("#nuevoDireccion").val().trim();
-  const codigo_pais = $("#nuevoCodigoPais").val().trim();
-  const telefono = $("#nuevoTelefono").val().trim();
-  const correo = $("#nuevoCorreo").val().trim();
+  const razon_social = $("#nuevoRazonSocialProveedor").val().trim();
+  const tipo_rif = $("#nuevoTipoRif").val();
+  const rif = $("#nuevoRif").val();
+  const direccion = $("#nuevoDireccionProveedor").val().trim();
+  const codigo_pais = $("#nuevoCodigoPaisProveedor").val().trim();
+  const telefono = $("#nuevoTelefonoProveedor").val().trim();
+  const correo = $("#nuevoCorreoProveedor").val().trim();
 
   if (
-    nombres == "" ||
     razon_social == "" ||
-    tipo_identificacion == "" ||
-    identificacion == "" ||
+    tipo_rif == "" ||
+    rif == "" ||
     codigo_pais == "" ||
     telefono == "" ||
     correo == ""
@@ -131,10 +128,9 @@ $("#formCrearProveedor").on("submit", function (e) {
   }
 
   const data = {
-    nombres: nombres,
     razon_social: razon_social,
-    tipo_identificacion: tipo_identificacion,
-    identificacion: identificacion,
+    tipo_rif: tipo_rif,
+    rif: rif,
     direccion: direccion,
     codigo_pais: codigo_pais,
     telefono: telefono,
@@ -146,7 +142,7 @@ $("#formCrearProveedor").on("submit", function (e) {
 
 function registrarProveedor(datos) {
   $.ajax({
-    url: "http/proveedor.endpoint.php",
+    url: "http/proveedores.endpoint.php",
     method: "POST",
     data: datos,
     dataType: "json",
@@ -200,18 +196,15 @@ tablaProveedores.on("click", "#btnModalEditarProveedor", function () {
     processData: false,
     dataType: "json",
     success: function (respuesta) {
-      $("#editarProveedor").html(
-        `${respuesta.data["razon_social"] || respuesta.data["nombres"]}`
-      );
+      $("#editarProveedor").html(`${respuesta.data["razon_social"]}`);
       $("#btnEditarProveedor").attr("data-id", `${respuesta.data["id"]}`);
-      $("#editarNombresProveedor").val(respuesta.data["nombres"]);
-      $("#editarRazonSocial").val(respuesta.data["razon_social"]);
-      $("#editarTipoIdentificacion").val(respuesta.data["tipo_identificacion"]);
-      $("#editarIdentificacion").val(respuesta.data["identificacion"]);
-      $("#editarCodigoPais").val(respuesta.data["codigo_pais"]);
-      $("#editarTelefono").val(respuesta.data["telefono"]);
-      $("#editarCorreo").val(respuesta.data["correo"]);
-      $("#editarDireccion").val(respuesta.data["direccion"]);
+      $("#editarRazonSocialProveedor").val(respuesta.data["razon_social"]);
+      $("#editarTipoRif").val(respuesta.data["tipo_rif"]);
+      $("#editarRif").val(respuesta.data["rif"]);
+      $("#editarCodigoPaisProveedor").val(respuesta.data["codigo_pais"]);
+      $("#editarTelefonoProveedor").val(respuesta.data["telefono"]);
+      $("#editarCorreoProveedor").val(respuesta.data["correo"]);
+      $("#editarDireccionProveedor").val(respuesta.data["direccion"]);
     },
   });
 });
@@ -224,26 +217,24 @@ $("#formEditarProveedor").on("submit", function (e) {
   e.preventDefault();
 
   const idProveedor = $("#btnEditarProveedor").attr("data-id");
-  const nombres = $("#editarNombresProveedor").val().trim();
-  const razon_social = $("#editarRazonSocial").val().trim();
-  const tipo_identificacion = $("#editarTipoIdentificacion").val().trim();
-  const identificacion = $("#editarIdentificacion").val();
-  const direccion = $("#editarDireccion").val().trim();
-  const codigo_pais = $("#editarCodigoPais").val().trim();
-  const telefono = $("#editarTelefono").val().trim();
-  const correo = $("#editarCorreo").val().trim();
+  const razon_social = $("#editarRazonSocialProveedor").val().trim();
+  const tipo_rif = $("#editarTipoRif").val().trim();
+  const rif = $("#editarRif").val();
+  const direccion = $("#editarDireccionProveedor").val().trim();
+  const codigo_pais = $("#editarCodigoPaisProveedor").val().trim();
+  const telefono = $("#editarTelefonoProveedor").val().trim();
+  const correo = $("#editarCorreoProveedor").val().trim();
 
-  if (identificacion == "" || nombres == "") {
-    alert("El usuario no puede quedar vacio");
+  if (rif == "") {
+    alert("El RIF proveedor es requerido");
     return;
   }
 
   const data = {
     id: idProveedor,
-    nombres: nombres,
     razon_social: razon_social,
-    tipo_identificacion: tipo_identificacion,
-    identificacion: identificacion,
+    tipo_rif: tipo_rif,
+    rif: rif,
     direccion: direccion,
     codigo_pais: codigo_pais,
     telefono: telefono,
@@ -304,10 +295,10 @@ REVISAR SI EL PROVEEDOR YA ESTÁ REGISTRADO
 $(".validarProveedor").on("input", function () {
   $(".alerta").addClass("d-none");
 
-  var identificacion = $(this).val();
+  var rif = $(this).val();
 
   $.ajax({
-    url: `http/proveedores.endpoint.php?identificacion=${identificacion}`,
+    url: `http/proveedores.endpoint.php?rif=${rif}`,
     method: "GET",
     cache: false,
     processData: false,

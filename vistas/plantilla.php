@@ -65,10 +65,12 @@ CUERPO DOCUMENTO
 
         /* ADMINISTRACION */
         // USUARIOS               
-        $_GET["ruta"] == "logout"   ||                  
-        $_GET["ruta"] == "usuarios" ||                  
-        $_GET["ruta"] == "clientes" ||                  
+        $_GET["ruta"] == "logout"       ||                  
+        $_GET["ruta"] == "usuarios"     ||
+        
         /* GENERAL */                 
+        $_GET["ruta"] == "clientes"     ||   
+        $_GET["ruta"] == "proveedores"  ||                  
         $_GET["ruta"] == "inicio"
       ) {
 
@@ -136,6 +138,8 @@ CUERPO DOCUMENTO
   <script src="public/js/logout.js"></script>
   <script src="public/js/usuarios.js"></script>
   <script src="public/js/roles.js"></script>
+  <!--   GESTIÓN GENERAL   -->
+  <script src="public/js/proveedores.js"></script>
   <script src="public/js/clientes.js"></script>
 
 </body>

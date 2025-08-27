@@ -41,7 +41,7 @@
   </section>
 
   <!--=============================================
-SECCION PARA AGREGAR NUEVO PROVEEDOR
+  SECCION PARA AGREGAR NUEVO PROVEEDOR
   =============================================-->
 
   <button class="btn btn-warning shadow-md" type="button" data-bs-toggle="collapse" data-bs-target="#seccionRegistrarProveedor" aria-expanded="false" aria-controls="seccionRegistrarProveedor">
@@ -56,25 +56,6 @@ SECCION PARA AGREGAR NUEVO PROVEEDOR
 
         <h5 class="h5">Nuevo proveedor</h5>
 
-        <!-- NOMBRES COMPLETO -->
-        <div class="d-flex gap-3">
-
-          <div class="input-group mb-3">
-            
-            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-address-card"></i></span>
-
-            <div class="form-floating">
-
-              <input type="text" class="form-control shadow-sm" id="nuevoNombresProveedor" placeholder="Nombre completo" required>
-              
-              <label for="nuevoNombresProveedor">Nombre completo</label>
-
-            </div>
-
-          </div>
-
-        </div>
-        
         <!-- RAZON SOCIAL -->
         
         <div class="input-group mb-3">
@@ -83,15 +64,15 @@ SECCION PARA AGREGAR NUEVO PROVEEDOR
 
           <div class="form-floating">
 
-            <input type="text" class="form-control shadow-sm" id="nuevoRazonSocial" placeholder="Nombre completo">
+            <input type="text" class="form-control shadow-sm" id="nuevoRazonSocialProveedor" placeholder="Nombre completo" required>
             
-            <label for="nuevoRazonSocial">Razón social de la empresa (opcional)</label>
+            <label for="nuevoRazonSocialProveedor">Razón social de la empresa</label>
 
           </div>
 
         </div>
 
-        <!-- IDENTIFICACION y TELEFONO -->
+        <!-- RIF y TELEFONO -->
 
         <div class="d-flex gap-3">
 
@@ -101,7 +82,7 @@ SECCION PARA AGREGAR NUEVO PROVEEDOR
 
             <div class="form-floating" style="max-width: 4rem;">
 
-              <select class="form-select shadow-sm selectMostrarTipoIdentificacion" id="nuevoTipoIdentificacion" name="nuevoTipoIdentificacion" required>
+              <select class="form-select shadow-sm selectMostrarTipoRif" id="nuevoTipoRif" name="nuevoTipoRif" required>
 
                 <option default value="V">V</option>
                 <option  value="P">P</option>
@@ -112,15 +93,15 @@ SECCION PARA AGREGAR NUEVO PROVEEDOR
 
               </select>
 
-              <label for="nuevoTipoIdentificacion">Tipo</label>
+              <label for="nuevoTipoRif">Tipo</label>
 
             </div>
 
             <div class="form-floating">
 
-              <input type="text" class="form-control shadow-sm validarProveedor" id="nuevoIdentificacion" placeholder="Cédula o RIF" inputmode="numeric" required>
+              <input type="text" class="form-control shadow-sm validarProveedor" id="nuevoRif" placeholder="RIF" inputmode="numeric" required>
               
-              <label for="nuevoIdentificacion">Cédula o RIF</label>
+              <label for="nuevoRif">RIF</label>
 
             </div>
 
@@ -132,15 +113,15 @@ SECCION PARA AGREGAR NUEVO PROVEEDOR
 
             <div class="input-group-text" style="max-width: 8rem;">
             
-              <input type="tel" class="form-control shadow-sm codigo-pais h-100" id="nuevoCodigoPais" value="+58" required>
+              <input type="tel" class="form-control shadow-sm codigo-pais h-100" id="nuevoCodigoPaisProveedor" value="+58" required>
 
             </div>
 
             <div class="form-floating">
 
-              <input type="text" class="form-control shadow-sm" id="nuevoTelefono" placeholder="Teléfono e.g: 4241234567" inputmode="numeric" required>
+              <input type="text" class="form-control shadow-sm" id="nuevoTelefonoProveedor" placeholder="Teléfono e.g: 4241234567" inputmode="numeric" required>
               
-              <label for="nuevoTelefono">Teléfono e.g: 4241234567</label>
+              <label for="nuevoTelefonoProveedor">Teléfono e.g: 4241234567</label>
 
             </div>
 
@@ -158,9 +139,9 @@ SECCION PARA AGREGAR NUEVO PROVEEDOR
 
             <div class="form-floating">
 
-              <input type="email" class="form-control shadow-sm" id="nuevoCorreo" placeholder="Correo electrónico" required>
+              <input type="email" class="form-control shadow-sm" id="nuevoCorreoProveedor" placeholder="Correo electrónico" required>
               
-              <label for="nuevoCorreo">Correo electrónico</label>
+              <label for="nuevoCorreoProveedor">Correo electrónico</label>
 
             </div>
 
@@ -177,9 +158,9 @@ SECCION PARA AGREGAR NUEVO PROVEEDOR
 
             <div class="form-floating">
 
-              <textarea type="text" class="form-control shadow-sm" id="nuevoDireccion" placeholder="Dirección"></textarea>
+              <textarea type="text" class="form-control shadow-sm" id="nuevoDireccionProveedor" placeholder="Dirección"></textarea>
               
-              <label for="nuevoCorreo">Dirección</label>
+              <label for="nuevoDireccionProveedor">Dirección</label>
 
             </div>
 
@@ -220,13 +201,12 @@ SECCION PARA AGREGAR NUEVO PROVEEDOR
 
       <div class="table-responsive p-2 rounded shadow-lg">
 
-        <table class="table table-sm table-bordered table-striped table-light table-hover align-middle" id="tablaProveedor" width="100%">         
+        <table class="table table-sm table-bordered table-striped table-light table-hover align-middle" id="tablaProveedores" width="100%">         
 
           <thead>         
 
             <tr class="table-dark">           
 
-              <th>Nombres</th>
               <th>Razon Social</th>
               <th>Tipo</th>
               <th>Ci/RIF</th>
@@ -274,7 +254,7 @@ SECCION PARA AGREGAR NUEVO PROVEEDOR
 
         <div class="modal-body">
 
-          <!-- NOMBRES -->
+          <!-- RAZON SOCIAL -->
 
           <div class="input-group mb-3">
             
@@ -282,53 +262,98 @@ SECCION PARA AGREGAR NUEVO PROVEEDOR
 
             <div class="form-floating">
 
-              <input type="text" class="form-control shadow-sm" id="editarNombresProveedor" placeholder="Nombre del proveedor" required>
+              <input type="text" class="form-control shadow-sm" id="editarRazonSocialProveedor" placeholder="Razón social" required>
               
-              <label for="editarNombresProveedor">Nombre del proveedor</label>
+              <label for="editarRazonSocialProveedor">Razón social</label>
 
             </div>
 
           </div>
 
-          <!-- APELLIDOS -->
+          <!-- RIF -->
 
           <div class="input-group mb-3">
+            
+            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-id-card"></i></span>
 
-            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-address-card"></i></span>
+            <div class="form-floating" style="max-width: 4rem;">
 
-            <input type="text" name="editarApellidos" id="editarApellidos" class="form-control shadow-sm" required>
+              <select class="form-select shadow-sm selectMostrarTipoRif" id="editarTipoRif" name="editarTipoRif" required>
+
+                <option default value="V">V</option>
+                <option  value="P">P</option>
+                <option  value="E">E</option>
+                <option  value="J">J</option>
+                <option  value="G">G</option>
+                <option  value="C">C</option>
+
+              </select>
+
+              <label for="editarTipoRif">Tipo</label>
+
+            </div>
+
+            <div class="form-floating">
+
+              <input type="text" class="form-control shadow-sm validarProveedor" id="editarRif" placeholder="Cédula o RIF" inputmode="numeric" required>
+              
+              <label for="editarRif">Cédula o RIF</label>
+
+            </div>
 
           </div>
 
-          <!-- CARGO -->
+          <!-- TELEFONO -->
 
           <div class="input-group mb-3">
+            
+            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-mobile-screen"></i></span>
 
-            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-briefcase"></i></span>
+            <div class="input-group-text">
+            
+              <input type="tel" class="form-control shadow-sm codigo-pais h-100" id="editarCodigoPaisProveedor" value="+58" style="max-width: 12rem;" required>
 
-            <select class="form-select shadow-sm selectMostrarRoles" id="editarRoles" name="editarRoles" required></select>
+            </div>
+
+            <div class="form-floating">
+
+              <input type="text" class="form-control shadow-sm" id="editarTelefonoProveedor" placeholder="Teléfono e.g: 4241234567" inputmode="numeric" required>
+              
+              <label for="editarTelefonoProveedor">Teléfono e.g: 4241234567</label>
+
+            </div>
 
           </div>
 
-          <!-- NOMBRE DE USUARIO -->
+          <!-- CORREO -->
 
           <div class="input-group mb-3">
-
+            
             <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-at"></i></span>
 
-            <input type="text" name="editarUsername" id="editarUsername" class="form-control shadow-sm validarUsuario" required>
+            <div class="form-floating">
+
+              <input type="email" class="form-control shadow-sm" id="editarCorreoProveedor" placeholder="Correo electrónico" required>
+              
+              <label for="editarCorreoProveedor">Correo electrónico</label>
+
+            </div>
 
           </div>
 
-          <!-- PASSWORD -->
+          <!-- DIRECCION -->
 
           <div class="input-group mb-3">
+            
+            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-map-location"></i></span>
 
-            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-lock"></i></span>
+            <div class="form-floating">
 
-            <input type="text" name="editarPassword" id="editarPassword" placeholder="Nueva Contraseña" class="form-control shadow-sm">
+              <textarea type="text" class="form-control shadow-sm" id="editarDireccionProveedor" placeholder="Dirección"></textarea>
+              
+              <label for="editarDireccionProveedor">Dirección</label>
 
-            <input type="hidden" name="passwordActual" id="passwordActual">
+            </div>
 
           </div>
 

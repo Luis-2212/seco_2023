@@ -1,5 +1,5 @@
 <?php
-require_once "../controladores/Proveedores.controlador.php";
+require_once "../controladores/proveedores.controlador.php";
 
 // Configurar cabeceras para respuestas JSON
 header('Content-Type: application/json; charset=utf-8');
@@ -28,10 +28,10 @@ switch ($metodo) {
             $valor = $_GET["id"];
         }
         
-        if(isset($_GET["identificacion"])) {
+        if(isset($_GET["rif"])) {
             
-            $item = "identificacion";
-            $valor = $_GET["identificacion"];
+            $item = "rif";
+            $valor = $_GET["rif"];
         }
 
         $respuesta = ControladorProveedores::ctrMostrarProveedores($item, $valor);
@@ -44,7 +44,7 @@ switch ($metodo) {
     ==========================================*/
     case 'POST':
         try {
-            $camposRequeridos = ['nombres', 'tipo_identificacion', 'identificacion', 'codigo_pais', 'telefono', 'correo'];
+            $camposRequeridos = ['razon_social', 'tipo_rif', 'rif', 'codigo_pais', 'telefono', 'correo', 'direccion'];
             foreach ($camposRequeridos as $campo) {
                 if (empty($entrada[$campo])) {
                     echo json_encode([
