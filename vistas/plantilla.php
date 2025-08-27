@@ -139,8 +139,8 @@ CUERPO DOCUMENTO
   <script src="public/js/usuarios.js"></script>
   <script src="public/js/roles.js"></script>
   <!--   GESTIÓN GENERAL   -->
-  <script src="public/js/proveedores.js"></script>
   <script src="public/js/clientes.js"></script>
+  <script src="public/js/proveedores.js"></script>
 
 </body>
 

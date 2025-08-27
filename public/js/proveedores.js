@@ -1,7 +1,7 @@
 /*=============================================
   INICIALIZAR EL PLUGIN DE TELÉFONO
 =============================================*/
-const currentPath = window.location.pathname;
+var currentPath = window.location.pathname;
 
 if (currentPath.endsWith("/proveedores")) {
   $("input[type=tel]").each(function () {
