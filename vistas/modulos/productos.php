@@ -20,7 +20,7 @@
 
       <li class="breadcrumb-item"><a href="inicio">Inicio</a></li>
 
-      <li class="breadcrumb-item active" aria-current="page">PRODUCTOS</li>
+      <li class="breadcrumb-item active" aria-current="page">Productos</li>
 
     </ol>
 
@@ -227,14 +227,15 @@
 
             <tr class="table-dark">           
 
-              <th>Nombres</th>
-              <th>Razon Social</th>
-              <th>Tipo</th>
-              <th>Ci/RIF</th>
-              <th>Dirección</th>
-              <th>Cod.</th>
-              <th>Teléfono</th>
-              <th>Email</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Categoría</th>
+              <th>Marca</th>
+              <th>Medida</th>
+              <th>Stock</th>
+              <th>Precio Compra</th>
+              <th>Precio Venta</th>
+              <th>Estado</th>
               <th>Fecha creación</th>
               <th>Fecha Actualización</th>
               <th>Acciones</th>

@@ -11,12 +11,50 @@ class ModeloProductos {
         try {
             if ($item != null) {
                 // Obtener un Productos específico
-                $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :valor");
+                $stmt = Conexion::conectar()->prepare(
+                                                "SELECT 
+                                                    p.id,
+                                                    c.nombre_categoria,
+                                                    m.nombre_marca,
+                                                    p.nombre,
+                                                    p.descripcion,
+                                                    p.unidad_medida,
+                                                    p.stock,
+                                                    p.precio_compra,
+                                                    p.precio_venta,
+                                                    p.estado,
+                                                    p.fecha_creacion,
+                                                    p.fecha_actualizacion
+                                                FROM $tabla as p
+                                                LEFT JOIN categorias as c
+                                                ON c.id = p.id_categoria
+                                                LEFT JOIN marcas as m
+                                                ON m.id = p.id_marca
+                                                WHERE p.$item = :valor");
                 $stmt->bindParam(":valor", $valor, PDO::PARAM_STR);
 
             } else {
                 // Obtener todos los Productos
-                $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY nombres ASC");
+                $stmt = Conexion::conectar()->prepare(
+                                                "SELECT 
+                                                    p.id,
+                                                    c.nombre_categoria,
+                                                    m.nombre_marca,
+                                                    p.nombre,
+                                                    p.descripcion,
+                                                    p.unidad_medida,
+                                                    p.stock,
+                                                    p.precio_compra,
+                                                    p.precio_venta,
+                                                    p.estado,
+                                                    p.fecha_creacion,
+                                                    p.fecha_actualizacion
+                                                FROM $tabla as p
+                                                LEFT JOIN categorias as c
+                                                ON c.id = p.id_categoria
+                                                LEFT JOIN marcas as m
+                                                ON m.id = p.id_marca
+                                                ORDER BY p.nombre ASC");
             }
 
             $stmt->execute();

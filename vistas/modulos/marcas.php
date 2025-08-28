@@ -36,7 +36,7 @@
 
     <hr class="border border-2 border-warning mt-0">
 
-    <h3 class="text-warning fw-bold">Marcas</h3>
+    <h3 class="text-warning fw-bold">MARCAS</h3>
 
   </section>
 
