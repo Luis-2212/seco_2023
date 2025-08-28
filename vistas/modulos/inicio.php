@@ -14,6 +14,11 @@
 
     <div class="row py-3 px-auto g-3">
 
+      <a href="clientes" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
+        <div class="card-header text-center"><i class="fa-solid fa-users iconos"></i></div>
+        <div class="card-body fw-semibold text-center">Clientes</div>
+      </a>
+      
       <?php if ($_SESSION["rol"] === 1): ?>
         
         <a href="usuarios" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
@@ -26,18 +31,18 @@
           <div class="card-body fw-semibold text-center">Proveedores</div>
         </a>
         
+        <a href="marcas" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
+          <div class="card-header text-center"><i class="fa-brands fa-font-awesome iconos"></i></div>
+          <div class="card-body fw-semibold text-center">Marcas</div>
+        </a>
+        
         <a href="categorias" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
-          <div class="card-header text-center"><i class="fa-solid fa-truck iconos"></i></div>
+          <div class="card-header text-center"><i class="fa-solid fa-tags iconos"></i></div>
           <div class="card-body fw-semibold text-center">Categorias</div>
         </a>
         
       <?php endif; ?>
 
-      <a href="clientes" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
-        <div class="card-header text-center"><i class="fa-solid fa-users iconos"></i></div>
-        <div class="card-body fw-semibold text-center">Clientes</div>
-      </a>
-      
     </div>
 
   </section>

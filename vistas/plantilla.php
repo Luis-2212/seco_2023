@@ -72,6 +72,7 @@ CUERPO DOCUMENTO
         $_GET["ruta"] == "clientes"     ||   
         $_GET["ruta"] == "proveedores"  ||                  
         $_GET["ruta"] == "categorias"   ||                  
+        $_GET["ruta"] == "marcas"       ||                  
         $_GET["ruta"] == "productos"    ||                  
         $_GET["ruta"] == "inicio"
       ) {
@@ -144,6 +145,7 @@ CUERPO DOCUMENTO
   <script src="public/js/clientes.js"></script>
   <script src="public/js/proveedores.js"></script>
   <script src="public/js/categorias.js"></script>
+  <script src="public/js/marcas.js"></script>
   <script src="public/js/productos.js"></script>
 
 </body>

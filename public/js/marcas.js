@@ -1,8 +1,8 @@
 /*=============================================
-OBTENER Categorias
+OBTENER MARCAS
 =============================================*/
 
-var tablaCategorias = $("#tablaCategorias").DataTable({
+var tablaMarcas = $("#tablaMarcas").DataTable({
   language: {
     sProcessing: "Procesando...",
     sLengthMenu: "Mostrar _MENU_ registros",
@@ -20,14 +20,13 @@ var tablaCategorias = $("#tablaCategorias").DataTable({
     },
   },
   ajax: {
-    url: "http/categorias.endpoint.php",
+    url: "http/marcas.endpoint.php",
     type: "GET",
     dataType: "json",
     dataSrc: "data",
   },
   columns: [
-    { data: "nombre_categoria" },
-    { data: "descripcion" },
+    { data: "nombre_marca" },
     {
       data: "fecha_creacion",
       render: function (data) {
@@ -51,9 +50,9 @@ var tablaCategorias = $("#tablaCategorias").DataTable({
     {
       data: "id", // Usamos el ID del registro para los botones
       render: function (data, type, row) {
-        const botonEditar = `<button class="btn btn-warning btn-sm" id="btnModalEditarCategoria" data-bs-toggle="modal" data-bs-target="#modalEditarCategoria" data-id="${data}"><i class="fa-solid fa-pen-to-square"></i></button>`;
+        const botonEditar = `<button class="btn btn-warning btn-sm" id="btnModalEditarMarca" data-bs-toggle="modal" data-bs-target="#modalEditarMarca" data-id="${data}"><i class="fa-solid fa-pen-to-square"></i></button>`;
 
-        const botonEliminar = `<button class="btn btn-danger btn-sm" id="btnEliminarCategoria" data-id="${data}"><i class="fa-solid fa-trash-can"></i></button>`;
+        const botonEliminar = `<button class="btn btn-danger btn-sm" id="btnEliminarMarca" data-id="${data}"><i class="fa-solid fa-trash-can"></i></button>`;
 
         return `${botonEditar} ${botonEliminar}`;
       },
@@ -64,13 +63,13 @@ var tablaCategorias = $("#tablaCategorias").DataTable({
 });
 
 /*=============================================
-CREAR Categoria
+CREAR MARCA
 =============================================*/
 
-$("#formCrearCategoria input[required]").on("input", function () {
+$("#formCrearMarca input[required]").on("input", function () {
   let allFilled = true;
 
-  $("#formCrearCategoria input[required]").each(function () {
+  $("#formCrearMarca input[required]").each(function () {
     if ($(this).val().trim() === "") {
       allFilled = false;
       return false; // Salir del bucle each
@@ -78,35 +77,33 @@ $("#formCrearCategoria input[required]").on("input", function () {
   });
 
   if (allFilled) {
-    $("#btnRegistrarCategoria").removeAttr("disabled");
+    $("#btnRegistrarMarca").removeAttr("disabled");
   } else {
-    $("#btnRegistrarCategoria").attr("disabled", "disabled");
+    $("#btnRegistrarMarca").attr("disabled", "disabled");
   }
 });
 
-$("#formCrearCategoria").on("submit", function (e) {
+$("#formCrearMarca").on("submit", function (e) {
   e.preventDefault();
 
-  const nombre_categoria = $("#nuevoNombreCategoria").val().trim();
-  const descripcion = $("#nuevaDescripcionCategoria").val().trim();
+  const nombre_marca = $("#nuevoNombreMarca").val().trim();
 
-  if (nombre_categoria == "" || descripcion == "") {
+  if (nombre_marca == "") {
     $(".alerta").removeClass("d-none");
     $(".alerta").html("Por favor, completa todos los campos.");
     return;
   }
 
   const data = {
-    nombre_categoria: nombre_categoria,
-    descripcion: descripcion,
+    nombre_marca: nombre_marca,
   };
 
-  registrarCategoria(JSON.stringify(data));
+  registrarMarca(JSON.stringify(data));
 });
 
-function registrarCategoria(datos) {
+function registrarMarca(datos) {
   $.ajax({
-    url: "http/categorias.endpoint.php",
+    url: "http/marcas.endpoint.php",
     method: "POST",
     data: datos,
     dataType: "json",
@@ -122,7 +119,7 @@ function registrarCategoria(datos) {
           showConfirmButton: false,
           timer: 1500,
         });
-        tablaCategorias.ajax.reload(null, true);
+        tablaMarcas.ajax.reload(null, true);
       } else {
         // Mensaje de registro si ocurre un error
         Swal.fire({
@@ -131,7 +128,7 @@ function registrarCategoria(datos) {
           icon: "error",
           contentType: "application/json",
         });
-        tablaCategorias.ajax.reload(null, true);
+        tablaMarcas.ajax.reload(null, true);
       }
     },
     error: function (jqXHR) {
@@ -142,61 +139,58 @@ function registrarCategoria(datos) {
           text: errorResponse.message,
           icon: "error",
         });
-        tablaCategorias.ajax.reload(null, true);
+        tablaMarcas.ajax.reload(null, true);
       }
     },
   });
 }
 
 /*=============================================
-OBTENER DATO DEL Categoria A EDITAR
+OBTENER DATO DEL MARCA A EDITAR
 =============================================*/
-tablaCategorias.on("click", "#btnModalEditarCategoria", function () {
-  let idCategoria = $(this).attr("data-id");
+tablaMarcas.on("click", "#btnModalEditarMarca", function () {
+  let idMarca = $(this).attr("data-id");
 
   $.ajax({
-    url: `http/categorias.endpoint.php?id=${idCategoria}`,
+    url: `http/marcas.endpoint.php?id=${idMarca}`,
     method: "GET",
     cache: false,
     processData: false,
     dataType: "json",
     success: function (respuesta) {
-      $("#editarCategoria").html(`${respuesta.data["nombre_categoria"]}`);
-      $("#btnEditarCategoria").attr("data-id", `${respuesta.data["id"]}`);
-      $("#editarNombreCategoria").val(respuesta.data["nombre_categoria"]);
-      $("#editarDescripcionCategoria").val(respuesta.data["descripcion"]);
+      $("#editarMarca").html(`${respuesta.data["nombre_marca"]}`);
+      $("#btnEditarMarca").attr("data-id", `${respuesta.data["id"]}`);
+      $("#editarNombreMarca").val(respuesta.data["nombre_marca"]);
     },
   });
 });
 
 /*=============================================
-EDITAR Categoria
+EDITAR MARCA
 =============================================*/
 
-$("#formEditarCategoria").on("submit", function (e) {
+$("#formEditarMarca").on("submit", function (e) {
   e.preventDefault();
 
-  const idCategoria = $("#btnEditarCategoria").attr("data-id");
-  const nombre_categoria = $("#editarNombreCategoria").val();
-  const descripcion = $("#editarDescripcionCategoria").val().trim();
+  const idMarca = $("#btnEditarMarca").attr("data-id");
+  const nombre_marca = $("#editarNombreMarca").val();
 
-  if (nombre_categoria == "") {
-    alert("El nombre de la categoria no puede quedar vacio");
+  if (nombre_marca == "") {
+    alert("El nombre de la Marca no puede quedar vacio");
     return;
   }
 
   const data = {
-    id: idCategoria,
-    nombre_categoria: nombre_categoria,
-    descripcion: descripcion,
+    id: idMarca,
+    nombre_marca: nombre_marca,
   };
 
-  editarCategoria(JSON.stringify(data));
+  editarMarca(JSON.stringify(data));
 });
 
-function editarCategoria(datos) {
+function editarMarca(datos) {
   $.ajax({
-    url: `http/categorias.endpoint.php`,
+    url: `http/marcas.endpoint.php`,
     method: "PUT",
     data: datos,
     cache: false,
@@ -212,15 +206,15 @@ function editarCategoria(datos) {
           showConfirmButton: false,
           timer: 1500,
         });
-        tablaCategorias.ajax.reload(null, true);
-        $("#modalEditarCategoria").modal("hide");
+        tablaMarcas.ajax.reload(null, true);
+        $("#modalEditarMarca").modal("hide");
       } else {
         Swal.fire({
           title: "Error al actualizar",
           icon: "error",
         });
-        tablaCategorias.ajax.reload(null, true);
-        $("#modalEditarCategoria").modal("hide");
+        tablaMarcas.ajax.reload(null, true);
+        $("#modalEditarMarca").modal("hide");
       }
     },
     error: function (jqXHR) {
@@ -231,24 +225,24 @@ function editarCategoria(datos) {
           text: errorResponse.message,
           icon: "error",
         });
-        tablaCategorias.ajax.reload(null, true);
-        $("#modalEditarCategoria").modal("hide");
+        tablaMarcas.ajax.reload(null, true);
+        $("#modalEditarMarca").modal("hide");
       }
     },
   });
 }
 
 /*=============================================
-REVISAR SI EL Categoria YA ESTÁ REGISTRADO
+REVISAR SI EL MARCA YA ESTÁ REGISTRADO
 =============================================*/
 
-$(".validarCategoria").on("input", function () {
+$(".validarMarca").on("input", function () {
   $(".alerta").addClass("d-none");
 
-  var nombre_categoria = $(this).val();
+  var nombre_marca = $(this).val();
 
   $.ajax({
-    url: `http/categorias.endpoint.php?nombre_categoria=${nombre_categoria}`,
+    url: `http/marcas.endpoint.php?nombre_marca=${nombre_marca}`,
     method: "GET",
     cache: false,
     processData: false,
@@ -257,7 +251,7 @@ $(".validarCategoria").on("input", function () {
       if (respuesta.success == true) {
         $(".alerta").removeClass("d-none");
         $(".alerta").html(
-          "<i class='fa-solid fa-triangle-exclamation'></i> Ya existe esta categoria"
+          "<i class='fa-solid fa-triangle-exclamation'></i> Ya existe esta Marca"
         );
       } else {
         $(".alerta").addClass("d-none");
@@ -267,28 +261,28 @@ $(".validarCategoria").on("input", function () {
 });
 
 /*=============================================
-ELIMINAR Categoria
+ELIMINAR MARCA
 =============================================*/
-tablaCategorias.on("click", "#btnEliminarCategoria", function () {
-  let idCategoria = $(this).attr("data-id");
+tablaMarcas.on("click", "#btnEliminarMarca", function () {
+  let idMarca = $(this).attr("data-id");
 
   Swal.fire({
     icon: "warning",
     title: "Advertencia",
-    text: "¿Seguro que desea eliminar este Categoria?. No podrá deshacer esta acción",
+    text: "¿Seguro que desea eliminar este Marca?. No podrá deshacer esta acción",
     showCancelButton: true,
     confirmButtonText: "Si, borrar",
     confirmButtonColor: "#D13415",
   }).then((result) => {
     if (result.isConfirmed) {
-      eliminarCategoria(idCategoria);
+      eliminarMarca(idMarca);
     }
   });
 });
 
-function eliminarCategoria(id) {
+function eliminarMarca(id) {
   $.ajax({
-    url: `http/categorias.endpoint.php?id=${id}`,
+    url: `http/marcas.endpoint.php?id=${id}`,
     method: "DELETE",
     cache: false,
     processData: false,
@@ -303,7 +297,7 @@ function eliminarCategoria(id) {
           showConfirmButton: false,
           timer: 1500,
         });
-        tablaCategorias.ajax.reload(null, true);
+        tablaMarcas.ajax.reload(null, true);
       }
     },
     error: function (respuesta) {
@@ -311,8 +305,8 @@ function eliminarCategoria(id) {
         title: "Error al eliminar",
         icon: "error",
       });
-      tablaCategorias.ajax.reload(null, true);
-      $("#modalEditarCategoria").modal("hide");
+      tablaMarcas.ajax.reload(null, true);
+      $("#modalEditarMarca").modal("hide");
     },
   });
 }

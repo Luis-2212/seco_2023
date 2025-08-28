@@ -176,44 +176,44 @@
 
         <div class="modal-body">
 
-        <!-- NOMBRES DE LA CATEGORIA -->
-        <div class="d-flex gap-3">
+          <!-- NOMBRES DE LA CATEGORIA -->
+          <div class="d-flex gap-3">
 
-          <div class="input-group mb-3">
-            
-            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-table-list"></i></span>
-
-            <div class="form-floating">
-
-              <input type="text" class="form-control shadow-sm" id="editarNombreCategoria" placeholder="Nombre de la Categoría" required>
+            <div class="input-group mb-3">
               
-              <label for="editarNombreCategoria">Nombre de la Categoría</label>
+              <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-table-list"></i></span>
+
+              <div class="form-floating">
+
+                <input type="text" class="form-control shadow-sm" id="editarNombreCategoria" placeholder="Nombre de la Categoría" required>
+                
+                <label for="editarNombreCategoria">Nombre de la Categoría</label>
+
+              </div>
 
             </div>
 
           </div>
+          
+          <!-- DESCRIPCIÓN -->
 
-        </div>
-        
-        <!-- DESCRIPCIÓN -->
+          <div class="d-flex gap-3">
 
-        <div class="d-flex gap-3">
-
-          <div class="input-group mb-3">
-            
-            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-align-justify"></i></span>
-
-            <div class="form-floating">
-
-              <textarea type="text" class="form-control shadow-sm" id="editarDescripcionCategoria" maxLength="256" placeholder="Dirección"></textarea>
+            <div class="input-group mb-3">
               
-              <label for="editarDescripcionCategoria">Descripción</label>
+              <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-align-justify"></i></span>
+
+              <div class="form-floating">
+
+                <textarea type="text" class="form-control shadow-sm" id="editarDescripcionCategoria" maxLength="256" placeholder="Dirección"></textarea>
+                
+                <label for="editarDescripcionCategoria">Descripción</label>
+
+              </div>
 
             </div>
 
           </div>
-
-        </div>
         
         </div>
           
@@ -230,10 +230,6 @@
         </div>
 
       </form>
-
-      <?php
-
-      ?>
 
     </div>
 
