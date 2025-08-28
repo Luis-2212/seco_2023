@@ -21,10 +21,14 @@
           <div class="card-body fw-semibold text-center">Usuarios</div>
         </a>
         
-        
         <a href="proveedores" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
           <div class="card-header text-center"><i class="fa-solid fa-truck iconos"></i></div>
           <div class="card-body fw-semibold text-center">Proveedores</div>
+        </a>
+        
+        <a href="categorias" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
+          <div class="card-header text-center"><i class="fa-solid fa-truck iconos"></i></div>
+          <div class="card-body fw-semibold text-center">Categorias</div>
         </a>
         
       <?php endif; ?>
