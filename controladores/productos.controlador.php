@@ -35,31 +35,54 @@ class ControladorProductos {
     }
 
     /*=============================================
+    CONSULTAR PRODUCTOS (GET)
+    =============================================*/
+    static public function ctrConsultarProductos($valor = null) {
+        try {
+            include "../modelos/productos.modelo.php";
+            $respuesta = ModeloProductos::mdlConsultarProductos("productos", $valor);
+            
+            if (!$respuesta) {
+                return [
+                    "status" => 404,
+                    "success" => false,
+                    "message" => "Producto no encontrado."
+                ];
+            }
+
+            return [
+                "status" => 200,
+                "success" => true,
+                "data" => $respuesta
+            ];
+            
+        } catch (Exception $e) {
+            error_log("Error en ctrConsultarProductos: " . $e->getMessage());
+            return [
+                "status" => 500,
+                "success" => false,
+                "message" => "Ocurrió un error al procesar la solicitud."
+            ];
+        }
+    }
+
+    /*=============================================
     CREAR Producto (POST)
     =============================================*/
     static public function ctrCrearProducto($datos) {
         include "../modelos/productos.modelo.php";
         try {
 
-			// Verificar si el nombre de Producto ya existe
-            $productoExistente = ModeloProductos::mdlMostrarProductos("productos", "identificacion", $datos['identificacion']);
-            if ($productoExistente) {
-                return [
-                    "status" => 409,
-                    "success" => false,
-                    "message" => "Ya existe un producto con esta CI o RIF"
-                ];
-            }
-
             $datosProducto = [
-                'nombres' => $datos['nombres'],
-                'razon_social' => $datos['razon_social'],
-                'tipo_identificacion' => $datos['tipo_identificacion'],
-                'identificacion' => $datos['identificacion'],
-                'direccion' => $datos['direccion'],
-                'codigo_pais' => $datos['codigo_pais'],
-                'telefono' => $datos['telefono'],
-                'correo' => $datos['correo']
+                'nombre' => $datos['nombre'],
+                'id_categoria' => $datos['id_categoria'],
+                'id_marca' => $datos['id_marca'],
+                'descripcion' => $datos['descripcion'],
+                'unidad_medida' => $datos['unidad_medida'],
+                'stock' => $datos['stock'],
+                'precio_compra' => $datos['precio_compra'],
+                'precio_venta' => $datos['precio_venta'],
+                'estado' => $datos['estado']
             ];
 
             $respuesta = ModeloProductos::mdlCrearProducto("productos", $datosProducto);
@@ -144,7 +167,7 @@ class ControladorProductos {
         try {
             include "../modelos/productos.modelo.php";
             
-            $productoExistente = ModeloProductos::mdlMostrarProductos("productos", "id", $id);
+            $productosExistente = ModeloProductos::mdlMostrarProductos("productos", "id", $id);
             if (!$productosExistente) {
                 return [
                     "status" => 404,

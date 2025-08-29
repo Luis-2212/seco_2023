@@ -44,7 +44,7 @@ switch ($metodo) {
     ==========================================*/
     case 'POST':
         try {
-            $camposRequeridos = ['nombre', 'id_categoria', 'id_marca', 'nombre', 'descripcion', 'unidad_medida', 'stock', 'precio_compra', 'precio_venta', 'estado'];
+            $camposRequeridos = ['nombre', 'id_categoria', 'id_marca', 'nombre', 'descripcion', 'unidad_medida', 'precio_compra', 'precio_venta', 'estado'];
             foreach ($camposRequeridos as $campo) {
                 if (empty($entrada[$campo])) {
                     echo json_encode([
@@ -66,7 +66,8 @@ switch ($metodo) {
         
         break;
 
-    /*=====Productos (PUT)
+    /*========================================
+    ACTUALIZAR Productos (PUT)
     ==========================================*/
     case 'PUT':
         $respuesta = ControladorProductos::ctrEditarProducto($entrada);

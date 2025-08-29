@@ -3,6 +3,7 @@ var currentPath = window.location.pathname;
 if (currentPath.endsWith("/productos")) {
   $(document).ready(function () {
     obtenerCategoriasProductos();
+    obtenerMarcasProductos();
   });
 }
 
@@ -15,15 +16,59 @@ function obtenerCategoriasProductos() {
     url: "http/categorias.endpoint.php",
     type: "GET",
     dataType: "json",
-    success: function (data) {
-      if (data.success) {
-        var select = $("#nuevoIdCategoria");
-        select.empty();
-        select.append('<option value="">Seleccionar Categoría</option>');
-        $.each(data.data, function (index, categoria) {
-          select.append(
-            `<option value="${categoria.id}">${categoria.nombre}</option>`
-          );
+    success: function (respuesta) {
+      if (respuesta.success === true) {
+        let mostrarCategorias =
+          "<option value='' selected>Seleccionar Categoría</option>";
+
+        $(".selectMostrarCategorias").empty();
+
+        respuesta.data.forEach((categoria) => {
+          mostrarCategorias += `
+            <option value="${categoria.id}">${categoria.nombre_categoria}</option>
+          `;
+        });
+
+        $(".selectMostrarCategorias").append(mostrarCategorias);
+      } else {
+        swal.fire({
+          title: "Error al registrar",
+          icon: "error",
+          draggable: true,
+        });
+      }
+    },
+  });
+}
+
+/*=============================================
+  OBTENER MARCAS 
+=============================================*/
+
+function obtenerMarcasProductos() {
+  $.ajax({
+    url: "http/marcas.endpoint.php",
+    type: "GET",
+    dataType: "json",
+    success: function (respuesta) {
+      if (respuesta.success === true) {
+        let mostrarMarcas =
+          "<option value='' selected>Seleccionar Marca</option>";
+
+        $(".selectMostrarMarcas").empty();
+
+        respuesta.data.forEach((marca) => {
+          mostrarMarcas += `
+            <option value="${marca.id}">${marca.nombre_marca}</option>
+          `;
+        });
+
+        $(".selectMostrarMarcas").append(mostrarMarcas);
+      } else {
+        swal.fire({
+          title: "Error al registrar",
+          icon: "error",
+          draggable: true,
         });
       }
     },
@@ -33,30 +78,126 @@ function obtenerCategoriasProductos() {
 /*=============================================
   CREAR CATEGORÍAS 
 =============================================*/
+
 $("#formCrearCategoriaProducto").on("submit", function (e) {
   e.preventDefault();
 
-  const nombreCategoria = $("#nuevoNombreCategoriaProducto").val().trim();
-  const descripcion = $("#nuevoDescripcionCategoriaProducto").val();
+  const categoria = $("#nuevoCategoriaProducto").val().trim();
+  const descripcion = $("#nuevaDescripcionProducto").val().trim();
 
+  const data = {
+    nombre_categoria: categoria,
+    descripcion: descripcion,
+  };
+
+  registrarCategoriasProductos(JSON.stringify(data));
+});
+
+function registrarCategoriasProductos(datos) {
   $.ajax({
     url: "http/categorias.endpoint.php",
-    type: "POST",
+    method: "POST",
+    data: datos,
     dataType: "json",
-    data: {
-      nombre: nombreCategoria,
-      descripcion: descripcion,
-    },
-    success: function (data) {
-      if (data.success) {
-        // Reiniciar el formulario
-        $("#formCrearCategoriaProducto")[0].reset();
-        // Volver a cargar las categorías
+    cache: false,
+    contentType: "Application/json",
+    success: function (respuesta) {
+      if (respuesta.success === true) {
+        // Mensaje de registro exitoso
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Registrado con exito",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        $("#modalAgregarCategoria").modal("hide");
+        obtenerCategoriasProductos();
+      } else {
+        // Mensaje de registro si ocurre un error
+        Swal.fire({
+          title: "Error al registrar categoría",
+          icon: "error",
+        });
+        $("#modalAgregarCategoria").modal("hide");
         obtenerCategoriasProductos();
       }
     },
+    error: function (jqXHR) {
+      if (jqXHR.status) {
+        const errorResponse = jqXHR.responseJSON;
+        Swal.fire({
+          title: "Error al Registrar",
+          text: errorResponse.message,
+          icon: "error",
+        });
+        tablaProductos.ajax.reload(null, true);
+      }
+      $("#modalAgregarCategoria").modal("hide");
+    },
   });
+}
+
+/*=============================================
+  CREAR MARCA
+=============================================*/
+
+$("#formCrearMarcaProducto").on("submit", function (e) {
+  e.preventDefault();
+
+  const marca = $("#nuevoMarcaProducto").val().trim();
+
+  const data = {
+    nombre_marca: marca,
+  };
+
+  registrarMarcasProductos(JSON.stringify(data));
 });
+
+function registrarMarcasProductos(datos) {
+  $.ajax({
+    url: "http/marcas.endpoint.php",
+    method: "POST",
+    data: datos,
+    dataType: "json",
+    cache: false,
+    contentType: "Application/json",
+    success: function (respuesta) {
+      if (respuesta.success === true) {
+        // Mensaje de registro exitoso
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Registrado con exito",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        $("#modalAgregarMarca").modal("hide");
+        obtenerMarcasProductos();
+      } else {
+        // Mensaje de registro si ocurre un error
+        Swal.fire({
+          title: "Error al registrar categoría",
+          icon: "error",
+        });
+        $("#modalAgregarMarca").modal("hide");
+        obtenerMarcasProductos();
+      }
+    },
+    error: function (jqXHR) {
+      if (jqXHR.status) {
+        const errorResponse = jqXHR.responseJSON;
+        Swal.fire({
+          title: "Error al Registrar",
+          text: errorResponse.message,
+          icon: "error",
+        });
+        tablaProductos.ajax.reload(null, true);
+      }
+      $("#modalAgregarMarca").modal("hide");
+    },
+  });
+}
 
 /*=============================================
 OBTENER Productos
@@ -86,14 +227,24 @@ var tablaProductos = $("#tablaProductos").DataTable({
     dataSrc: "data",
   },
   columns: [
+    // { data: "estado" },
+    {
+      data: "estado",
+      render: function (data, type, row) {
+        const botonEstado = `<button class="btn ${
+          data == "Disponible" ? "btn-success" : "btn-danger"
+        } btn-sm">${data}</button>`;
+
+        return `${botonEstado}`;
+      },
+    },
     { data: "nombre" },
-    { data: "unidad_medida" },
     { data: "categoria" },
     { data: "marca" },
     { data: "stock" },
+    { data: "unidad_medida" },
     { data: "precio_compra" },
     { data: "precio_venta" },
-    { data: "estado" },
     { data: "descripcion" },
     {
       data: "fecha_creacion",
@@ -162,7 +313,7 @@ $("#formCrearProducto").on("submit", function (e) {
   const stock = $("#nuevoStock").val().trim();
   const precio_compra = $("#nuevoPrecioCompra").val().trim();
   const precio_venta = $("#nuevoPrecioVenta").val().trim();
-  const estado = $("#nuevoEstado").val().trim();
+  const estado = $("#nuevoStock").val().trim() > 1 ? "Disponible" : "Agotado";
 
   if (
     nombre == "" ||
@@ -172,11 +323,16 @@ $("#formCrearProducto").on("submit", function (e) {
     unidad_medida == "" ||
     stock == "" ||
     precio_compra == "" ||
-    precio_venta == "" ||
-    estado == ""
+    precio_venta == ""
   ) {
     $(".alerta").removeClass("d-none");
     $(".alerta").html("Por favor, completa todos los campos.");
+    return;
+  }
+
+  if (stock < 0) {
+    $(".alerta").removeClass("d-none");
+    $(".alerta").html("La cantidad no puede ser menor a 0.");
     return;
   }
 
@@ -242,7 +398,7 @@ function registrarProducto(datos) {
 OBTENER DATO DEL Productos A EDITAR
 =============================================*/
 tablaProductos.on("click", "#btnModalEditarProducto", function () {
-  let idCliente = $(this).attr("data-id");
+  let idProducto = $(this).attr("data-id");
 
   $.ajax({
     url: `http/productos.endpoint.php?id=${idProducto}`,
@@ -251,18 +407,16 @@ tablaProductos.on("click", "#btnModalEditarProducto", function () {
     processData: false,
     dataType: "json",
     success: function (respuesta) {
-      $("#editarProducto").html(
-        `${respuesta.data["razon_social"] || respuesta.data["nombres"]}`
-      );
+      $("#editarProducto").html(`${respuesta.data["nombre"]}`);
       $("#btnEditarProducto").attr("data-id", `${respuesta.data["id"]}`);
-      $("#editarNombresProducto").val(respuesta.data["nombres"]);
-      $("#editarRazonSocial").val(respuesta.data["razon_social"]);
-      $("#editarTipoIdentificacion").val(respuesta.data["tipo_identificacion"]);
-      $("#editarIdentificacion").val(respuesta.data["identificacion"]);
-      $("#editarCodigoPais").val(respuesta.data["codigo_pais"]);
-      $("#editarTelefono").val(respuesta.data["telefono"]);
-      $("#editarCorreo").val(respuesta.data["correo"]);
-      $("#editarDireccion").val(respuesta.data["direccion"]);
+      $("#editarNombreProducto").val(respuesta.data["nombre"]);
+      $("#editarIdCategoria").val(respuesta.data["id_categoria"]);
+      $("#editarIdMarca").val(respuesta.data["id_marca"]);
+      $("#editarDescripcionProducto").val(respuesta.data["descripcion"]);
+      $("#editarUnidadMedida").val(respuesta.data["unidad_medida"]);
+      $("#editarStock").val(respuesta.data["stock"]);
+      $("#editarPrecioCompra").val(respuesta.data["precio_compra"]);
+      $("#editarPrecioVenta").val(respuesta.data["precio_venta"]);
     },
   });
 });
@@ -349,34 +503,6 @@ function editarProducto(datos) {
 }
 
 /*=============================================
-REVISAR SI EL Productos YA ESTÁ REGISTRADO
-=============================================*/
-
-$(".validarProducto").on("input", function () {
-  $(".alerta").addClass("d-none");
-
-  var identificacion = $(this).val();
-
-  $.ajax({
-    url: `http/productos.endpoint.php?identificacion=${identificacion}`,
-    method: "GET",
-    cache: false,
-    processData: false,
-    dataType: "json",
-    success: function (respuesta) {
-      if (respuesta.success == true) {
-        $(".alerta").removeClass("d-none");
-        $(".alerta").html(
-          "<i class='fa-solid fa-triangle-exclamation'></i> Ya existe un Producto registrado con esta identificación"
-        );
-      } else {
-        $(".alerta").addClass("d-none");
-      }
-    },
-  });
-});
-
-/*=============================================
 ELIMINAR Productos
 =============================================*/
 tablaProductos.on("click", "#btnEliminarProducto", function () {
@@ -419,6 +545,7 @@ function eliminarProducto(id) {
     error: function (respuesta) {
       Swal.fire({
         title: "Error al eliminar",
+        text: "Contacte con un administrador",
         icon: "error",
       });
       tablaProductos.ajax.reload(null, true);

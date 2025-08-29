@@ -66,7 +66,7 @@
 
             <div class="form-floating">
 
-              <input type="text" class="form-control shadow-sm validarProducto" id="nuevoNombreProducto" placeholder="Nombre completo" required>
+              <input type="text" class="form-control shadow-sm validarProducto" id="nuevoNombreProducto" placeholder="Nombre del producto" required>
               
               <label for="nuevoNombreProducto">Nombre del producto</label>
 
@@ -100,7 +100,7 @@
 
             <div class="form-floating">
 
-              <input type="text" class="form-control shadow-sm" id="nuevoStock" placeholder="Cantidad" required>
+              <input type="number" class="form-control shadow-sm" id="nuevoStock" placeholder="Cantidad" required>
 
               <label for="nuevoStock">Cantidad</label>
 
@@ -126,7 +126,7 @@
 
               </select>
 
-              <label for="nuevoIdCategoria">Tipo</label>
+              <label for="nuevoIdCategoria">Categoría</label>
 
             </div>
 
@@ -146,7 +146,7 @@
 
               </select>
 
-              <label for="nuevoIdMarca">Tipo</label>
+              <label for="nuevoIdMarca">Marca</label>
 
             </div>
 
@@ -249,14 +249,14 @@
 
             <tr class="table-dark">           
 
+              <th>Estado</th>
               <th>Nombre</th>
-              <th>Medida</th>
               <th>Categoría</th>
               <th>Marca</th>
               <th>Stock</th>
-              <th>Precio Compra</th>
-              <th>Precio Venta</th>
-              <th>Estado</th>
+              <th>Medida</th>
+              <th>Precio Compra $</th>
+              <th>Precio Venta $</th>
               <th>Descripción</th>
               <th>Fecha creación</th>
               <th>Fecha Actualización</th>
@@ -290,7 +290,7 @@
 
         <div class="modal-header text-bg-warning">
 
-          <h1 class="modal-title fs-5"><i class="fa-solid fa-user-pen"></i> Editar: <span id="editarProducto"></span></h1>
+          <h1 class="modal-title fs-5"><i class="fa-solid fa-pen-to-square"></i> Editar: <span id="editarProducto"></span></h1>
 
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
@@ -298,125 +298,152 @@
 
         <div class="modal-body">
 
-          <!-- NOMBRES -->
+          <!-- NOMBRE PRODUCTO -->
 
-          <div class="input-group mb-3">
-            
-            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-address-card"></i></span>
+          <div class="d-flex gap-3">
 
-            <div class="form-floating">
-
-              <input type="text" class="form-control shadow-sm" id="editarNombresProducto" placeholder="Nombre del producto" required>
+            <div class="input-group mb-3">
               
-              <label for="editarNombresProducto">Nombre del producto</label>
+              <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-font"></i></span>
+
+              <div class="form-floating">
+
+                <input type="text" class="form-control shadow-sm validarProducto" id="editarNombreProducto" placeholder="Nombre del producto" required>
+                
+                <label for="editarNombreProducto">Nombre del producto</label>
+
+              </div>
 
             </div>
 
           </div>
 
-          <!-- RAZON SOCIAL -->
+          <!-- UNIDAD DE MEDIDA Y STOCK -->
 
-          <div class="input-group mb-3">
+          <div class="d-flex gap-3">
             
-            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-address-card"></i></span>
-
-            <div class="form-floating">
-
-              <input type="text" class="form-control shadow-sm" id="editarRazonSocial" placeholder="Razón social" required>
+            <div class="input-group mb-3">
               
-              <label for="editarRazonSocial">Razón social</label>
+              <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-ruler"></i></span>
+
+              <div class="form-floating">
+
+                <input type="text" class="form-control shadow-sm" id="editarUnidadMedida" placeholder="Unidad de medida" required>
+
+                <label for="editarUnidadMedida">Unidad de medida e.g.: KG, L, Unidad</label>
+
+              </div>
+
+            </div>
+
+            <div class="input-group mb-3">
+              
+              <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-boxes-stacked"></i></span>
+
+              <div class="form-floating">
+
+                <input type="number" class="form-control shadow-sm" id="editarStock" placeholder="Cantidad" required>
+
+                <label for="editarStock">Cantidad</label>
+
+              </div>
 
             </div>
 
           </div>
 
-          <!-- IDENTIFICACION -->
+          <!-- CATEGORIAS Y MARCAS -->
 
           <div class="input-group mb-3">
             
-            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-id-card"></i></span>
+            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-tags"></i></span>
 
             <div class="form-floating">
 
-              <select class="form-select shadow-sm selectMostrarCategorias" id="editarTipoIdentificacion" name="editarTipoIdentificacion" required>
+              <select class="form-select shadow-sm selectMostrarCategorias" id="editarIdCategoria" name="editarIdCategoria" required>
 
-                <option default value="V">V</option>
-                <option  value="P">P</option>
-                <option  value="E">E</option>
-                <option  value="J">J</option>
-                <option  value="G">G</option>
-                <option  value="C">C</option>
+                <option default value="">Seleccionar Categoría</option>
 
               </select>
 
-              <label for="editarTipoIdentificacion">Tipo</label>
+              <label for="editarIdCategoria">Categoría</label>
 
             </div>
 
-            <div class="form-floating">
-
-              <input type="text" class="form-control shadow-sm validarProducto" id="editarIdentificacion" placeholder="Cédula o RIF" inputmode="numeric" required>
-              
-              <label for="editarIdentificacion">Cédula o RIF</label>
-
-            </div>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregarCategoria"><i class="fa-solid fa-plus"></i></button>
 
           </div>
-
-          <!-- TELEFONO -->
 
           <div class="input-group mb-3">
             
-            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-mobile-screen"></i></span>
-
-            <div class="input-group-text">
-            
-              <input type="tel" class="form-control shadow-sm codigo-pais h-100" id="editarCodigoPais" value="+58" style="max-width: 12rem;" required>
-
-            </div>
+            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-brands fa-font-awesome"></i></span>
 
             <div class="form-floating">
 
-              <input type="text" class="form-control shadow-sm" id="editarTelefono" placeholder="Teléfono e.g: 4241234567" inputmode="numeric" required>
-              
-              <label for="editarTelefono">Teléfono e.g: 4241234567</label>
+              <select class="form-select shadow-sm selectMostrarMarcas" id="editarIdMarca" name="editarIdMarca" required>
+
+                <option default value="">Seleccionar Marca</option>
+
+              </select>
+
+              <label for="editarIdMarca">Marca</label>
 
             </div>
 
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregarMarca"><i class="fa-solid fa-plus"></i></button>
+
           </div>
 
-          <!-- CORREO -->
+          <!-- PRECIOS DE COMPRA Y VENTA -->
 
           <div class="input-group mb-3">
             
-            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-at"></i></span>
+            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-hand-holding-dollar"></i></span>
 
             <div class="form-floating">
 
-              <input type="text" class="form-control shadow-sm" id="editarCorreo" placeholder="Correo electrónico" required>
-              
-              <label for="editarCorreo">Correo electrónico</label>
+              <input type="text" class="form-control shadow-sm" id="editarPrecioCompra" placeholder="Precio de compra" required>
+
+              <label for="editarPrecioCompra">Precio de compra</label>
 
             </div>
 
           </div>
-
-          <!-- DIRECCION -->
 
           <div class="input-group mb-3">
             
-            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-map-location"></i></span>
+            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-circle-dollar-to-slot"></i></span>
 
             <div class="form-floating">
 
-              <textarea type="text" class="form-control shadow-sm" id="editarDireccion" placeholder="Dirección"></textarea>
-              
-              <label for="editarDireccion">Dirección</label>
+              <input type="text" class="form-control shadow-sm" id="editarPrecioVenta" placeholder="Precio de venta" required>
+
+              <label for="editarPrecioVenta">Precio de venta</label>
 
             </div>
 
           </div>
 
+          <!-- DIRECCIÓN -->
+
+          <div class="d-flex gap-3">
+
+            <div class="input-group mb-3">
+              
+              <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-align-justify"></i></span>
+
+              <div class="form-floating">
+
+                <textarea rows="10" class="form-control shadow-sm" id="editarDescripcionProducto" maxLength="256" placeholder="Descripción del producto"></textarea>
+
+                <label for="editarDescripcionProducto">Descripción</label>
+
+              </div>
+
+            </div>
+
+          </div>
+          
         </div>
           
         <div class="alert alert-danger my-2 alerta d-none"></div>
@@ -463,23 +490,35 @@
 
         <div class="modal-body">
 
-          <!-- NOMBRE DE LA CATEGORÍA -->
+          <!-- NOMBRE CATEGORÍA -->
 
           <div class="input-group mb-3">
-
+            
             <span class="input-group-text shadow-sm text-bg-dark ancho d-flex justify-content-center"><i class="fa-solid fa-tags"></i></span>
 
-            <input type="text" name="nuevoNombreCategoriaProducto" id="nuevoNombreCategoriaProducto" class="form-control shadow-sm validarCategoria" placeholder="Nueva Categoría" required>
+            <div class="form-floating">
+
+              <input type="text" class="form-control shadow-sm" id="nuevoCategoriaProducto" placeholder="Nombre de la Categoría" required>
+              
+              <label for="nuevoCategoriaProducto">Nombre de la Categoría</label>
+
+            </div>
 
           </div>
 
           <!-- DESCRIPCIÓN DE LA CATEGORÍA -->
 
           <div class="input-group mb-3">
+            
+            <span class="input-group-text shadow-sm text-bg-dark ancho d-flex justify-content-center"><i class="fa-solid fa-align-justify"></i></span>
 
-            <span class="input-group-text shadow-sm text-bg-dark ancho d-flex justify-content-center"><i class="fa-solid fa-bars"></i></span>
+            <div class="form-floating">
 
-            <textarea type="text" name="nuevaDescripcionCategoriaProducto" id="nuevaDescripcionCategoriaProducto" class="form-control shadow-sm" placeholder="Descripción de la Categoría" required></textarea>
+              <textarea type="text" class="form-control shadow-sm" id="nuevaDescripcionProducto" placeholder="Descripción"></textarea>
+              
+              <label for="nuevaDescripcionProducto">Descripción</label>
+
+            </div>
 
           </div>
 
@@ -526,10 +565,16 @@
           <!-- NOMBRE DE LA MARCA -->
 
           <div class="input-group mb-3">
-
+            
             <span class="input-group-text shadow-sm text-bg-dark ancho d-flex justify-content-center"><i class="fa-solid fa-font-awesome"></i></span>
 
-            <input type="text" name="nuevoNombreMarcaProducto" id="nuevoNombreMarcaProducto" class="form-control shadow-sm validarMarca" placeholder="Nueva Marca" required>
+            <div class="form-floating">
+
+              <input type="text" class="form-control shadow-sm" id="nuevoMarcaProducto" placeholder="Nombre de la Categoría" required>
+              
+              <label for="nuevoMarcaProducto">Nombre de la Marca</label>
+
+            </div>
 
           </div>
 

@@ -73,7 +73,8 @@ CUERPO DOCUMENTO
         $_GET["ruta"] == "proveedores"  ||                  
         $_GET["ruta"] == "categorias"   ||                  
         $_GET["ruta"] == "marcas"       ||                  
-        $_GET["ruta"] == "productos"    ||                  
+        $_GET["ruta"] == "productos"    ||             
+        $_GET["ruta"] == "crear-venta"  ||             
         $_GET["ruta"] == "inicio"
       ) {
 
@@ -147,6 +148,8 @@ CUERPO DOCUMENTO
   <script src="public/js/categorias.js"></script>
   <script src="public/js/marcas.js"></script>
   <script src="public/js/productos.js"></script>
+  <!--   GESTIÓN VENTAS   -->
+  <script src="public/js/crear-venta.js"></script>
 
 </body>
 

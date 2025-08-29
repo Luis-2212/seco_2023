@@ -19,6 +19,11 @@
         <div class="card-body fw-semibold text-center">Clientes</div>
       </a>
       
+      <a href="productos" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
+        <div class="card-header text-center"><i class="fa-solid fa-boxes-stacked iconos"></i></div>
+        <div class="card-body fw-semibold text-center">Productos</div>
+      </a>
+      
       <?php if ($_SESSION["rol"] === 1): ?>
         
         <a href="usuarios" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">

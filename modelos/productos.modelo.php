@@ -76,6 +76,47 @@ class ModeloProductos {
     }
 
     /*=============================================
+    CONSULTAR Productos (GET)
+    =============================================*/
+    static public function mdlConsultarProductos($tabla, $valor) {
+        try {
+
+            // Obtener todos los Productos
+            $stmt = Conexion::conectar()->prepare(
+                                            "SELECT 
+                                                p.id,
+                                                c.nombre_categoria AS categoria,
+                                                m.nombre_marca AS marca,
+                                                p.nombre AS producto,
+                                                p.descripcion,
+                                                p.unidad_medida,
+                                                p.stock,
+                                                p.precio_venta,
+                                                p.estado
+                                            FROM $tabla as p
+                                            LEFT JOIN categorias as c
+                                            ON c.id = p.id_categoria
+                                            LEFT JOIN marcas as m
+                                            ON m.id = p.id_marca
+                                            WHERE (
+                                                p.nombre LIKE '%$valor%'
+                                            )");
+
+        $stmt->execute();
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+
+        } catch (PDOException $e) {
+            error_log("Error en mdlMostrarProductos: " . $e->getMessage());
+            return $e->getMessage(); // Retorna false en caso de error
+        } finally {
+            if ($stmt) {
+                $stmt = null; // Asegura que el statement se cierre
+            }
+        }
+    }
+
+    /*=============================================
     REGISTRO DE Productos (POST)
     =============================================*/
     static public function mdlCrearProducto($tabla, $datos) {
@@ -83,8 +124,8 @@ class ModeloProductos {
             // Consulta SQL para insertar un nuevo Productos
             $stmt = Conexion::conectar()->prepare(
                 "INSERT INTO 
-                $tabla (nombre, id_categoria, id_marca, nombre, descripcion, unidad_medida, stock, precio_compra, precio_venta, estado) 
-                VALUES (:nombre, :id_categoria, :id_marca, :nombre, :descripcion, :unidad_medida, :stock, :precio_compra, :precio_venta, :estado)"
+                $tabla (id_categoria, id_marca, nombre, descripcion, unidad_medida, stock, precio_compra, precio_venta, estado) 
+                VALUES (:id_categoria, :id_marca, :nombre, :descripcion, :unidad_medida, :stock, :precio_compra, :precio_venta, :estado)"
             );
 
             // Vincular los parámetros
