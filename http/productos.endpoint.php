@@ -1,5 +1,5 @@
 <?php
-require_once "../controladores/productoss.controlador.php";
+require_once "../controladores/productos.controlador.php";
 
 // Configurar cabeceras para respuestas JSON
 header('Content-Type: application/json; charset=utf-8');
@@ -28,10 +28,10 @@ switch ($metodo) {
             $valor = $_GET["id"];
         }
         
-        if(isset($_GET["identificacion"])) {
+        if(isset($_GET["nombre"])) {
             
-            $item = "identificacion";
-            $valor = $_GET["identificacion"];
+            $item = "nombre";
+            $valor = $_GET["nombre"];
         }
 
         $respuesta = ControladorProductos::ctrMostrarProductos($item, $valor);
@@ -44,7 +44,7 @@ switch ($metodo) {
     ==========================================*/
     case 'POST':
         try {
-            $camposRequeridos = ['nombres', 'tipo_identificacion', 'identificacion', 'codigo_pais', 'telefono', 'correo'];
+            $camposRequeridos = ['nombre', 'id_categoria', 'id_marca', 'nombre', 'descripcion', 'unidad_medida', 'stock', 'precio_compra', 'precio_venta', 'estado'];
             foreach ($camposRequeridos as $campo) {
                 if (empty($entrada[$campo])) {
                     echo json_encode([

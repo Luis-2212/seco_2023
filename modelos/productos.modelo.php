@@ -14,8 +14,8 @@ class ModeloProductos {
                 $stmt = Conexion::conectar()->prepare(
                                                 "SELECT 
                                                     p.id,
-                                                    c.nombre_categoria,
-                                                    m.nombre_marca,
+                                                    c.nombre_categoria AS categoria,
+                                                    m.nombre_marca AS marca,
                                                     p.nombre,
                                                     p.descripcion,
                                                     p.unidad_medida,
@@ -38,8 +38,8 @@ class ModeloProductos {
                 $stmt = Conexion::conectar()->prepare(
                                                 "SELECT 
                                                     p.id,
-                                                    c.nombre_categoria,
-                                                    m.nombre_marca,
+                                                    c.nombre_categoria AS categoria,
+                                                    m.nombre_marca AS marca,
                                                     p.nombre,
                                                     p.descripcion,
                                                     p.unidad_medida,
@@ -83,19 +83,20 @@ class ModeloProductos {
             // Consulta SQL para insertar un nuevo Productos
             $stmt = Conexion::conectar()->prepare(
                 "INSERT INTO 
-                $tabla (nombres, razon_social, tipo_identificacion, identificacion, direccion, codigo_pais, telefono, correo) 
-                VALUES (:nombres, :razon_social, :tipo_identificacion, :identificacion, :direccion, :codigo_pais, :telefono, :correo)"
+                $tabla (nombre, id_categoria, id_marca, nombre, descripcion, unidad_medida, stock, precio_compra, precio_venta, estado) 
+                VALUES (:nombre, :id_categoria, :id_marca, :nombre, :descripcion, :unidad_medida, :stock, :precio_compra, :precio_venta, :estado)"
             );
 
             // Vincular los parámetros
-            $stmt->bindParam(":nombres", $datos["nombres"], PDO::PARAM_STR);
-            $stmt->bindParam(":razon_social", $datos["razon_social"], PDO::PARAM_STR);
-            $stmt->bindParam(":tipo_identificacion", $datos["tipo_identificacion"], PDO::PARAM_STR);
-            $stmt->bindParam(":identificacion", $datos["identificacion"], PDO::PARAM_INT);
-            $stmt->bindParam(":direccion", $datos["direccion"], PDO::PARAM_STR);
-            $stmt->bindParam(":codigo_pais", $datos["codigo_pais"], PDO::PARAM_STR);
-            $stmt->bindParam(":telefono", $datos["telefono"], PDO::PARAM_INT);
-            $stmt->bindParam(":correo", $datos["correo"], PDO::PARAM_STR);
+            $stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
+            $stmt->bindParam(":id_categoria", $datos["id_categoria"], PDO::PARAM_INT);
+            $stmt->bindParam(":id_marca", $datos["id_marca"], PDO::PARAM_INT);
+            $stmt->bindParam(":descripcion", $datos["descripcion"], PDO::PARAM_STR);
+            $stmt->bindParam(":unidad_medida", $datos["unidad_medida"], PDO::PARAM_STR);
+            $stmt->bindParam(":stock", $datos["stock"], PDO::PARAM_INT);
+            $stmt->bindParam(":precio_compra", $datos["precio_compra"], PDO::PARAM_STR);
+            $stmt->bindParam(":precio_venta", $datos["precio_venta"], PDO::PARAM_STR);
+            $stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
 
             // Ejecutar la consulta SQL
             if ($stmt->execute()) {

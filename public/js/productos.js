@@ -1,16 +1,62 @@
-/*=============================================
-  INICIALIZAR EL PLUGIN DE TELÉFONO
-=============================================*/
 var currentPath = window.location.pathname;
 
 if (currentPath.endsWith("/productos")) {
-  $("input[type=tel]").each(function () {
-    window.intlTelInput(this, {
-      initialCountry: "ve",
-      showSelectDialCode: true,
-    });
+  $(document).ready(function () {
+    obtenerCategoriasProductos();
   });
 }
+
+/*=============================================
+  OBTENER CATEGORÍAS 
+=============================================*/
+
+function obtenerCategoriasProductos() {
+  $.ajax({
+    url: "http/categorias.endpoint.php",
+    type: "GET",
+    dataType: "json",
+    success: function (data) {
+      if (data.success) {
+        var select = $("#nuevoIdCategoria");
+        select.empty();
+        select.append('<option value="">Seleccionar Categoría</option>');
+        $.each(data.data, function (index, categoria) {
+          select.append(
+            `<option value="${categoria.id}">${categoria.nombre}</option>`
+          );
+        });
+      }
+    },
+  });
+}
+
+/*=============================================
+  CREAR CATEGORÍAS 
+=============================================*/
+$("#formCrearCategoriaProducto").on("submit", function (e) {
+  e.preventDefault();
+
+  const nombreCategoria = $("#nuevoNombreCategoriaProducto").val().trim();
+  const descripcion = $("#nuevoDescripcionCategoriaProducto").val();
+
+  $.ajax({
+    url: "http/categorias.endpoint.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      nombre: nombreCategoria,
+      descripcion: descripcion,
+    },
+    success: function (data) {
+      if (data.success) {
+        // Reiniciar el formulario
+        $("#formCrearCategoriaProducto")[0].reset();
+        // Volver a cargar las categorías
+        obtenerCategoriasProductos();
+      }
+    },
+  });
+});
 
 /*=============================================
 OBTENER Productos
@@ -34,20 +80,21 @@ var tablaProductos = $("#tablaProductos").DataTable({
     },
   },
   ajax: {
-    url: "http/Productos.endpoint.php",
+    url: "http/productos.endpoint.php",
     type: "GET",
     dataType: "json",
     dataSrc: "data",
   },
   columns: [
-    { data: "nombres" },
-    { data: "razon_social" },
-    { data: "tipo_identificacion" },
-    { data: "identificacion" },
-    { data: "direccion" },
-    { data: "codigo_pais" },
-    { data: "telefono" },
-    { data: "correo" },
+    { data: "nombre" },
+    { data: "unidad_medida" },
+    { data: "categoria" },
+    { data: "marca" },
+    { data: "stock" },
+    { data: "precio_compra" },
+    { data: "precio_venta" },
+    { data: "estado" },
+    { data: "descripcion" },
     {
       data: "fecha_creacion",
       render: function (data) {
@@ -107,23 +154,26 @@ $("#formCrearProducto input[required]").on("input", function () {
 $("#formCrearProducto").on("submit", function (e) {
   e.preventDefault();
 
-  const nombres = $("#nuevoNombresProducto").val().trim();
-  const razon_social = $("#nuevoRazonSocial").val().trim();
-  const tipo_identificacion = $("#nuevoTipoIdentificacion").val().trim();
-  const identificacion = $("#nuevoIdentificacion").val();
-  const direccion = $("#nuevoDireccion").val().trim();
-  const codigo_pais = $("#nuevoCodigoPais").val().trim();
-  const telefono = $("#nuevoTelefono").val().trim();
-  const correo = $("#nuevoCorreo").val().trim();
+  const nombre = $("#nuevoNombreProducto").val().trim();
+  const id_categoria = $("#nuevoIdCategoria").val().trim();
+  const id_marca = $("#nuevoIdMarca").val().trim();
+  const descripcion = $("#nuevoDescripcionProducto").val().trim();
+  const unidad_medida = $("#nuevoUnidadMedida").val().trim();
+  const stock = $("#nuevoStock").val().trim();
+  const precio_compra = $("#nuevoPrecioCompra").val().trim();
+  const precio_venta = $("#nuevoPrecioVenta").val().trim();
+  const estado = $("#nuevoEstado").val().trim();
 
   if (
-    nombres == "" ||
-    razon_social == "" ||
-    tipo_identificacion == "" ||
-    identificacion == "" ||
-    codigo_pais == "" ||
-    telefono == "" ||
-    correo == ""
+    nombre == "" ||
+    id_categoria == "" ||
+    id_marca == "" ||
+    descripcion == "" ||
+    unidad_medida == "" ||
+    stock == "" ||
+    precio_compra == "" ||
+    precio_venta == "" ||
+    estado == ""
   ) {
     $(".alerta").removeClass("d-none");
     $(".alerta").html("Por favor, completa todos los campos.");
@@ -131,14 +181,15 @@ $("#formCrearProducto").on("submit", function (e) {
   }
 
   const data = {
-    nombres: nombres,
-    razon_social: razon_social,
-    tipo_identificacion: tipo_identificacion,
-    identificacion: identificacion,
-    direccion: direccion,
-    codigo_pais: codigo_pais,
-    telefono: telefono,
-    correo: correo,
+    nombre: nombre,
+    id_categoria: id_categoria,
+    id_marca: id_marca,
+    descripcion: descripcion,
+    unidad_medida: unidad_medida,
+    stock: stock,
+    precio_compra: precio_compra,
+    precio_venta: precio_venta,
+    estado: estado,
   };
 
   registrarProducto(JSON.stringify(data));
@@ -194,7 +245,7 @@ tablaProductos.on("click", "#btnModalEditarProducto", function () {
   let idCliente = $(this).attr("data-id");
 
   $.ajax({
-    url: `http/Productos.endpoint.php?id=${idProducto}`,
+    url: `http/productos.endpoint.php?id=${idProducto}`,
     method: "GET",
     cache: false,
     processData: false,
