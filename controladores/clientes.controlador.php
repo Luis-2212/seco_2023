@@ -53,7 +53,6 @@ class ControladorClientes {
 
             $datosCliente = [
                 'nombres' => $datos['nombres'],
-                'razon_social' => $datos['razon_social'],
                 'tipo_identificacion' => $datos['tipo_identificacion'],
                 'identificacion' => $datos['identificacion'],
                 'direccion' => $datos['direccion'],

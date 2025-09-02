@@ -44,7 +44,7 @@ switch ($metodo) {
     ==========================================*/
     case 'POST':
         try {
-            $camposRequeridos = ['nombres', 'tipo_identificacion', 'identificacion', 'codigo_pais', 'telefono', 'correo'];
+            $camposRequeridos = ['nombres', 'direccion','tipo_identificacion', 'identificacion', 'codigo_pais', 'telefono', 'correo'];
             foreach ($camposRequeridos as $campo) {
                 if (empty($entrada[$campo])) {
                     echo json_encode([

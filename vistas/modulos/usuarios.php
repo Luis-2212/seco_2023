@@ -255,7 +255,7 @@
 
             <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-lock"></i></span>
 
-            <input type="text" name="editarPassword" id="editarPassword" placeholder="Nueva Contraseña" class="form-control shadow-sm">
+            <input type="text" minlength="8" name="editarPassword" id="editarPassword" placeholder="Nueva Contraseña" class="form-control shadow-sm">
 
             <input type="hidden" name="passwordActual" id="passwordActual">
 

@@ -5,10 +5,6 @@
     return header("Location: login");
   } 
 
-  if( $_SESSION["rol"] != 1) {
-
-    return header("Location: inicio");
-  } 
 
 ?>
 
@@ -67,25 +63,9 @@
 
               <input type="text" class="form-control shadow-sm" id="nuevoNombresCliente" placeholder="Nombre completo" required>
               
-              <label for="nuevoNombresCliente">Nombre completo</label>
+              <label for="nuevoNombresCliente">Nombre completo / Razon Social</label>
 
             </div>
-
-          </div>
-
-        </div>
-        
-        <!-- RAZON SOCIAL -->
-        
-        <div class="input-group mb-3">
-          
-          <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-industry"></i></span>
-
-          <div class="form-floating">
-
-            <input type="text" class="form-control shadow-sm" id="nuevoRazonSocial" placeholder="Nombre completo">
-            
-            <label for="nuevoRazonSocial">Razón social de la empresa (opcional)</label>
 
           </div>
 
@@ -118,7 +98,7 @@
 
             <div class="form-floating">
 
-              <input type="text" class="form-control shadow-sm validarCliente" id="nuevoIdentificacion" placeholder="Cédula o RIF" inputmode="numeric" required>
+              <input type="text" minlength="6" maxlength="9" class="form-control shadow-sm validarCliente" id="nuevoIdentificacion" placeholder="Cédula o RIF" inputmode="numeric" required>
               
               <label for="nuevoIdentificacion">Cédula o RIF</label>
 
@@ -138,7 +118,7 @@
 
             <div class="form-floating">
 
-              <input type="text" class="form-control shadow-sm" id="nuevoTelefono" placeholder="Teléfono e.g: 4241234567" inputmode="numeric" maxLength="15" required>
+              <input type="text" class="form-control shadow-sm" id="nuevoTelefono" placeholder="Teléfono e.g: 4241234567" inputmode="numeric" max="9999999999" required>
               
               <label for="nuevoTelefono">Teléfono e.g: 4241234567</label>
 
@@ -178,7 +158,7 @@
 
             <div class="form-floating">
 
-              <textarea type="text" class="form-control shadow-sm" id="nuevoDireccion" maxLength="256" placeholder="Dirección"></textarea>
+              <textarea class="form-control shadow-sm" id="nuevoDireccion" maxLength="256" required placeholder="Dirección"></textarea>
               
               <label for="nuevoDireccion">Dirección</label>
 
@@ -228,7 +208,6 @@
             <tr class="table-dark">           
 
               <th>Nombres</th>
-              <th>Razon Social</th>
               <th>Tipo</th>
               <th>Ci/RIF</th>
               <th>Dirección</th>
@@ -291,21 +270,6 @@
 
           </div>
 
-          <!-- RAZON SOCIAL -->
-
-          <div class="input-group mb-3">
-            
-            <span class="input-group-text shadow-sm text-bg-warning ancho d-flex justify-content-center"><i class="fa-solid fa-address-card"></i></span>
-
-            <div class="form-floating">
-
-              <input type="text" class="form-control shadow-sm" id="editarRazonSocial" placeholder="Razón social" required>
-              
-              <label for="editarRazonSocial">Razón social</label>
-
-            </div>
-
-          </div>
 
           <!-- IDENTIFICACION -->
 
@@ -332,7 +296,7 @@
 
             <div class="form-floating">
 
-              <input type="text" class="form-control shadow-sm validarCliente" id="editarIdentificacion" placeholder="Cédula o RIF" inputmode="numeric" required>
+              <input type="number" min = "100000" max = "999999999" class="form-control shadow-sm validarCliente" id="editarIdentificacion" placeholder="Cédula o RIF" inputmode="numeric" required>
               
               <label for="editarIdentificacion">Cédula o RIF</label>
 
@@ -354,7 +318,7 @@
 
             <div class="form-floating">
 
-              <input type="text" class="form-control shadow-sm" id="editarTelefono" placeholder="Teléfono e.g: 4241234567" inputmode="numeric" required>
+              <input type="number" class="form-control shadow-sm" id="editarTelefono" placeholder="Teléfono e.g: 4241234567" inputmode="numeric" required>
               
               <label for="editarTelefono">Teléfono e.g: 4241234567</label>
 

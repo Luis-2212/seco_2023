@@ -5,10 +5,6 @@
     return header("Location: login");
   } 
 
-  if( $_SESSION["rol"] != 1) {
-
-    return header("Location: inicio");
-  } 
 
 ?>
 
@@ -88,7 +84,7 @@
 
               <input type="text" class="form-control shadow-sm" id="nuevoUnidadMedida" placeholder="Unidad de medida" required>
 
-              <label for="nuevoUnidadMedida">Unidad de medida e.g.: KG, L, Unidad</label>
+              <label for="nuevoUnidadMedida">Unidad de medida e.g.: Litro, Garrafa, Paila, Tambor.</label>
 
             </div>
 

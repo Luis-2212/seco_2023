@@ -41,7 +41,6 @@ var tablaClientes = $("#tablaClientes").DataTable({
   },
   columns: [
     { data: "nombres" },
-    { data: "razon_social" },
     { data: "tipo_identificacion" },
     { data: "identificacion" },
     { data: "direccion" },
@@ -87,6 +86,8 @@ var tablaClientes = $("#tablaClientes").DataTable({
 CREAR CLIENTE
 =============================================*/
 
+
+
 $("#formCrearCliente input[required]").on("input", function () {
   let allFilled = true;
 
@@ -108,7 +109,6 @@ $("#formCrearCliente").on("submit", function (e) {
   e.preventDefault();
 
   const nombres = $("#nuevoNombresCliente").val().trim();
-  const razon_social = $("#nuevoRazonSocial").val().trim();
   const tipo_identificacion = $("#nuevoTipoIdentificacion").val().trim();
   const identificacion = $("#nuevoIdentificacion").val();
   const direccion = $("#nuevoDireccion").val().trim();
@@ -118,12 +118,13 @@ $("#formCrearCliente").on("submit", function (e) {
 
   if (
     nombres == "" ||
-    razon_social == "" ||
     tipo_identificacion == "" ||
     identificacion == "" ||
     codigo_pais == "" ||
     telefono == "" ||
-    correo == ""
+    correo == "" ||
+    direccion == ""
+
   ) {
     $(".alerta").removeClass("d-none");
     $(".alerta").html("Por favor, completa todos los campos.");
@@ -132,7 +133,6 @@ $("#formCrearCliente").on("submit", function (e) {
 
   const data = {
     nombres: nombres,
-    razon_social: razon_social,
     tipo_identificacion: tipo_identificacion,
     identificacion: identificacion,
     direccion: direccion,
@@ -161,8 +161,21 @@ function registrarCliente(datos) {
           title: "Registrado con exito",
           showConfirmButton: false,
           timer: 1500,
+                    
         });
-        tablaClientes.ajax.reload(null, true);
+function vaciarCampos() {
+    $('#nuevoNombresCliente').val('');
+    $('#nuevoTipoIdentificacion').val('V');
+    $('#nuevoIdentificacion').val('');
+    $('#nuevoTelefono').val('');
+    $('#nuevoCorreo').val('');
+    $('#nuevoDireccion').prop('disabled', false).prop('readonly', false).val('');
+}
+vaciarCampos();
+
+tablaClientes.ajax.reload(null, true);
+        
+        
       } else {
         // Mensaje de registro si ocurre un error
         Swal.fire({
@@ -187,6 +200,8 @@ function registrarCliente(datos) {
   });
 }
 
+
+
 /*=============================================
 OBTENER DATO DEL CLIENTE A EDITAR
 =============================================*/
@@ -205,7 +220,6 @@ tablaClientes.on("click", "#btnModalEditarCliente", function () {
       );
       $("#btnEditarCliente").attr("data-id", `${respuesta.data["id"]}`);
       $("#editarNombresCliente").val(respuesta.data["nombres"]);
-      $("#editarRazonSocial").val(respuesta.data["razon_social"]);
       $("#editarTipoIdentificacion").val(respuesta.data["tipo_identificacion"]);
       $("#editarIdentificacion").val(respuesta.data["identificacion"]);
       $("#editarCodigoPais").val(respuesta.data["codigo_pais"]);
@@ -225,7 +239,6 @@ $("#formEditarCliente").on("submit", function (e) {
 
   const idCliente = $("#btnEditarCliente").attr("data-id");
   const nombres = $("#editarNombresCliente").val().trim();
-  const razon_social = $("#editarRazonSocial").val().trim();
   const tipo_identificacion = $("#editarTipoIdentificacion").val().trim();
   const identificacion = $("#editarIdentificacion").val();
   const direccion = $("#editarDireccion").val().trim();
@@ -241,7 +254,6 @@ $("#formEditarCliente").on("submit", function (e) {
   const data = {
     id: idCliente,
     nombres: nombres,
-    razon_social: razon_social,
     tipo_identificacion: tipo_identificacion,
     identificacion: identificacion,
     direccion: direccion,
@@ -316,7 +328,7 @@ $(".validarCliente").on("input", function () {
       if (respuesta.success == true) {
         $(".alerta").removeClass("d-none");
         $(".alerta").html(
-          "<i class='fa-solid fa-triangle-exclamation'></i> Ya existe un cliente registrado con esta identificación"
+          "<i class='fa-solid fa-triangle-exclamation'></i> Ya existe un clismpfgpsfpod878registrado con esta identificación"
         );
       } else {
         $(".alerta").addClass("d-none");
@@ -375,3 +387,4 @@ function eliminarCliente(id) {
     },
   });
 }
+

@@ -99,7 +99,7 @@
 
             <div class="form-floating">
 
-              <input type="text" class="form-control shadow-sm validarProveedor" id="nuevoRif" placeholder="RIF" inputmode="numeric" required>
+              <input type="number" min = "100000" max = "999999999" class="form-control shadow-sm validarProveedor" id="nuevoRif" placeholder="RIF" inputmode="numeric" required>
               
               <label for="nuevoRif">RIF</label>
 
@@ -119,7 +119,7 @@
 
             <div class="form-floating">
 
-              <input type="text" class="form-control shadow-sm" id="nuevoTelefonoProveedor" placeholder="Teléfono e.g: 4241234567" inputmode="numeric" required>
+              <input type="number" max="9999999999" class="form-control shadow-sm" id="nuevoTelefonoProveedor" placeholder="Teléfono e.g: 4241234567" inputmode="numeric" required>
               
               <label for="nuevoTelefonoProveedor">Teléfono e.g: 4241234567</label>
 
@@ -295,7 +295,7 @@
 
             <div class="form-floating">
 
-              <input type="text" class="form-control shadow-sm validarProveedor" id="editarRif" placeholder="Cédula o RIF" inputmode="numeric" required>
+              <input type="number" min = "100000" max = "999999999" class="form-control shadow-sm validarProveedor" id="editarRif" placeholder="Cédula o RIF" inputmode="numeric" required>
               
               <label for="editarRif">Cédula o RIF</label>
 
@@ -317,7 +317,7 @@
 
             <div class="form-floating">
 
-              <input type="text" class="form-control shadow-sm" id="editarTelefonoProveedor" placeholder="Teléfono e.g: 4241234567" inputmode="numeric" required>
+              <input type="number" class="form-control shadow-sm" id="editarTelefonoProveedor" placeholder="Teléfono e.g: 4241234567" inputmode="numeric" required>
               
               <label for="editarTelefonoProveedor">Teléfono e.g: 4241234567</label>
 

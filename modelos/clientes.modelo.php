@@ -45,13 +45,12 @@ class ModeloClientes {
             // Consulta SQL para insertar un nuevo Cliente
             $stmt = Conexion::conectar()->prepare(
                 "INSERT INTO 
-                $tabla (nombres, razon_social, tipo_identificacion, identificacion, direccion, codigo_pais, telefono, correo) 
-                VALUES (:nombres, :razon_social, :tipo_identificacion, :identificacion, :direccion, :codigo_pais, :telefono, :correo)"
+                $tabla (nombres, tipo_identificacion, identificacion, direccion, codigo_pais, telefono, correo) 
+                VALUES (:nombres, :tipo_identificacion, :identificacion, :direccion, :codigo_pais, :telefono, :correo)"
             );
 
             // Vincular los parámetros
             $stmt->bindParam(":nombres", $datos["nombres"], PDO::PARAM_STR);
-            $stmt->bindParam(":razon_social", $datos["razon_social"], PDO::PARAM_STR);
             $stmt->bindParam(":tipo_identificacion", $datos["tipo_identificacion"], PDO::PARAM_STR);
             $stmt->bindParam(":identificacion", $datos["identificacion"], PDO::PARAM_INT);
             $stmt->bindParam(":direccion", $datos["direccion"], PDO::PARAM_STR);
