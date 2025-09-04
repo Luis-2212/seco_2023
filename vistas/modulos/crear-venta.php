@@ -39,19 +39,17 @@
   CONSULTAR PRODUCTO
   =============================================-->
 
-  <h5 class="text-dark fw-semibold mt-4">Consultar Producto</h5>
+  <h3 class="text-dark text-center fw-semibold mt-4">Consultar Producto</h3>
 
-  <div class="input-group mb-3">
+  <div class="input-group mb-3 w-75 mx-auto">
     
     <div class="form-floating">
 
-      <input type="search" class="form-control shadow-sm buscadoProducto" id="buscadorConsultarProducto" placeholder="Buscar Producto" required>
+      <input type="search" class="form-control shadow-sm rounded-pill px-3 buscadoProducto" id="buscadorConsultarProducto" placeholder="Buscar Producto" required>
       
       <label for="buscadorConsultarProducto">Buscar Producto</label>
 
     </div>
-
-    <button type="button" class="btn btn-success shadow" data-bs-toggle="modal" data-bs-target="#modalAgregarCategoria">Buscar</button>
 
   </div>
 
@@ -63,45 +61,38 @@
   SECCION PARA CONSULTAR Producto
   =============================================-->
 
-  <!-- <section class="content py-3">
+  <section class="content rounded shadow-lg my-3 py-3 d-flex">
 
     <div class="container-fluid">
 
-      <h4>Consultar Productos</h4>
+      <h4>Lista de Productos Seleccionados</h4>
 
-      <div class="table-responsive p-2 rounded shadow-lg">
+      <div id="productosSeleccionados"></div>
 
-        <table class="table table-sm table-bordered table-striped table-light table-hover align-middle" id="tablaProductos" width="100%">         
+    </div>
 
-          <thead>         
+    <div class="container-fluid border-start border-2 border-dark">
 
-            <tr class="table-dark">           
+      <h4>Detalles de la venta</h4>
 
-              <th>Estado</th>
-              <th>Nombre</th>
-              <th>Categoría</th>
-              <th>Marca</th>
-              <th>Stock</th>
-              <th>Medida</th>
-              <th>Precio Compra $</th>
-              <th>Precio Venta $</th>
-              <th>Descripción</th>
-              <th>Fecha creación</th>
-              <th>Fecha Actualización</th>
-              <th>Acciones</th>
+      <div>
+        
+        <div class="input-group mb-3 mx-auto">
+          
+          <div class="form-floating">
 
-            </tr> 
+            <input type="search" class="form-control shadow-sm px-3 buscadorCliente" id="buscadorCliente" placeholder="Buscar Cliente" required>
+            
+            <label for="buscadorCliente">Buscar Cliente</label>
 
-          </thead>
+          </div>
 
-          <tbody></tbody>
-
-        </table>
+        </div>
 
       </div>
 
     </div>
 
-  </section> -->
+  </section>
 
 </div>
