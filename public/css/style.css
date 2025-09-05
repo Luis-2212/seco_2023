@@ -1,3 +1,7 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+}
+
 .contenedor-principal {
   height: calc(100vh - 2.5em);
   overflow-y: auto;
@@ -32,6 +36,7 @@
   gap: 1em;
   align-items: center;
   padding: 1em 2em;
+  /* background-color: white; */
 
   &:hover {
     background-color: beige;
@@ -45,4 +50,20 @@
     color: #166d22;
     margin-left: auto;
   }
+}
+
+.info-producto-consultado {
+  display: flex;
+  flex-direction: column;
+}
+
+.carta-producto-agregado {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  background: #ffffff;
+  border-radius: 10px;
+  width: 50%;
 }

@@ -53,7 +53,7 @@
 
   </div>
 
-  <section class="content rounded shadow-lg my-3 py-3" id="seccionProductosConsultar"></section>
+  <section class="content w-50 rounded bg-white shadow-lg my-3 mx-auto d-none" id="seccionProductosConsultar"></section>
 
   <hr>
   
@@ -65,15 +65,26 @@
 
     <div class="container-fluid">
 
-      <h4>Lista de Productos Seleccionados</h4>
+      <h4 class="pb-2 fw-semibold border-bottom border-2 border-warning">Lista de Productos Seleccionados</h4>
 
-      <div id="productosSeleccionados"></div>
-
+      <div class="table-responsive">
+        <table class="table table-sm table-striped-columns">
+          <thead class="table-dark">
+            <tr class="text-center">
+              <th><i class="fa-solid fa-square-check"></i></th>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th class="text-end">Precio $</th>
+            </tr>
+          </thead>
+          <tbody id="productosSeleccionados" class="align-middle text-center"></tbody>
+        </table>
+      </div>
     </div>
 
-    <div class="container-fluid border-start border-2 border-dark">
+    <div class="container-fluid border-start border-4 border-warning">
 
-      <h4>Detalles de la venta</h4>
+      <h4 class="pb-2 fw-semibold border-bottom border-2 border-warning">Detalles de la venta</h4>
 
       <div>
         
