@@ -92,15 +92,17 @@
           
           <div class="form-floating">
 
-            <input type="search" class="form-control shadow-sm px-3 buscadorCliente" id="buscadorCliente" placeholder="Buscar Cliente" required>
+            <input type="search" class="form-control shadow-sm px-3 buscadorCliente" id="buscadorCliente" placeholder="Buscar Cliente por identificación e.g: 18331857" required>
             
-            <label for="buscadorCliente">Buscar Cliente</label>
+            <label for="buscadorCliente">Buscar Cliente por identificación e.g: 18331857</label>
 
           </div>
 
         </div>
 
       </div>
+
+      <ul class="position-absolute bg-white overflow-y-auto list-group" id="resultadosClientes">asdsd</ul>
 
     </div>
 

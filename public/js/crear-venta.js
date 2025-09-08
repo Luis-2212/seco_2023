@@ -8,7 +8,7 @@ if (currentPath.endsWith("/crear-venta")) {
 }
 
 /*=============================================
-  OBTENER CATEGORÍAS 
+  OBTENER PRODUCTOS
 =============================================*/
 
 let listaProductosSeleccionados = [];
@@ -96,7 +96,7 @@ function consultarProductos(query) {
                     </td>
                     <td class="fs-5">${producto.nombre}</td>
                     <td class="d-flex align-items-center gap-1">
-                      <input type="number" class="form-control w-25 cantidad-producto-venta" placeholder="0" /> ${producto.unidad_medida}
+                      <input type="number" class="form-control w-25 cantidad-producto-venta" placeholder="0"/> ${producto.unidad_medida}
                     </td>
                     <td class="fs-4 text-end fw-semibold">${producto.precio}</td>
                   </tr>
@@ -134,9 +134,9 @@ function consultarProductos(query) {
 // $(".check-producto-venta").each(function () {
 $(".check-producto-venta").on("change", function () {
   alert("aasd");
-  if ($(this).not(":checked")) {
-    $(this).addClass("d-none");
-  }
+  // if ($(this).not(":checked")) {
+  //   $(this).addClass("d-none");
+  // }
 });
 // });
 
@@ -144,4 +144,44 @@ $("#buscadorConsultarProducto").on("input", function () {
   let query = $(this).val().trim();
 
   query != "" ? consultarProductos(query) : console.log("vacio");
+});
+
+/*=============================================
+  OBTENER CLIENTE
+=============================================*/
+
+function consultarClientes(query) {
+  let listaClientes = "";
+  $("#resultadosClientes").empty();
+
+  $.ajax({
+    type: "GET",
+    url: `http/consultarClientes.endpoint.php?query=${query}`,
+    dataType: "json",
+    success: function (respuesta) {
+      console.log(respuesta.data);
+
+      respuesta.data.map((cliente) => {
+        listaClientes += `
+          <li class="p-2 list-group-item list-group-item-action">${cliente.nombres} | ${cliente.tipo_identificacion}-${cliente.identificacion}</li>
+        `;
+      });
+
+      $("#resultadosClientes").append(listaClientes);
+    },
+    error: function (error) {
+      console.log(error.responseText);
+      $("#resultadosClientes").empty();
+
+      $("#resultadosClientes").append(
+        `<li>Sin resultados, <a href="#">Agregué uno</a></li>`
+      );
+    },
+  });
+}
+
+$("#buscadorCliente").on("input", function () {
+  let query = $(this).val().trim();
+
+  query != "" ? consultarClientes(query) : console.log("vacio");
 });

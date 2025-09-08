@@ -35,6 +35,38 @@ class ControladorClientes {
     }
 
     /*=============================================
+    CONSULTAR CLIENTES (GET)
+    =============================================*/
+    static public function ctrConsultarClientes($valor = null) {
+        try {
+            include "../modelos/clientes.modelo.php";
+            $respuesta = ModeloClientes::mdlConsultarClientes("clientes", $valor);
+            
+            if (!$respuesta) {
+                return [
+                    "status" => 404,
+                    "success" => false,
+                    "message" => "Cliente no encontrado."
+                ];
+            }
+
+            return [
+                "status" => 200,
+                "success" => true,
+                "data" => $respuesta
+            ];
+            
+        } catch (Exception $e) {
+            error_log("Error en ctrConsultarClientes: " . $e->getMessage());
+            return [
+                "status" => 500,
+                "success" => false,
+                "message" => "Ocurrió un error al procesar la solicitud."
+            ];
+        }
+    }
+
+    /*=============================================
     CREAR CLIENTE (POST)
     =============================================*/
     static public function ctrCrearCliente($datos) {

@@ -38,6 +38,29 @@ class ModeloClientes {
     }
 
     /*=============================================
+    CONSULTAR CLIENTES (GET)
+    =============================================*/
+    static public function mdlConsultarClientes($tabla, $valor) {
+        try {
+
+            // Obtener todos los CLIENTES
+            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE (identificacion LIKE '%$valor%')");
+
+        $stmt->execute();
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+
+        } catch (PDOException $e) {
+            error_log("Error en mdlConsultarClientes: " . $e->getMessage());
+            return $e->getMessage(); // Retorna false en caso de error
+        } finally {
+            if ($stmt) {
+                $stmt = null; // Asegura que el statement se cierre
+            }
+        }
+    }
+
+    /*=============================================
     REGISTRO DE CLIENTE (POST)
     =============================================*/
     static public function mdlCrearCliente($tabla, $datos) {
