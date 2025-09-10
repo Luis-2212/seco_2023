@@ -52,6 +52,12 @@ body {
   }
 }
 
+#seccionProductosConsultar {
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 100 !important;
+}
+
 .info-producto-consultado {
   display: flex;
   flex-direction: column;

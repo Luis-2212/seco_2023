@@ -1,4 +1,18 @@
 /*=============================================
+  INICIALIZAR EL PLUGIN DE TELÉFONO
+=============================================*/
+var currentPath = window.location.pathname;
+
+if (currentPath.endsWith("/crear-venta")) {
+  $("input[type=tel]").each(function () {
+    window.intlTelInput(this, {
+      initialCountry: "ve",
+      showSelectDialCode: true,
+    });
+  });
+}
+
+/*=============================================
   OBTENER PRODUCTOS
 =============================================*/
 
@@ -88,7 +102,11 @@ function consultarProductos(query) {
                     <td class="w-25">
                       <div class="input-group">
                         <span class="input-group-text shadow-sm d-flex justify-content-center">${producto.unidad_medida}</span>
-                        <input type="number" class="form-control shadow-sm cantidad-producto-venta" placeholder="0"/>
+                        <input type="number" class="form-control shadow-sm cantidad-producto-venta" data-id="${producto.id}" placeholder="0"/>
+                      </div>
+                      <div class="input-group">
+                        <span class="input-group-text shadow-sm d-flex justify-content-center">Disp.</span>
+                        <input type="number" class="form-control shadow-sm cantidad-producto-venta cantidad-producto-venta-disponible" data-id="${producto.id}" readonly value="${producto.stock}"/>
                       </div>
                     </td>
                     <td class="fs-4 text-end text-success fw-semibold precio-producto-venta">${producto.precio}</td>
@@ -148,6 +166,20 @@ function consultarProductos(query) {
 }
 
 $(document).on("input", ".cantidad-producto-venta", function () {
+  let idProducto = $(this).attr("data-id");
+  let stockDisponible = listaProductosSeleccionados[idProducto].stock;
+
+  if (parseInt($(this).val()) > parseInt(stockDisponible)) {
+    $(this).val(stockDisponible);
+    // return alert("La cantidad no puede ser mayor al stock disponible");
+  }
+
+  listaProductosSeleccionados[idProducto].cantidad = $(this).val();
+  console.log(stockDisponible);
+  console.log(listaProductosSeleccionados);
+});
+
+$(document).on("input", ".cantidad-producto-venta", function () {
   let totalVenta = 0;
 
   // Itera sobre cada fila de la tabla de productos seleccionados
@@ -184,6 +216,10 @@ $("#totalNetoVenta").on("change", function () {
   $("#totalVenta").val(totalProcesar.toFixed(2));
 });
 
+/*=============================================
+  BUSCAR PRODUCTOS
+=============================================*/
+
 $("#buscadorConsultarProducto").on("input", function () {
   let query = $(this).val().trim();
 
@@ -200,6 +236,7 @@ function consultarClientes(query) {
   if (!query || query == "") {
     $("#resultadosClientes").empty();
   }
+
   $("#resultadosClientes").empty();
 
   $.ajax({
@@ -207,46 +244,52 @@ function consultarClientes(query) {
     url: `http/consultarClientes.endpoint.php?query=${query}`,
     dataType: "json",
     success: function (respuesta) {
-      respuesta.data.map((cliente) => {
-        const clientesHtml = $(`
-          <li data-id-cliente="${cliente.id}" data-nombre-cliente="${cliente.nombres}" data-identificacion-cliente="${cliente.identificacion}" class="p-2 bg-white list-group-item list-group-item-action itemConsultarCliente">
-            ${cliente.nombres} - ${cliente.tipo_identificacion}-${cliente.identificacion}
-          </li>
-        `);
+      if (respuesta.success == true) {
+        respuesta.data.map((cliente) => {
+          const clientesHtml = $(`
+            <li data-id-cliente="${cliente.id}" data-nombre-cliente="${cliente.nombres}" data-identificacion-cliente="${cliente.identificacion}" class="p-2 bg-white list-group-item list-group-item-action itemConsultarCliente">
+              ${cliente.tipo_identificacion}-${cliente.identificacion} - ${cliente.nombres}
+            </li>
+          `);
 
-        $("#resultadosClientes").removeClass("d-none");
-        $("#resultadosClientes").append(clientesHtml);
-      });
+          $("#resultadosClientes").removeClass("d-none");
+          $("#resultadosClientes").append(clientesHtml);
+        });
 
-      // Asigna el evento de cambio al dar click en el cliente
-      $(".itemConsultarCliente").click(function () {
-        // Los datos del cliente se obtienen de los atributos
-        const idCliente = $(this).attr("data-id-cliente");
-        const nombreCliente = $(this).attr("data-nombre-cliente");
-        const identificacionCliente = $(this).attr(
-          "data-identificacion-cliente"
+        // Asigna el evento de cambio al dar click en el cliente
+        $(".itemConsultarCliente").click(function () {
+          // Los datos del cliente se obtienen de los atributos
+          const idCliente = $(this).attr("data-id-cliente");
+          const nombreCliente = $(this).attr("data-nombre-cliente");
+          const identificacionCliente = $(this).attr(
+            "data-identificacion-cliente"
+          );
+
+          $("#idClienteSeleccionado").val(idCliente);
+          $("#nombreClienteSeleccionado").val(nombreCliente);
+          $("#identificacionClienteSeleccionado").val(identificacionCliente);
+
+          $("#nombreClienteSeleccionado").removeClass("border-danger");
+          $("#nombreClienteSeleccionado").addClass("border-success");
+
+          $("#identificacionClienteSeleccionado").removeClass("border-danger");
+          $("#identificacionClienteSeleccionado").addClass("border-success");
+
+          $("#resultadosClientes").empty();
+          $("#buscadorCliente").val("");
+        });
+      } else {
+        $("#resultadosClientes").append(
+          `<li class="mx-3 p-2 bg-light">Sin resultados, <a data-bs-toggle="modal" data-bs-target="#modalIngresarClienteVenta" class="text-info">Agrega un nuevo cliente</a></li>`
         );
-
-        $("#idClienteSeleccionado").val(idCliente);
-        $("#nombreClienteSeleccionado").val(nombreCliente);
-        $("#identificacionClienteSeleccionado").val(identificacionCliente);
-
-        $("#nombreClienteSeleccionado").removeClass("border-danger");
-        $("#nombreClienteSeleccionado").addClass("border-success");
-
-        $("#identificacionClienteSeleccionado").removeClass("border-danger");
-        $("#identificacionClienteSeleccionado").addClass("border-success");
-
-        $("#resultadosClientes").empty();
-        $("#buscadorCliente").val("");
-      });
+      }
     },
     error: function (error) {
       console.log(error.responseText);
       $("#resultadosClientes").empty();
 
-      $("#resultadosClientes").append(
-        `<li class="p-2">Sin resultados, <a href="#">Agregue un nuevo cliente</a></li>`
+      return $("#resultadosClientes").html(
+        `<li class="mx-3 p-2 bg-light">Sin resultados, <a data-bs-toggle="modal" data-bs-target="#modalIngresarClienteVenta" class="text-info">Agrega un nuevo cliente</a></li>`
       );
     },
   });
@@ -277,6 +320,60 @@ function verificarCamposRequeridos() {
 
 // Asocia la función al evento 'change' de todos los inputs requeridos
 $(document).on("change", "input[required]", verificarCamposRequeridos);
+
+/*=============================================
+  CREAR CLIENTE DESDE VENTAS
+=============================================*/
+
+$("#formIngresarClienteVenta").submit(function (e) {
+  e.preventDefault();
+  const datosCliente = {
+    nombres: $("#nuevoNombresClienteVenta").val(),
+    tipo_identificacion: $("#nuevoTipoIdentificacionVenta").val(),
+    identificacion: $("#nuevoIdentificacionVenta").val(),
+    direccion: $("#nuevoDireccionVenta").val(),
+    codigo_pais: $("#nuevoCodigoPaisVenta").val(),
+    telefono: $("#nuevoTelefonoVenta").val(),
+    correo: $("#nuevoCorreoVenta").val(),
+  };
+
+  $.ajax({
+    type: "POST",
+    url: "http/clientes.endpoint.php",
+    data: JSON.stringify(datosCliente),
+    dataType: "json",
+    success: function (response) {
+      if (response.success === true) {
+        $("#modalIngresarClienteVenta").modal("hide");
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Registrado con exito",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+      function vaciarCampos() {
+        $("#nuevoNombresClienteVenta").val("");
+        $("#nuevoTipoIdentificacionVenta").val("V");
+        $("#nuevoIdentificacionVenta").val("");
+        $("#nuevoTelefonoVenta").val("");
+        $("#nuevoCorreoVenta").val("");
+      }
+      vaciarCampos();
+    },
+    error: function (error) {
+      console.error(error);
+
+      Swal.fire({
+        title: "Error al eliminar",
+        icon: "error",
+      });
+
+      $("#modalIngresarClienteVenta").modal("hide");
+    },
+  });
+});
 
 /*=============================================
   GENERAR VENTA

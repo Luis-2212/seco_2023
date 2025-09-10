@@ -67,6 +67,18 @@ class ControladorVentas {
             $respuesta = ModeloVentas::mdlGenerarVenta("ventas", $datosVenta);
 
             if ($respuesta === "ok") {
+
+                foreach ($datos['lista_productos'] as $producto) {
+                    
+                    $nuevaCantidad = $dataActualizarProducto["cantidad"] - $dataActualizarProducto["stock"];
+
+                    $dataActualizacion = [
+                        "id" => $producto["id"],
+                        "cantidad" => $nuevaCantidad
+                    ];
+
+                    ModeloProductos::mdlActualizarProducto("productos", $dataActualizacion);
+                }
                 return [
                     "status" => 201,
                     "success" => true,
