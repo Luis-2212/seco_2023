@@ -278,12 +278,53 @@ function verificarCamposRequeridos() {
 // Asocia la función al evento 'change' de todos los inputs requeridos
 $(document).on("change", "input[required]", verificarCamposRequeridos);
 
+/*=============================================
+  GENERAR VENTA
+=============================================*/
+let listaProductosVenta = [];
 $("#formCrearVenta").submit(function (e) {
   e.preventDefault();
   if ($("#totalVenta").val() == "0.00" || $("#totalVenta").val() == "") {
     return alert("El valor total no debe ser 0.00");
   }
 
-  console.log(listaProductosSeleccionados);
-  return alert("si");
+  listaProductosSeleccionados.forEach((producto) => {
+    const dataProducto = {
+      id: producto.id,
+      nombre: producto.nombre,
+      cantidad: producto.cantidad,
+      precio: producto.precio,
+    };
+
+    listaProductosVenta.push(dataProducto);
+  });
+
+  if (!listaProductosVenta || listaProductosVenta == []) {
+    return console.warning("No hay productos seleccionados");
+  }
+
+  let dataVenta = {
+    id_cliente: parseInt($("#idClienteSeleccionado").val()),
+    lista_productos: listaProductosVenta,
+    impuesto: parseFloat($("#ivaVenta").val()),
+    valor_neto: parseFloat($("#totalNetoVenta").val()),
+    valor_total: parseFloat($("#totalVenta").val()),
+  };
+
+  $.ajax({
+    type: "POST",
+    url: "http/ventas.endpoint.php",
+    data: JSON.stringify(dataVenta),
+    dataType: "json",
+    cache: false,
+    success: function (respuesta) {
+      if (respuesta.success === true) {
+        location.href("ventas/reporte");
+      }
+      console.log(respuesta);
+    },
+    error: function (error) {
+      console.error(error);
+    },
+  });
 });
