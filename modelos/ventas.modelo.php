@@ -15,6 +15,7 @@ class ModeloVentas {
                                                     "SELECT
                                                         u.nombres AS nombre_usuario,
                                                         u.apellidos AS apellido_usuario,
+                                                        c.id AS id_cliente,
                                                         c.nombres AS nombres_cliente,
                                                         c.tipo_identificacion,
                                                         c.identificacion,
@@ -38,6 +39,7 @@ class ModeloVentas {
                 $stmt = Conexion::conectar()->prepare("SELECT
                                                         u.nombres AS nombre_usuario,
                                                         u.apellidos AS apellido_usuario,
+                                                        c.id AS id_cliente,
                                                         c.nombres AS nombres_cliente,
                                                         c.tipo_identificacion,
                                                         c.identificacion,

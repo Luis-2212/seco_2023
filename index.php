@@ -1,4 +1,5 @@
 <?php
+define('ROOT_PATH', __DIR__);
 
 require_once "controladores/plantilla.controlador.php";
 // require_once "controladores/ventas.controlador.php";

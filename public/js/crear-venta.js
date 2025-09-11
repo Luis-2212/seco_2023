@@ -439,9 +439,10 @@ $("#btnCrearVenta").click(function (e) {
           showCancelButton: true,
         }).then((resultado) => {
           if (resultado.isConfirmed) {
+            window.open(`recibo?codigo=${respuesta.data}`, "_blank");
             window.location.reload();
           } else {
-            window.open(`recibo?codigo=${respuesta.data}`, "_blank");
+            window.location.reload();
           }
         });
         // window.location.href = "ventas/reporte";

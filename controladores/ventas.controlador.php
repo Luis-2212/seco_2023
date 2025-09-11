@@ -7,7 +7,7 @@ class ControladorVentas {
     =============================================*/
     static public function ctrMostrarVentas($item = null, $valor = null) {
         try {
-            require("../modelos/ventas.modelo.php");
+            include __DIR__ . "/../modelos/ventas.modelo.php";
 
             $respuesta = ModeloVentas::mdlMostrarVentas("ventas", $item, $valor);
             

@@ -12,14 +12,8 @@ if (!defined('K_PATH_MAIN')) {
     define('K_PATH_MAIN', 'vendor/tecnickcom/tcpdf/');
 }
 
-require_once __DIR__ .'/../../controladores/ventas.controlador.php';
-require_once __DIR__ .'/../../modelos/ventas.modelo.php';
-
-require_once __DIR__ .'/../../controladores/clientes.controlador.php';
-require_once __DIR__ .'/../../modelos/clientes.modelo.php';
-
-require_once __DIR__ .'/../../controladores/productos.controlador.php';
-require_once __DIR__ .'/../../modelos/productos.modelo.php';
+include __DIR__ .'/../../controladores/ventas.controlador.php';
+// include ROOT_PATH .'/controladores/productos.controlador.php';
 
 class imprimirFactura {
 
@@ -29,28 +23,18 @@ class imprimirFactura {
 
         $codigo = $_GET["codigo"] ?? NULL;
 
-        $respuestaVenta = ControladorVentas::ctrMostrarVentas("codigo_recibo", $_GET["codigo"]);
+        // $respuestaVenta = ControladorVentas::mdlMostrarVentas("codigo_recibo", $_GET["codigo"]);
+        $respuestaVenta = ControladorVentas::mdlMostrarVentas("id", 2);
         
-        $respuestaCliente = ControladorClientes::ctrMostrarClientes("id", $respuestaVenta["id_cliente"]);
+        // $respuestaCliente = ControladorClientes::ctrMostrarClientes("id", $respuestaVenta["id_cliente"]);
 
-        // $respuestaVenta = [
-        //     'fecha' => '2025-09-10 10:30:00',
-        //     'productos_vendidos' => '[{"producto":"Producto A", "cantidad": 2, "total": 200}, {"producto":"Producto B", "cantidad": 1, "total": 150}]',
-        //     'total' => 350.00,
-        //     'total_bs' => 350000.00,
-        //     'nombreCliente' => 'Juan',
-        //     'apellidoCliente' => 'Perez',
-        //     'cedulaCliente' => 'V-12345678',
-        //     'vendedor' => 'Maria'
-        // ];
-        
         $codigoNotaEntrega = $codigo;
         $fecha = date('d/m/Y H:i:s', strtotime(($respuestaVenta["fecha_creacion"])));
         $productos = json_decode($respuestaVenta["lista_productos"], true);
         $total_neto = number_format($respuestaVenta["valor_neto"], 2);
         $total = number_format($respuestaVenta["valor_total"], 2);
-        $clienteNombre = $respuestaCliente["nombres"];
-        $clienteCI = $respuestaCliente["identificacion"];
+        $clienteNombre = $respuestaVenta["nombres_cliente"];
+        $clienteCI = $respuestaVenta["identificacion"];
 
         // CREAR INSTANCIA DE TCPDF
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -62,20 +46,20 @@ class imprimirFactura {
         <br><br>
         <table background="">
             <tr>
-                <td style="width:540px; text-align:right; color:red"><b><br>ENTREGA N°.</b>$codigoNotaEntrega</td>
+                <td style="width:540px; text-align:right; color:red"><b><br>ENTREGA N° </b>$codigoNotaEntrega</td>
             </tr>
             <tr>
                 <td style="width:340px; font-size:8.5px; text-align:left; line-height:15px">
-                    <b>SECO 2023</b> Nota de entrega
+                    <b>SELLA Y CONSTRUYE 2023, C.A.</b> Nota de entrega
                     <br>
-                    Productos impermeabilizar techos
+                    Productos para impermeabilizar techos
                     <br>
-                    Tienda Online
+                    J-50413704-9
                 </td> 
             </tr>
             <tr>
                 <td style="width:540px; font-size:11px; text-align:right; line-height:15px">
-                    <h4>+58 4127338043</h4>
+                    <h4>+58 4127654321</h4>
                 </td>
             </tr>
         </table>
@@ -89,7 +73,7 @@ EOF;
                 <td style="width:73px">
                     <h4>Cliente:</h4> 
                 </td>
-                <td style="border-right: 1px solid #000; width:197px">$clienteNombre clienteApellido</td>
+                <td style="border-right: 1px solid #000; width:197px">$clienteNombre</td>
                 <td style="width:70px">
                     <h4>CI o RIF:</h4> 
                 </td>
@@ -175,8 +159,8 @@ EOF;
             </tr>
             <tr>
                 <td style="width:540px">
-                    Nota de entrega emitida por SECO 2023.
-                    <b>RIF: J-1234567-8</b> 
+                    Nota de entrega emitida por SELLA Y CONSTRUYE 2023 C.A.
+                    <b>RIF: J-50413704-9</b> 
                 </td>
             </tr>
         </table>
