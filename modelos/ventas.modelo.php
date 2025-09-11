@@ -11,12 +11,49 @@ class ModeloVentas {
         try {
             if ($item != null) {
                 // Obtener un Venta específico
-                $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :valor");
+                $stmt = Conexion::conectar()->prepare(
+                                                    "SELECT
+                                                        u.nombres AS nombre_usuario,
+                                                        u.apellidos AS apellido_usuario,
+                                                        c.nombres AS nombres_cliente,
+                                                        c.tipo_identificacion,
+                                                        c.identificacion,
+                                                        v.lista_productos,
+                                                        v.codigo_recibo AS codigo_recibo,
+                                                        v.impuesto,
+                                                        v.valor_neto,
+                                                        v.valor_total,
+                                                        v.fecha_creacion
+                                                    FROM $tabla AS v
+                                                    LEFT JOIN usuarios AS u
+                                                    ON u.id = v.id_usuario
+                                                    LEFT JOIN clientes AS c
+                                                    ON c.id = v.id_cliente
+                                                    WHERE $item = :valor"
+                );
                 $stmt->bindParam(":valor", $valor, PDO::PARAM_STR);
 
             } else {
                 // Obtener todos los Venta
-                $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY fecha_creacion DESC");
+                $stmt = Conexion::conectar()->prepare("SELECT
+                                                        u.nombres AS nombre_usuario,
+                                                        u.apellidos AS apellido_usuario,
+                                                        c.nombres AS nombres_cliente,
+                                                        c.tipo_identificacion,
+                                                        c.identificacion,
+                                                        v.lista_productos,
+                                                        v.codigo_recibo AS codigo_recibo,
+                                                        v.impuesto,
+                                                        v.valor_neto,
+                                                        v.valor_total,
+                                                        v.fecha_creacion
+                                                    FROM $tabla AS v
+                                                    LEFT JOIN usuarios AS u
+                                                    ON u.id = v.id_usuario
+                                                    LEFT JOIN clientes AS c
+                                                    ON c.id = v.id_cliente
+                                                    ORDER BY fecha_creacion DESC
+                ");
             }
 
             $stmt->execute();

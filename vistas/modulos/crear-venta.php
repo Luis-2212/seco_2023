@@ -39,68 +39,22 @@
   SECCION PARA CONSULTAR PRODUCTOS Y DETALLES DE LA VENTA
   =============================================-->
 
+  <div class="button-group text-center">
+
+    <button type="button" id="btnCrearVenta" class="btn btn-success px-5 py-3" disabled>PROCESAR VENTA</button>
+
+  </div>
+
   <section class="content rounded shadow-lg m-3 py-3 row">
 
-    <!-- LISTA DE PRODUCTO -->
-
-    <div class="container-fluid col-12 col-lg-6">
-
-      <h4 class="p-2 fw-semibold border-bottom border-top border-2 border-warning">Lista de Productos</h4>
-
-      <h3 class="text-dark text-center fs-5 fw-semibold mt-2">Consultar Producto</h3>
-
-      <div class="input-group mb-3 w-75 mx-auto">
-        
-        <div class="form-floating">
-
-          <input type="search" class="form-control shadow-sm rounded-pill px-3 buscadoProducto" id="buscadorConsultarProducto" placeholder="Buscar Producto">
-          
-          <label for="buscadorConsultarProducto">Buscar Producto</label>
-
-        </div>
-
-      </div>
-
-      <div class="position-relative">
-
-        <section class="content w-75 border border-dark rounded-4 bg-white shadow-lg d-none position-absolute top-0" id="seccionProductosConsultar"></section>
-      
-      </div>
-
-      <div class="table-responsive">
-
-        <table class="table table-sm table-striped-columns">
-
-          <thead class="table-dark">
-
-            <tr class="text-center">
-
-              <th><i class="fa-solid fa-square-check"></i></th>
-
-              <th>Producto</th>
-
-              <th>Cantidad</th>
-
-              <th class="text-end">Precio $</th>
-
-            </tr>
-
-          </thead>
-
-          <tbody id="productosSeleccionados" class="align-middle text-center table-sm"></tbody>
-
-        </table>
-
-      </div>
-
-    </div>
-
-    <!-- da -->
+    <!-- DATOS DE LA VENTA -->
     
-    <form id="formCrearVenta" class="container-fluid col-12 col-lg-6 border-start border-2 border-warning">
+    <form id="formCrearVenta" class="container-fluid col-12 col-lg-6 border-end border-warning mb-3">
 
       <h4 class="p-2 fw-semibold border-bottom border-top border-2 border-warning">Detalles de la venta</h4>
 
+      <!-- INFO DEL CLIENTE -->
+      
       <div>
 
         <h5 class="fs-6">Datos del Cliente</h5>
@@ -156,6 +110,8 @@
         </div>
 
       </div>
+
+      <!-- INFO DE LA VENTA -->
       
       <h5 class="fs-6">Datos de la venta</h5>
 
@@ -199,13 +155,61 @@
 
       </div>
 
-      <div class="button-group text-center">
+    </form>
 
-        <button type="submit" id="btnCrearVenta" class="btn btn-success" disabled>Crear Venta</button>
+    <!-- LISTA DE PRODUCTO -->
+
+    <div class="container-fluid col-12 col-lg-6 border-start border-warning">
+
+      <h4 class="p-2 fw-semibold border-bottom border-top border-2 border-warning">Lista de Productos</h4>
+
+      <h3 class="text-dark text-center fs-5 fw-semibold mt-2">Consultar Producto</h3>
+
+      <div class="input-group mb-3 w-75 mx-auto">
+        
+        <div class="form-floating">
+
+          <input type="search" class="form-control shadow-sm rounded-pill px-3 buscadoProducto" id="buscadorConsultarProducto" placeholder="Buscar Producto">
+          
+          <label for="buscadorConsultarProducto">Buscar Producto</label>
+
+        </div>
 
       </div>
-        
-    </form>
+
+      <div class="position-relative">
+
+        <section class="content w-75 border border-dark rounded-4 bg-white shadow-lg d-none position-absolute top-0" id="seccionProductosConsultar"></section>
+      
+      </div>
+
+      <div class="table-responsive">
+
+        <table class="table table-sm table-striped-columns">
+
+          <thead class="table-dark">
+
+            <tr class="text-center">
+
+              <th><i class="fa-solid fa-square-check"></i></th>
+
+              <th>Producto</th>
+
+              <th>Cantidad</th>
+
+              <th class="text-end">Precio $</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="productosSeleccionados" class="align-middle text-center table-sm"></tbody>
+
+        </table>
+
+      </div>
+
+    </div>
 
   </section>
 

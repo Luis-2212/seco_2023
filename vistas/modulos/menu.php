@@ -15,19 +15,13 @@
 
             <li class="nav-item p-1 align-middle">
 
-                <a class="nav-link btn btn-secondary fw-semibold" href="inicio"><i class="fa-solid fa-house"></i> Inicio</a>
+                <a class="nav-link text-start px-2 btn btn-secondary fw-semibold" href="inicio"><i class="fa-solid fa-house"></i> Inicio</a>
 
             </li>
 
-            <li class="nav-item p-1 align-middle">
+            <li class="nav-item p-1 mb-3 align-middle">
 
-                <a class="nav-link btn btn-secondary fw-semibold" href="clientes"><i class="fa-solid fa-users"></i> Clientes</a>
-
-            </li>
-
-            <li class="nav-item p-1 align-middle">
-
-                <a class="nav-link btn btn-secondary fw-semibold" href="crear-venta"><i class="fa-solid fa-cash-register"></i> Generar venta</a>
+                <a class="nav-link text-start px-2 btn btn-secondary fw-semibold" href="crear-venta"><i class="fa-solid fa-cash-register"></i> Generar venta</a>
 
             </li>
 
@@ -35,31 +29,37 @@
 
                 <li class="nav-item p-1 align-middle">
 
-                    <a class="nav-link btn btn-secondary fw-semibold" href="usuarios"><i class="fa-solid fa-user-tie"></i> Usuarios</a>
+                    <a class="nav-link text-start px-2 btn btn-secondary fw-semibold" href="productos"><i class="fa-solid fa-boxes-stacked"></i> Productos</a>
 
                 </li>
 
                 <li class="nav-item p-1 align-middle">
 
-                    <a class="nav-link btn btn-secondary fw-semibold" href="proveedores"><i class="fa-solid fa-truck"></i> Proveedores</a>
+                    <a class="nav-link text-start px-2 btn btn-secondary fw-semibold" href="marcas"><i class="fa-brands fa-font-awesome"></i> Marcas</a>
+
+                </li>
+
+                <li class="nav-item p-1 align-middle mb-3">
+
+                    <a class="nav-link text-start px-2 btn btn-secondary fw-semibold" href="categorias"><i class="fa-solid fa-tags"></i> Categorías</a>
 
                 </li>
 
                 <li class="nav-item p-1 align-middle">
 
-                    <a class="nav-link btn btn-secondary fw-semibold" href="productos"><i class="fa-solid fa-boxes-stacked"></i> Productos</a>
+                    <a class="nav-link text-start px-2 btn btn-secondary fw-semibold" href="clientes"><i class="fa-solid fa-users"></i> Clientes</a>
 
                 </li>
 
                 <li class="nav-item p-1 align-middle">
 
-                    <a class="nav-link btn btn-secondary fw-semibold" href="marcas"><i class="fa-brands fa-font-awesome"></i> Marcas</a>
+                    <a class="nav-link text-start px-2 btn btn-secondary fw-semibold" href="usuarios"><i class="fa-solid fa-user-tie"></i> Usuarios</a>
 
                 </li>
 
                 <li class="nav-item p-1 align-middle">
 
-                    <a class="nav-link btn btn-secondary fw-semibold" href="categorias"><i class="fa-solid fa-tags"></i> Categorías</a>
+                    <a class="nav-link text-start px-2 btn btn-secondary fw-semibold" href="proveedores"><i class="fa-solid fa-truck"></i> Proveedores</a>
 
                 </li>
 

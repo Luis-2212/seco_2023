@@ -7,7 +7,8 @@ class ControladorVentas {
     =============================================*/
     static public function ctrMostrarVentas($item = null, $valor = null) {
         try {
-            include "../modelos/ventas.modelo.php";
+            require("../modelos/ventas.modelo.php");
+
             $respuesta = ModeloVentas::mdlMostrarVentas("ventas", $item, $valor);
             
             if ($item !== null && $valor !== null && !$respuesta) {
@@ -39,6 +40,8 @@ class ControladorVentas {
     =============================================*/
     static public function ctrGenerarVenta($datos) {
         include "../modelos/ventas.modelo.php";
+        include "../modelos/productos.modelo.php";
+
         try {
 
             $fechaActual = date("Y-m-d");
@@ -70,19 +73,21 @@ class ControladorVentas {
 
                 foreach ($datos['lista_productos'] as $producto) {
                     
-                    $nuevaCantidad = $dataActualizarProducto["cantidad"] - $dataActualizarProducto["stock"];
+                    $nuevaCantidad = $producto["stock"] - $producto["cantidad"];
 
                     $dataActualizacion = [
                         "id" => $producto["id"],
-                        "cantidad" => $nuevaCantidad
+                        "stock" => $nuevaCantidad
                     ];
 
-                    ModeloProductos::mdlActualizarProducto("productos", $dataActualizacion);
+                    $actualizarProducto = ModeloProductos::mdlEditarProducto("productos", $dataActualizacion);
                 }
+
                 return [
                     "status" => 201,
                     "success" => true,
-                    "message" => "Producto creado exitosamente."
+                    "message" => "Producto creado exitosamente.",
+                    "data" => $codigoRecibo
                 ];
             } else {
                 error_log("Error en ModeloVentas::mdlGenerarVenta: " . $respuesta);

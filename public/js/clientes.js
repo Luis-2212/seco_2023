@@ -72,9 +72,7 @@ var tablaClientes = $("#tablaClientes").DataTable({
       render: function (data, type, row) {
         const botonEditar = `<button class="btn btn-warning btn-sm" id="btnModalEditarCliente" data-bs-toggle="modal" data-bs-target="#modalEditarCliente" data-id="${data}"><i class="fa-solid fa-pen-to-square"></i></button>`;
 
-        const botonEliminar = `<button class="btn btn-danger btn-sm" id="btnEliminarCliente" data-id="${data}"><i class="fa-solid fa-trash-can"></i></button>`;
-
-        return `${botonEditar} ${botonEliminar}`;
+        return `${botonEditar}`;
       },
     },
   ],

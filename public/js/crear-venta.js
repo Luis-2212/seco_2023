@@ -303,7 +303,7 @@ $("#buscadorCliente").on("input", function () {
 
 function verificarCamposRequeridos() {
   // Selecciona todos los inputs que tienen el atributo 'required'
-  const camposRequeridos = $("input[required]");
+  const camposRequeridos = $(".contenedor-principal  input[required]");
   // Filtra los inputs para ver cuáles tienen un valor
   const camposConValor = camposRequeridos.filter(function () {
     return $(this).val().trim() !== "";
@@ -316,10 +316,22 @@ function verificarCamposRequeridos() {
   } else {
     $("#btnCrearVenta").attr("disabled", "disabled");
   }
+
+  console.log(camposConValor, camposRequeridos);
 }
 
 // Asocia la función al evento 'change' de todos los inputs requeridos
-$(document).on("change", "input[required]", verificarCamposRequeridos);
+$(document).on(
+  "input",
+  ".contenedor-principal input[required]",
+  verificarCamposRequeridos
+);
+
+$(document).on(
+  "change",
+  ".contenedor-principal input[required]",
+  verificarCamposRequeridos
+);
 
 /*=============================================
   CREAR CLIENTE DESDE VENTAS
@@ -379,7 +391,7 @@ $("#formIngresarClienteVenta").submit(function (e) {
   GENERAR VENTA
 =============================================*/
 let listaProductosVenta = [];
-$("#formCrearVenta").submit(function (e) {
+$("#btnCrearVenta").click(function (e) {
   e.preventDefault();
   if ($("#totalVenta").val() == "0.00" || $("#totalVenta").val() == "") {
     return alert("El valor total no debe ser 0.00");
@@ -389,6 +401,7 @@ $("#formCrearVenta").submit(function (e) {
     const dataProducto = {
       id: producto.id,
       nombre: producto.nombre,
+      stock: producto.stock,
       cantidad: producto.cantidad,
       precio: producto.precio,
     };
@@ -416,7 +429,22 @@ $("#formCrearVenta").submit(function (e) {
     cache: false,
     success: function (respuesta) {
       if (respuesta.success === true) {
-        location.href("ventas/reporte");
+        console.log(respuesta);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Venta procesada con exito",
+          showConfirmButton: true,
+          textConfirmButton: "Ver recibo",
+          showCancelButton: true,
+        }).then((resultado) => {
+          if (resultado.isConfirmed) {
+            window.location.reload();
+          } else {
+            window.open(`recibo?codigo=${respuesta.data}`, "_blank");
+          }
+        });
+        // window.location.href = "ventas/reporte";
       }
       console.log(respuesta);
     },

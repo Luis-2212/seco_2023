@@ -1,18 +1,10 @@
-<?php
-
-session_start();
-
-?>
+<?php session_start(); ?>
 
 <!DOCTYPE html>
-
 <html>
-
 <head>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>SECO 2023</title>
 
   <!--=====================================
@@ -47,6 +39,15 @@ CUERPO DOCUMENTO
 
   if (isset($_SESSION["logged"]) && $_SESSION["logged"] === true) {
 
+      /*=============================================
+      IMPRIMIR RECIBO DE VENTA EN PDF
+      =============================================*/
+      if(isset($_GET["ruta"]) && $_GET["ruta"] == "recibo") {
+      
+        include "reportes/recibo.php";
+
+      }
+
     echo '<div class="wrapper">';
 
     /*=============================================
@@ -74,12 +75,14 @@ CUERPO DOCUMENTO
         $_GET["ruta"] == "categorias"   ||                  
         $_GET["ruta"] == "marcas"       ||                  
         $_GET["ruta"] == "productos"    ||             
-        $_GET["ruta"] == "crear-venta"  ||             
+        $_GET["ruta"] == "crear-venta"  ||           
+        $_GET["ruta"] == "ventas"       ||           
         $_GET["ruta"] == "inicio"
       ) {
 
 
         include "modulos/" . $_GET["ruta"] . ".php";
+
       } else {
 
         include "modulos/404.php";
@@ -149,6 +152,7 @@ CUERPO DOCUMENTO
   <script src="public/js/marcas.js"></script>
   <script src="public/js/productos.js"></script>
   <!--   GESTIÓN VENTAS   -->
+  <script src="public/js/ventas.js"></script>
   <script src="public/js/crear-venta.js"></script>
 
 </body>
