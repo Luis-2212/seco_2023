@@ -200,7 +200,9 @@ EOF;
             
         } else {
             // Manejar el caso donde la venta no fue encontrada.
-            echo "Error: Venta con código **{$codigo}** no encontrada.";
+            header("Location: ". "recibo?codigo=".$codigo);
+            exit;
+            // echo "Error: Venta con código **{$codigo}** no encontrada.";
         }
     }
 }

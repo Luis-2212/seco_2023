@@ -45,15 +45,14 @@ class ControladorVentas {
         try {
 
             $fechaActual = date("Y-m-d");
-            $horaActual = date("h:i:s");
+            $randomNumber = rand(1000, 9999);
             $fechaCodigo = str_replace("-", "", $fechaActual);
-            $horaCodigo = str_replace(":", "", $horaActual);
 
             session_start();
             $nombreSession = ucfirst($_SESSION['nombres'][0]);
             $apellidoSession = ucfirst($_SESSION['apellidos'][0]);
 
-            $codigoRecibo = $nombreSession.$apellidoSession.'-'.$_SESSION['id'].'-'.$datos["id_cliente"].'-'.$fechaCodigo.$horaCodigo;
+            $codigoRecibo = $nombreSession.$apellidoSession.'-'.$_SESSION['id'].'-'.$datos["id_cliente"].'-'.$fechaCodigo.$randomNumber;
 
             $jsonProductos = json_encode($datos['lista_productos'], JSON_UNESCAPED_UNICODE);
 
@@ -87,7 +86,7 @@ class ControladorVentas {
                     "status" => 201,
                     "success" => true,
                     "message" => "Producto creado exitosamente.",
-                    "data" => $codigoRecibo
+                    "data" => $datosVenta["codigo_recibo"]
                 ];
             } else {
                 error_log("Error en ModeloVentas::mdlGenerarVenta: " . $respuesta);
