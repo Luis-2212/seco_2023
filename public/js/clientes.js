@@ -72,9 +72,7 @@ var tablaClientes = $("#tablaClientes").DataTable({
       render: function (data, type, row) {
         const botonEditar = `<button class="btn btn-warning btn-sm" id="btnModalEditarCliente" data-bs-toggle="modal" data-bs-target="#modalEditarCliente" data-id="${data}"><i class="fa-solid fa-pen-to-square"></i></button>`;
 
-        const botonEliminar = `<button class="btn btn-danger btn-sm" id="btnEliminarCliente" data-id="${data}"><i class="fa-solid fa-trash-can"></i></button>`;
-
-        return `${botonEditar} ${botonEliminar}`;
+        return `${botonEditar}`;
       },
     },
   ],
@@ -85,8 +83,6 @@ var tablaClientes = $("#tablaClientes").DataTable({
 /*=============================================
 CREAR CLIENTE
 =============================================*/
-
-
 
 $("#formCrearCliente input[required]").on("input", function () {
   let allFilled = true;
@@ -124,7 +120,6 @@ $("#formCrearCliente").on("submit", function (e) {
     telefono == "" ||
     correo == "" ||
     direccion == ""
-
   ) {
     $(".alerta").removeClass("d-none");
     $(".alerta").html("Por favor, completa todos los campos.");
@@ -161,21 +156,21 @@ function registrarCliente(datos) {
           title: "Registrado con exito",
           showConfirmButton: false,
           timer: 1500,
-                    
         });
-function vaciarCampos() {
-    $('#nuevoNombresCliente').val('');
-    $('#nuevoTipoIdentificacion').val('V');
-    $('#nuevoIdentificacion').val('');
-    $('#nuevoTelefono').val('');
-    $('#nuevoCorreo').val('');
-    $('#nuevoDireccion').prop('disabled', false).prop('readonly', false).val('');
-}
-vaciarCampos();
+        function vaciarCampos() {
+          $("#nuevoNombresCliente").val("");
+          $("#nuevoTipoIdentificacion").val("V");
+          $("#nuevoIdentificacion").val("");
+          $("#nuevoTelefono").val("");
+          $("#nuevoCorreo").val("");
+          $("#nuevoDireccion")
+            .prop("disabled", false)
+            .prop("readonly", false)
+            .val("");
+        }
+        vaciarCampos();
 
-tablaClientes.ajax.reload(null, true);
-        
-        
+        tablaClientes.ajax.reload(null, true);
       } else {
         // Mensaje de registro si ocurre un error
         Swal.fire({
@@ -199,8 +194,6 @@ tablaClientes.ajax.reload(null, true);
     },
   });
 }
-
-
 
 /*=============================================
 OBTENER DATO DEL CLIENTE A EDITAR
@@ -389,4 +382,3 @@ function eliminarCliente(id) {
     },
   });
 }
-
