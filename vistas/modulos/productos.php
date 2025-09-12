@@ -255,7 +255,6 @@
               <th>Precio Venta $</th>
               <th>Descripción</th>
               <th>Fecha creación</th>
-              <th>Fecha Actualización</th>
               <th>Acciones</th>
 
             </tr> 
@@ -356,13 +355,9 @@
 
             <div class="form-floating">
 
-              <select class="form-select shadow-sm selectMostrarCategorias" id="editarIdCategoria" name="editarIdCategoria" required>
+              <select class="form-select shadow-sm selectMostrarCategorias" id="editarCategoriaProducto" name="editarCategoriaProducto" required></select>
 
-                <option default value="">Seleccionar Categoría</option>
-
-              </select>
-
-              <label for="editarIdCategoria">Categoría</label>
+              <label for="editarCategoriaProducto">Categoría</label>
 
             </div>
 
@@ -376,13 +371,9 @@
 
             <div class="form-floating">
 
-              <select class="form-select shadow-sm selectMostrarMarcas" id="editarIdMarca" name="editarIdMarca" required>
+              <select class="form-select shadow-sm selectMostrarMarcas" id="editarMarcaProducto" name="editarMarcaProducto" required></select>
 
-                <option default value="">Seleccionar Marca</option>
-
-              </select>
-
-              <label for="editarIdMarca">Marca</label>
+              <label for="editarMarcaProducto">Marca</label>
 
             </div>
 

@@ -67,10 +67,6 @@ class imprimirFactura {
             // Reajustar la opacidad a 1 para el resto del contenido
             $pdf->SetAlpha(1);
 
-            if (!file_exists($img_file)) {
-                die('La imagen no se encontró en la ruta especificada.');
-            }
-
             // CÓDIGO DE DISEÑO DEL PDF
             $bloque1 = <<<EOF
             <br><br>

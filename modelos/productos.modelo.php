@@ -14,6 +14,8 @@ class ModeloProductos {
                 $stmt = Conexion::conectar()->prepare(
                                                 "SELECT 
                                                     p.id,
+                                                    c.id AS id_categoria,
+                                                    m.id AS id_marca,
                                                     c.nombre_categoria AS categoria,
                                                     m.nombre_marca AS marca,
                                                     p.nombre,

@@ -113,8 +113,6 @@ function registrarCategoriasProductos(datos) {
         });
         $("#modalAgregarCategoria").modal("hide");
         obtenerCategoriasProductos();
-        
-        
       } else {
         // Mensaje de registro si ocurre un error
         Swal.fire({
@@ -259,23 +257,13 @@ var tablaProductos = $("#tablaProductos").DataTable({
       },
     },
     {
-      data: "fecha_actualizacion",
-      render: function (data) {
-        if (!data) {
-          return "";
-        }
-        // Convierte la fecha con moment y la formatea
-        return moment(data).format("DD/MM/YYYY HH:mm:ss");
-      },
-    },
-    {
       data: "id", // Usamos el ID del registro para los botones
       render: function (data, type, row) {
         const botonEditar = `<button class="btn btn-warning btn-sm" id="btnModalEditarProducto" data-bs-toggle="modal" data-bs-target="#modalEditarProducto" data-id="${data}"><i class="fa-solid fa-pen-to-square"></i></button>`;
 
-        const botonEliminar = `<button class="btn btn-danger btn-sm" id="btnEliminarProducto" data-id="${data}"><i class="fa-solid fa-trash-can"></i></button>`;
+        // const botonEliminar = `<button class="btn btn-danger btn-sm" id="btnEliminarProducto" data-id="${data}"><i class="fa-solid fa-trash-can"></i></button>`;
 
-        return `${botonEditar} ${botonEliminar}`;
+        return `${botonEditar}`;
       },
     },
   ],
@@ -416,8 +404,8 @@ tablaProductos.on("click", "#btnModalEditarProducto", function () {
       $("#editarProducto").html(`${respuesta.data["nombre"]}`);
       $("#btnEditarProducto").attr("data-id", `${respuesta.data["id"]}`);
       $("#editarNombreProducto").val(respuesta.data["nombre"]);
-      $("#editarIdCategoria").val(respuesta.data["id_categoria"]);
-      $("#editarIdMarca").val(respuesta.data["id_marca"]);
+      $("#editarCategoriaProducto").val(respuesta.data["id_categoria"]);
+      $("#editarMarcaProducto").val(respuesta.data["id_marca"]);
       $("#editarDescripcionProducto").val(respuesta.data["descripcion"]);
       $("#editarUnidadMedida").val(respuesta.data["unidad_medida"]);
       $("#editarStock").val(respuesta.data["stock"]);
@@ -435,30 +423,27 @@ $("#formEditarProducto").on("submit", function (e) {
   e.preventDefault();
 
   const idProducto = $("#btnEditarProducto").attr("data-id");
-  const nombres = $("#editarNombresProducto").val().trim();
-  const razon_social = $("#editarRazonSocial").val().trim();
-  const tipo_identificacion = $("#editarTipoIdentificacion").val().trim();
-  const identificacion = $("#editarIdentificacion").val();
-  const direccion = $("#editarDireccion").val().trim();
-  const codigo_pais = $("#editarCodigoPais").val().trim();
-  const telefono = $("#editarTelefono").val().trim();
-  const correo = $("#editarCorreo").val().trim();
-
-  if (identificacion == "" || nombres == "") {
-    alert("El usuario no puede quedar vacio");
-    return;
-  }
+  const idCategoria = $("#editarCategoriaProducto").val();
+  const idMarca = $("#editarMarcaProducto").val();
+  const nombre = $("#editarNombreProducto").val();
+  const descripcion = $("#editarDescripcionProducto").val();
+  const unidad_medida = $("#editarUnidadMedida").val();
+  const stock = $("#editarStock").val();
+  const precio_compra = $("#editarPrecioCompra").val();
+  const precio_venta = $("#editarPrecioVenta").val();
+  const estado = $("#editarStock").val() > 1 ? "Disponible" : "Agotado";
 
   const data = {
     id: idProducto,
-    nombres: nombres,
-    razon_social: razon_social,
-    tipo_identificacion: tipo_identificacion,
-    identificacion: identificacion,
-    direccion: direccion,
-    codigo_pais: codigo_pais,
-    telefono: telefono,
-    correo: correo,
+    id_categoria: idCategoria,
+    id_marca: idMarca,
+    nombre: nombre,
+    descripcion: descripcion,
+    unidad_medida: unidad_medida,
+    stock: stock,
+    precio_compra: precio_compra,
+    precio_venta: precio_venta,
+    estado: estado,
   };
 
   editarProducto(JSON.stringify(data));
