@@ -10,87 +10,91 @@
 
   </section>
 
-  <section class="content-header bg-light py-2 px-3 rounded mb-3 shadow-lg">
+  <?php if ($_SESSION["rol"] === 1 || $_SESSION["rol"] === 2): ?>
+    
+    <section class="content-header bg-light py-2 px-3 rounded mb-3 shadow-lg">
 
-    <h3 class="text-dark fw-semibold font-monospace">Acceso de ventas</h3>
+      <h3 class="text-dark fw-semibold font-monospace">Acceso de ventas</h3>
 
-    <hr class="border border-2 border-dark mt-0">
+      <hr class="border border-2 border-dark mt-0">
 
-    <div class="row py-3 px-auto g-3">
+      <div class="row py-3 px-auto g-3">
 
-      <a href="crear-venta" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
-        <div class="card-header text-center"><i class="fa-solid fa-cash-register iconos"></i></div>
-        <div class="card-body fw-semibold text-center">Generar venta</div>
-      </a>
+        <a href="crear-venta" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
+          <div class="card-header text-center"><i class="fa-solid fa-cash-register iconos"></i></div>
+          <div class="card-body fw-semibold text-center">Generar venta</div>
+        </a>
 
-    </div>
+      </div>
 
-  </section>
+    </section>
+
+  <?php endif; ?>
 
   <?php if ($_SESSION["rol"] === 1 || $_SESSION["rol"] === 3): ?>
     
-  <section class="content-header bg-light py-2 px-3 rounded mb-3 shadow-lg">
+    <section class="content-header bg-light py-2 px-3 rounded mb-3 shadow-lg">
 
-    <h3 class="text-dark fw-semibold font-monospace">Gestión productos</h3>
+      <h3 class="text-dark fw-semibold font-monospace">Gestión productos</h3>
 
-    <hr class="border border-2 border-dark mt-0">
+      <hr class="border border-2 border-dark mt-0">
 
-    <div class="row py-3 px-auto g-3">
+      <div class="row py-3 px-auto g-3">
 
-      <a href="productos" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
-        <div class="card-header text-center"><i class="fa-solid fa-boxes-stacked iconos"></i></div>
-        <div class="card-body fw-semibold text-center">Productos</div>
-      </a>
-      
-      <a href="marcas" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
-        <div class="card-header text-center"><i class="fa-brands fa-font-awesome iconos"></i></div>
-        <div class="card-body fw-semibold text-center">Marcas</div>
-      </a>
-      
-      <a href="categorias" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
-        <div class="card-header text-center"><i class="fa-solid fa-tags iconos"></i></div>
-        <div class="card-body fw-semibold text-center">Categorias</div>
-      </a>
-      
-    </div>
+        <a href="productos" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
+          <div class="card-header text-center"><i class="fa-solid fa-boxes-stacked iconos"></i></div>
+          <div class="card-body fw-semibold text-center">Productos</div>
+        </a>
+        
+        <a href="marcas" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
+          <div class="card-header text-center"><i class="fa-brands fa-font-awesome iconos"></i></div>
+          <div class="card-body fw-semibold text-center">Marcas</div>
+        </a>
+        
+        <a href="categorias" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
+          <div class="card-header text-center"><i class="fa-solid fa-tags iconos"></i></div>
+          <div class="card-body fw-semibold text-center">Categorias</div>
+        </a>
+        
+      </div>
 
-  </section>
+    </section>
 
   <?php endif; ?>
 
   <?php if ($_SESSION["rol"] === 1): ?>
     
-  <section class="content-header bg-light py-2 px-3 rounded mb-3 shadow-lg">
+    <section class="content-header bg-light py-2 px-3 rounded mb-3 shadow-lg">
 
-    <h3 class="text-dark fw-semibold font-monospace">Gestión Administrativa</h3>
+      <h3 class="text-dark fw-semibold font-monospace">Gestión Administrativa</h3>
 
-    <hr class="border border-2 border-dark mt-0">
+      <hr class="border border-2 border-dark mt-0">
 
-    <div class="row py-3 px-auto g-3">
+      <div class="row py-3 px-auto g-3">
 
-      <a href="usuarios" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
-        <div class="card-header text-center"><i class="fa-solid fa-user-tie iconos"></i></div>
-        <div class="card-body fw-semibold text-center">Usuarios</div>
-      </a>
-      
-      <a href="clientes" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
-        <div class="card-header text-center"><i class="fa-solid fa-users iconos"></i></div>
-        <div class="card-body fw-semibold text-center">Clientes</div>
-      </a>
-      
-      <a href="proveedores" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
-        <div class="card-header text-center"><i class="fa-solid fa-truck iconos"></i></div>
-        <div class="card-body fw-semibold text-center">Proveedores</div>
-      </a>
-      
-      <a href="ventas" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
-        <div class="card-header text-center"><i class="fa-solid fa-file-invoice iconos"></i></div>
-        <div class="card-body fw-semibold text-center">Reportes</div>
-      </a>
-      
-    </div>
+        <a href="usuarios" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
+          <div class="card-header text-center"><i class="fa-solid fa-user-tie iconos"></i></div>
+          <div class="card-body fw-semibold text-center">Usuarios</div>
+        </a>
+        
+        <a href="clientes" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
+          <div class="card-header text-center"><i class="fa-solid fa-users iconos"></i></div>
+          <div class="card-body fw-semibold text-center">Clientes</div>
+        </a>
+        
+        <a href="proveedores" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
+          <div class="card-header text-center"><i class="fa-solid fa-truck iconos"></i></div>
+          <div class="card-body fw-semibold text-center">Proveedores</div>
+        </a>
+        
+        <a href="ventas" class="btn btn-dark col-md-2 col-sm-4 mx-3 text-light text-decoration-none shadow">
+          <div class="card-header text-center"><i class="fa-solid fa-file-invoice iconos"></i></div>
+          <div class="card-body fw-semibold text-center">Reportes</div>
+        </a>
+        
+      </div>
 
-  </section>
+    </section>
 
   <?php endif; ?>
 

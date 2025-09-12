@@ -19,13 +19,17 @@
 
             </li>
 
-            <li class="nav-item p-1 mb-3 align-middle">
+            <?php if (isset($_SESSION["rol"]) && ($_SESSION["rol"] === 1 || $_SESSION["rol"] === 2)): ?>
 
-                <a class="nav-link text-start px-2 btn btn-secondary fw-semibold" href="crear-venta"><i class="fa-solid fa-cash-register"></i> Generar venta</a>
+                <li class="nav-item p-1 mb-3 align-middle">
 
-            </li>
+                    <a class="nav-link text-start px-2 btn btn-secondary fw-semibold" href="crear-venta"><i class="fa-solid fa-cash-register"></i> Generar venta</a>
 
-            <?php if (isset($_SESSION["rol"]) && $_SESSION["rol"] === 1): ?>
+                </li>
+
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION["rol"]) && ($_SESSION["rol"] === 1 || $_SESSION["rol"] === 3)): ?>
 
                 <li class="nav-item p-1 align-middle">
 
@@ -45,6 +49,10 @@
 
                 </li>
 
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION["rol"]) && $_SESSION["rol"] === 1): ?>
+
                 <li class="nav-item p-1 align-middle">
 
                     <a class="nav-link text-start px-2 btn btn-secondary fw-semibold" href="clientes"><i class="fa-solid fa-users"></i> Clientes</a>
@@ -60,6 +68,12 @@
                 <li class="nav-item p-1 align-middle">
 
                     <a class="nav-link text-start px-2 btn btn-secondary fw-semibold" href="proveedores"><i class="fa-solid fa-truck"></i> Proveedores</a>
+
+                </li>
+
+                <li class="nav-item p-1 align-middle">
+
+                    <a class="nav-link text-start px-2 btn btn-secondary fw-semibold" href="ventas"><i class="fa-solid fa-file-invoice"></i> Reportes</a>
 
                 </li>
 
