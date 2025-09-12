@@ -27,7 +27,7 @@
 
   </section>
 
-  <?php if ($_SESSION["rol"] === 1): ?>
+  <?php if ($_SESSION["rol"] === 1 || $_SESSION["rol"] === 3): ?>
     
   <section class="content-header bg-light py-2 px-3 rounded mb-3 shadow-lg">
 
@@ -56,6 +56,10 @@
 
   </section>
 
+  <?php endif; ?>
+
+  <?php if ($_SESSION["rol"] === 1): ?>
+    
   <section class="content-header bg-light py-2 px-3 rounded mb-3 shadow-lg">
 
     <h3 class="text-dark fw-semibold font-monospace">Gestión Administrativa</h3>

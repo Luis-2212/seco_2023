@@ -65,9 +65,7 @@ var tablaUsuarios = $("#tablaUsuarios").DataTable({
       render: function (data, type, row) {
         const botonEditar = `<button class="btn btn-warning btn-sm" id="btnModalEditarUsuario" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario" data-id="${data}"><i class="fa-solid fa-pen-to-square"></i></button>`;
 
-        const botonEliminar = `<button class="btn btn-danger btn-sm" id="btnEliminarUsuario" data-id="${data}"><i class="fa-solid fa-trash-can"></i></button>`;
-
-        return `${botonEditar} ${botonEliminar}`;
+        return `${botonEditar}`;
       },
     },
   ],
@@ -131,12 +129,13 @@ function registrarUsuario(datos) {
         });
 
         function vaciarCampos() {
-      // Vaciar inputs de texto, password, number, textarea, etc.
-    $('input:not([type="checkbox"], [type="radio"],[type="selec"])').val('');
-    $('#selectMostrarRoles').val('');
-
-}
-vaciarCampos();
+          // Vaciar inputs de texto, password, number, textarea, etc.
+          $('input:not([type="checkbox"], [type="radio"],[type="selec"])').val(
+            ""
+          );
+          $("#selectMostrarRoles").val("");
+        }
+        vaciarCampos();
         tablaUsuarios.ajax.reload(null, true);
       } else {
         // Mensaje de registro si ocurre un error
@@ -293,53 +292,53 @@ $(".validarUsuario").on("input", function () {
 /*=============================================
 ELIMINAR USUARIO
 =============================================*/
-tablaUsuarios.on("click", "#btnEliminarUsuario", function () {
-  let idUsuario = $(this).attr("data-id");
+// tablaUsuarios.on("click", "#btnEliminarUsuario", function () {
+//   let idUsuario = $(this).attr("data-id");
 
-  Swal.fire({
-    icon: "warning",
-    title: "Advertencia",
-    text: "¿Seguro que desea eliminar este Usuario?. No podrá deshacer esta acción",
-    showCancelButton: true,
-    confirmButtonText: "Si, borrar",
-    confirmButtonColor: "#D13415",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      eliminarUsuario(idUsuario);
-    }
-  });
-});
+//   Swal.fire({
+//     icon: "warning",
+//     title: "Advertencia",
+//     text: "¿Seguro que desea eliminar este Usuario?. No podrá deshacer esta acción",
+//     showCancelButton: true,
+//     confirmButtonText: "Si, borrar",
+//     confirmButtonColor: "#D13415",
+//   }).then((result) => {
+//     if (result.isConfirmed) {
+//       eliminarUsuario(idUsuario);
+//     }
+//   });
+// });
 
-function eliminarUsuario(id) {
-  $.ajax({
-    url: `http/usuarios.endpoint.php?id=${id}`,
-    method: "DELETE",
-    cache: false,
-    processData: false,
-    dataType: "json",
-    success: function (respuesta) {
-      if (respuesta.success === true) {
-        // Mensaje de registro exitoso
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Eliminado con exito",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        tablaUsuarios.ajax.reload(null, true);
-      }
-    },
-    error: function (respuesta) {
-      Swal.fire({
-        title: "Error al eliminar",
-        icon: "error",
-      });
-      tablaUsuarios.ajax.reload(null, true);
-      $("#modalEditarUsuario").modal("hide");
-    },
-  });
-}
+// function eliminarUsuario(id) {
+//   $.ajax({
+//     url: `http/usuarios.endpoint.php?id=${id}`,
+//     method: "DELETE",
+//     cache: false,
+//     processData: false,
+//     dataType: "json",
+//     success: function (respuesta) {
+//       if (respuesta.success === true) {
+//         // Mensaje de registro exitoso
+//         Swal.fire({
+//           position: "center",
+//           icon: "success",
+//           title: "Eliminado con exito",
+//           showConfirmButton: false,
+//           timer: 1500,
+//         });
+//         tablaUsuarios.ajax.reload(null, true);
+//       }
+//     },
+//     error: function (respuesta) {
+//       Swal.fire({
+//         title: "Error al eliminar",
+//         icon: "error",
+//       });
+//       tablaUsuarios.ajax.reload(null, true);
+//       $("#modalEditarUsuario").modal("hide");
+//     },
+//   });
+// }
 
 /*=============================================
 CONFIRMAR CONTRASEÑA

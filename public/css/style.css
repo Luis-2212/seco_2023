@@ -12,6 +12,21 @@ body {
   padding: 1rem 0;
 }
 
+/* LOGIN */
+
+#formIniciarSesion {
+  background-color: #000000a9;
+  color: #ffffff;
+  box-shadow: 2px 2px 10px #000000a9 !important;
+}
+
+.sectionLogin {
+  background-image: url("../img/background.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  width: 100vw !important;
+}
+
 /* MODULO GUIA TELEFONICA */
 .ancho {
   width: 3rem;

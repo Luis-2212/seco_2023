@@ -98,8 +98,6 @@
 
             </select>
 
-            <button class="btn btn-success shadow-sm" type="button" data-bs-toggle="modal" data-bs-target="#modalAgregarRol"><i class="fa-solid fa-plus"></i></button>
-              
           </div>
 
         </div>
