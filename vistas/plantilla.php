@@ -1,5 +1,18 @@
-<?php session_start(); ?>
+<?php
+  session_start();
 
+  if (isset($_SESSION["logged"]) && $_SESSION["logged"] === true) {
+
+      /*=============================================
+      IMPRIMIR RECIBO DE VENTA EN PDF
+      =============================================*/
+      if(isset($_GET["ruta"]) && $_GET["ruta"] == "recibo") {
+      
+        include "reportes/recibo.php";
+
+      }
+    }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,11 +55,11 @@ CUERPO DOCUMENTO
       /*=============================================
       IMPRIMIR RECIBO DE VENTA EN PDF
       =============================================*/
-      if(isset($_GET["ruta"]) && $_GET["ruta"] == "recibo") {
+      // if(isset($_GET["ruta"]) && $_GET["ruta"] == "recibo") {
       
-        include "reportes/recibo.php";
+      //   include "reportes/recibo.php";
 
-      }
+      // }
 
     echo '<div class="wrapper">';
 

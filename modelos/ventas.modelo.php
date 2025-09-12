@@ -30,7 +30,7 @@ class ModeloVentas {
                                                     ON u.id = v.id_usuario
                                                     LEFT JOIN clientes AS c
                                                     ON c.id = v.id_cliente
-                                                    WHERE $item = :valor"
+                                                    WHERE v.$item = :valor"
                 );
                 $stmt->bindParam(":valor", $valor, PDO::PARAM_STR);
 

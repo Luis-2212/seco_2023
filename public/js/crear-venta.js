@@ -82,7 +82,7 @@ function consultarProductos(query) {
               id: idProducto,
               nombre: nombreProducto,
               descripcion: descripcionProducto,
-              precio: precioProducto,
+              precio: parseFloat(precioProducto),
               stock: stockProducto,
               unidad_medida: medidaProducto,
             };
