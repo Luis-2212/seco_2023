@@ -119,6 +119,8 @@ function registrarMarca(datos) {
           showConfirmButton: false,
           timer: 1500,
         });
+                // Vaciar los campos del formulario
+        $("#formCrearMarca")[0].reset();
         tablaMarcas.ajax.reload(null, true);
       } else {
         // Mensaje de registro si ocurre un error

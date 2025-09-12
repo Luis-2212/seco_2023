@@ -122,6 +122,8 @@ function registrarCategoria(datos) {
           showConfirmButton: false,
           timer: 1500,
         });
+        // Vaciar los campos del formulario
+        $("#formCrearCategoria")[0].reset();
         tablaCategorias.ajax.reload(null, true);
       } else {
         // Mensaje de registro si ocurre un error

@@ -113,6 +113,8 @@ function registrarCategoriasProductos(datos) {
         });
         $("#modalAgregarCategoria").modal("hide");
         obtenerCategoriasProductos();
+        
+        
       } else {
         // Mensaje de registro si ocurre un error
         Swal.fire({
@@ -369,6 +371,10 @@ function registrarProducto(datos) {
           showConfirmButton: false,
           timer: 1500,
         });
+
+        // Vaciar los campos del formulario
+        $("#formCrearProducto")[0].reset();
+
         tablaProductos.ajax.reload(null, true);
       } else {
         // Mensaje de registro si ocurre un error

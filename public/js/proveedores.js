@@ -158,6 +158,10 @@ function registrarProveedor(datos) {
           showConfirmButton: false,
           timer: 1500,
         });
+
+        // Vaciar los campos del formulario
+        $("#formCrearProveedor")[0].reset();
+        
         tablaProveedores.ajax.reload(null, true);
       } else {
         // Mensaje de registro si ocurre un error

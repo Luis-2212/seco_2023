@@ -129,6 +129,14 @@ function registrarUsuario(datos) {
           showConfirmButton: false,
           timer: 1500,
         });
+
+        function vaciarCampos() {
+      // Vaciar inputs de texto, password, number, textarea, etc.
+    $('input:not([type="checkbox"], [type="radio"],[type="selec"])').val('');
+    $('#selectMostrarRoles').val('');
+
+}
+vaciarCampos();
         tablaUsuarios.ajax.reload(null, true);
       } else {
         // Mensaje de registro si ocurre un error

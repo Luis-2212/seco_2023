@@ -276,7 +276,7 @@ function editarCliente(datos) {
     dataType: "json",
     success: function (respuesta) {
       if (respuesta.success === true) {
-        Swal.fire({
+        Swal.fire({  
           position: "center",
           icon: "success",
           title: "Actualizado con exito",
@@ -328,7 +328,7 @@ $(".validarCliente").on("input", function () {
       if (respuesta.success == true) {
         $(".alerta").removeClass("d-none");
         $(".alerta").html(
-          "<i class='fa-solid fa-triangle-exclamation'></i> Ya existe un clismpfgpsfpod878registrado con esta identificación"
+          "<i class='fa-solid fa-triangle-exclamation'></i> Ya existe un cliente registrado con esta identificación"
         );
       } else {
         $(".alerta").addClass("d-none");
@@ -336,6 +336,8 @@ $(".validarCliente").on("input", function () {
     },
   });
 });
+
+
 
 /*=============================================
 ELIMINAR CLIENTE
