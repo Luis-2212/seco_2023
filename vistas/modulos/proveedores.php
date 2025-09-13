@@ -5,10 +5,6 @@
     return header("Location: login");
   } 
 
-  if( $_SESSION["rol"] != 1) {
-
-    return header("Location: inicio");
-  } 
 
 ?>
 
@@ -99,7 +95,7 @@
 
             <div class="form-floating">
 
-              <input type="number" min = "100000" max = "999999999" class="form-control shadow-sm validarProveedor" id="nuevoRif" placeholder="RIF" inputmode="numeric" required>
+              <input type="text" minlength="9" maxlength="9" class="form-control shadow-sm validarProveedor" id="nuevoRif" placeholder="RIF" inputmode="numeric" required>
               
               <label for="nuevoRif">RIF</label>
 

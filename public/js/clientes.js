@@ -382,3 +382,25 @@ function eliminarCliente(id) {
     },
   });
 }
+
+$('#nuevoIdentificacion').on('input', function() {
+    // Almacena el valor actual del input
+    let valor = $(this).val();
+
+    // Elimina cualquier carácter que no sea un número (0-9)
+    let soloNumeros = valor.replace(/[^0-9]/g, '');
+
+    // Actualiza el valor del input con la cadena limpia
+    $(this).val(soloNumeros);
+  });
+
+$('#nuevoTelefono').on('input', function() {
+    // Almacena el valor actual del input
+    let valor = $(this).val();
+
+    // Elimina cualquier carácter que no sea un número (0-9)
+    let soloNumeros = valor.replace(/[^0-9]/g, '');
+
+    // Actualiza el valor del input con la cadena limpia
+    $(this).val(soloNumeros);
+  });

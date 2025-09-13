@@ -5,10 +5,6 @@
     return header("Location: login");
   } 
 
-  if( $_SESSION["rol"] != 1) {
-
-    return header("Location: inicio");
-  } 
 
 ?>
 

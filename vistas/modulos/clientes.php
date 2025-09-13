@@ -118,7 +118,7 @@
 
             <div class="form-floating">
 
-              <input type="text" class="form-control shadow-sm" id="nuevoTelefono" placeholder="Teléfono e.g: 4241234567" inputmode="numeric" max="9999999999" required>
+              <input type="text" minlength="10" maxlength="11" class="form-control shadow-sm" id="nuevoTelefono" placeholder="Teléfono e.g: 4241234567" inputmode="numeric" max="9999999999" required>
               
               <label for="nuevoTelefono">Teléfono e.g: 4241234567</label>
 
